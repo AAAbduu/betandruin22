@@ -1,0 +1,26 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-28 14:46:21 #1 store] 
+Database '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/betandruin22/out/artifacts/betandruin22_jar/db/bets.temp' is opened by 29238@MacBook-Air-de-Abdurrahim.local
+
+[2022-02-28 14:46:21 #2 store] 
+Configuration path: ?
+
+[2022-02-28 14:46:22 #3 type.registry] 
+New type domain.Question
+
+[2022-02-28 14:46:22 #4 type] 
+Type domain.Question is not enhanced.
+
+[2022-02-28 14:46:22 #5 type.registry] 
+New type domain.Event
+
+[2022-02-28 14:46:22 #6 type] 
+Type domain.Event is not enhanced.
+
+[2022-02-28 14:46:22 #7 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2022-02-28 14:46:22 #8 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
