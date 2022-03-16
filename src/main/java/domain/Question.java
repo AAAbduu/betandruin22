@@ -26,14 +26,16 @@ public class Question implements Serializable {
 	private float betMinimum;
 	private String result;  
 	
-	@Embedded
-	private List <Fee> fees;
+	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private Vector<Fee> fees = new Vector<Fee>();
+	
+	
 
-	public List<Fee> getFees() {
+	public Vector<Fee> getFees() {
 		return fees;
 	}
 
-	public void setFees(List<Fee> fees) {
+	public void setFees(Vector<Fee> fees) {
 		this.fees = fees;
 	}
 
@@ -50,20 +52,14 @@ public class Question implements Serializable {
 		this.question = query;
 		this.betMinimum=betMinimum;
 		this.event = event;
-		this.fees = new ArrayList<Fee>();
 	}
 
 	public Question(String query, float betMinimum,  Event event) {
 		super();
 		this.question = query;
 		this.betMinimum=betMinimum;
-		this.fees = new ArrayList<Fee>();
 	}
 
-	public Question(Question q) {
-		super();
-		this.fees = new ArrayList<Fee>();
-	}
 
 	/**
 	 * Gets the  number of the question
