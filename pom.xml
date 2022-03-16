@@ -3,7 +3,17 @@
 	<groupId>SoftwareEngineering</groupId>
 	<artifactId>BetAndRuin22</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<repositories>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<javafx.version>17</javafx.version>
+		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+
+	</properties>
+
+    <repositories>
 		<repository>
 			<id>objectdb</id>
 			<name>ObjectDB Repository</name>
