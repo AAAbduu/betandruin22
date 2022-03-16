@@ -87,7 +87,7 @@ public class RegisterGUI extends JFrame {
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -101,7 +101,8 @@ public class RegisterGUI extends JFrame {
 										.addComponent(lblNewLabel_3)
 										.addComponent(lblNewLabel_5)
 										.addComponent(lblNewLabel_4)
-										.addComponent(lblNewLabel_6, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
+										.addComponent(lblNewLabel_6, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+										.addComponent(statusLbl))
 									.addGap(32)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
@@ -109,10 +110,9 @@ public class RegisterGUI extends JFrame {
 										.addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
 										.addComponent(userNameTextField, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
 										.addComponent(dateTextField, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
-										.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
-										.addComponent(statusLbl))))
+										.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE))))
 							.addGap(196))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(signUpBtn)
 							.addGap(131))))
 		);
@@ -147,9 +147,9 @@ public class RegisterGUI extends JFrame {
 						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_5))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(statusLbl)
-						.addComponent(signUpBtn))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(signUpBtn)
+						.addComponent(statusLbl))
 					.addGap(7))
 		);
 		getContentPane().setLayout(groupLayout);
@@ -216,7 +216,10 @@ public class RegisterGUI extends JFrame {
 		
 		long difference = time.convert(diff,TimeUnit.MILLISECONDS);
 		
-		if(difference < 6570) throw new UserIsUnderageException();
+		if(difference < 6570) {
+			statusLbl.setText("You must be at least 18 years old!");
+			throw new UserIsUnderageException();
+		}
 	}
 	
 	public BlFacade getBusinessLogic() {
