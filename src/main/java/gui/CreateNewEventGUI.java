@@ -41,12 +41,7 @@ public class CreateNewEventGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private BlFacade businessLogic;
-
-	private JComboBox<Event> eventComboBox = new JComboBox<Event>();
 	DefaultComboBoxModel<Event> eventModel = new DefaultComboBoxModel<Event>();
-
-	private JLabel listOfEventsLbl = new JLabel(ResourceBundle.getBundle("Etiquetas").
-			getString("ListEvents"));
 	private JLabel eventDateLbl = new JLabel(ResourceBundle.getBundle("Etiquetas").
 			getString("EventDate"));
 	private JCalendar calendar = new JCalendar();
@@ -69,10 +64,9 @@ public class CreateNewEventGUI extends JFrame {
 	}
 
 	public CreateNewEventGUI(BlFacade bl, Vector<domain.Event> v) {
-		addEventBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
+		addEventBtnHandler();
+		
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 37));
 		visiterTeamField.setText(ResourceBundle.getBundle("Etiquetas").getString("CreateNewEventGUI.textField_1.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		visiterTeamField.setColumns(10);
@@ -86,15 +80,29 @@ public class CreateNewEventGUI extends JFrame {
 		}
 	}
 
+	private void addEventBtnHandler() {
+		addEventBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Date d = calendar.getDate();
+				String local = localTeamField.getText();
+				String visit = visiterTeamField.getText();
+				
+				String event = local + "-" +visit ;
+				
+				Event toAdd = new Event (event, d);
+				
+				//CALL BUSINESSLOGIC TO ADD IN DB
+				
+			}	
+		});
+	}
+
 	private void jbInit(Vector<domain.Event> v) throws Exception {
 
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(604, 370));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("CreateQuestion"));
-
-		eventComboBox.setModel(eventModel);
-		eventComboBox.setBounds(new Rectangle(275, 47, 250, 20));
-		listOfEventsLbl.setBounds(new Rectangle(290, 18, 277, 20));
 
 		calendar.setBounds(new Rectangle(40, 50, 225, 150));
 		eventScrollPane.setBounds(new Rectangle(25, 44, 346, 116));
@@ -112,8 +120,6 @@ public class CreateNewEventGUI extends JFrame {
 		this.getContentPane().add(msgLbl, null);
 
 		this.getContentPane().add(closeBtn, null);
-		this.getContentPane().add(listOfEventsLbl, null);
-		this.getContentPane().add(eventComboBox, null);
 
 		this.getContentPane().add(calendar, null);
 
@@ -196,30 +202,7 @@ public class CreateNewEventGUI extends JFrame {
 
 					Date firstDay = UtilDate.trim(previousCalendar.getTime());
 
-					try {
-						Vector<domain.Event> events = businessLogic.getEvents(firstDay);
-
-						if (events.isEmpty())
-							listOfEventsLbl.setText(ResourceBundle.getBundle("Etiquetas").
-									getString("NoEvents") + ": " + dateformat1.
-									format(previousCalendar.getTime()));
-						else
-							listOfEventsLbl.setText(ResourceBundle.getBundle("Etiquetas").
-									getString("Events") + " : " + dateformat1.
-									format(previousCalendar.getTime()));
-						eventComboBox.removeAllItems();
-						System.out.println("Events " + events);
-
-						for (domain.Event ev : events)
-							eventModel.addElement(ev);
-						eventComboBox.repaint();
-
-						
-
-					} catch (Exception e1) {
-
-						
-					}
+					
 				}
 			}
 		});

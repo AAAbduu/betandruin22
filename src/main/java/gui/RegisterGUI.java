@@ -9,14 +9,12 @@ import javax.swing.JTextField;
 import java.awt.Label;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JPasswordField;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+
 
 import businessLogic.*;
 import domain.User;
 
-import com.jgoodies.forms.layout.FormSpecs;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
