@@ -1,0 +1,82 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-03-15 11:40:25 #1 store] 
+Database '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' has been recovered (tr. 6-7)
+
+[2022-03-15 11:40:25 #2 store] 
+Database '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' is opened by 61652@AirdeAbdurrahim.home
+
+[2022-03-15 11:40:25 #3 store] 
+Configuration path: ?
+
+[2022-03-15 11:41:35 #4 store] 
+Database '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' is closed by 61652@AirdeAbdurrahim.home
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-03-15 11:43:11 #1 store] 
+Database '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' is opened by 61828@AirdeAbdurrahim.home
+
+[2022-03-15 11:43:11 #2 store] 
+Configuration path: ?
+
+[2022-03-15 11:43:31 #3 store] 
+Database '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' is closed by 61828@AirdeAbdurrahim.home
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-03-15 22:01:12 #1 explorer] 
+[ObjectDB 2.8.7] javax.persistence.PersistenceException
+Attempt to open a database file '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' that is currently in use by another process (error 141)
+	at com.objectdb.Explorer$1.run(Explorer.java:57)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:771)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:716)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:741)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: com.objectdb.o.UserException: Attempt to open a database file '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' that is currently in use by another process
+	at com.objectdb.o.MSG.a(MSG.java:64)
+	at com.objectdb.o.LFL.J(LFL.java:947)
+	at com.objectdb.o.LFL.x(LFL.java:904)
+	at com.objectdb.o.LFL.x(LFL.java:814)
+	at com.objectdb.o.DFL.<init>(DFL.java:241)
+	at com.objectdb.o.DMG.<init>(DMG.java:27)
+	at com.objectdb.o.MST.<init>(MST.java:127)
+	at com.objectdb.o.MST.ap(MST.java:109)
+	at com.objectdb.o.MSF.YQ(MSF.java:190)
+	at com.objectdb.o.OMF.s(OMF.java:805)
+	at com.objectdb.jpa.EMF.s(EMF.java:130)
+	at com.objectdb.o.OMF.x(OMF.java:716)
+	at com.objectdb.jpa.EMF.createEntityManager(EMF.java:149)
+	... 16 more
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-03-15 22:01:28 #1 store] 
+Database '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' is opened by 75103@AirdeAbdurrahim.home
+
+[2022-03-15 22:01:28 #2 store] 
+Configuration path: ?
+
+[2022-03-15 22:03:02 #3 store] 
+Database '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' is closed by 75103@AirdeAbdurrahim.home
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-03-15 22:08:30 #1 store] 
+Database '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' is opened by 75381@AirdeAbdurrahim.home
+
+[2022-03-15 22:08:30 #2 store] 
+Configuration path: ?
+
+[2022-03-15 22:12:39 #3 store] 
+Database '/Users/abdu/Desktop/EHU/Segundo/SegundoCuatri/SE/Project/BetAndRuin22/db/bets.temp' is closed by 75381@AirdeAbdurrahim.home
+
