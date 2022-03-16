@@ -13,14 +13,16 @@ import javax.swing.JPasswordField;
 
 import businessLogic.*;
 import domain.User;
-
+import exceptions.UserIsUnderageException;
 
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -172,6 +174,8 @@ public class RegisterGUI extends JFrame {
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 					System.out.println("Date was introduced incorrectly...");
+				} catch (UserIsUnderageException e1) {
+					System.out.println("You must be at least 18 years old to register in BET&RUIN!");
 				}
 				
 			}
@@ -181,7 +185,7 @@ public class RegisterGUI extends JFrame {
 		});
 	}
 	
-	private User parseUser() throws ParseException {
+	private User parseUser() throws ParseException, UserIsUnderageException {
 		String name = nameTextField.getText();
 		String lastname = lastNameTextField.getText();
 		String email =  emailTextField.getText();
@@ -191,11 +195,28 @@ public class RegisterGUI extends JFrame {
 		
 		SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy"); 
 		
+		String tDay = formatter1.format(new Date());
+		
 		Date uDate;
 		
-			uDate = formatter1.parse(date);
-			return new User(userName,password,name,lastname,email,uDate);
+		Date today = formatter1.parse(tDay);
 		
+		
+		uDate = formatter1.parse(date);
+		
+		checkAgeBeforeRegister(uDate, today);
+			
+		return new User(userName,password,name,lastname,email,uDate);
+		
+	}
+	private void checkAgeBeforeRegister(Date uDate, Date today) throws UserIsUnderageException {
+		long diff = today.getTime() - uDate.getTime();
+		
+		TimeUnit time = TimeUnit.DAYS;
+		
+		long difference = time.convert(diff,TimeUnit.MILLISECONDS);
+		
+		if(difference < 6570) throw new UserIsUnderageException();
 	}
 	
 	public BlFacade getBusinessLogic() {
