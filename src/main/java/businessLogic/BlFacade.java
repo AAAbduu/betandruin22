@@ -9,6 +9,7 @@ import javax.jws.WebService;
 import domain.Event;
 import domain.Question;
 import domain.User;
+import exceptions.EventAlreadyExistException;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -86,5 +87,10 @@ public interface BlFacade  {
 	 */
 	public Question getQuestion(int qn);
 
-	
+	/**
+	 * Method in charge of adding in the DB a given Event.
+	 * @param toAdd Event to add in the DB.
+	 * @throws EventAlreadyExistException if Event already exists in the DB.
+	 */
+	public void addEvent(Event toAdd) throws EventAlreadyExistException;
 }

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import businessLogic.BlFacade;
+import businessLogic.BlFacadeImplementation;
 
 import java.awt.Color;
 import javax.swing.GroupLayout;

@@ -28,6 +28,7 @@ import com.toedter.calendar.JCalendar;
 import businessLogic.BlFacade;
 import configuration.UtilDate;
 import domain.Event;
+import exceptions.EventAlreadyExistException;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 import javax.swing.JPanel;
@@ -92,7 +93,11 @@ public class CreateNewEventGUI extends JFrame {
 				
 				Event toAdd = new Event (event, d);
 				
-				//CALL BUSINESSLOGIC TO ADD IN DB
+				try {
+					businessLogic.addEvent(toAdd);
+				} catch (EventAlreadyExistException e1) {
+					System.out.print("Event already exists in DB!");
+				}
 				
 			}	
 		});
