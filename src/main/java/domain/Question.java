@@ -161,6 +161,10 @@ public class Question implements Serializable {
 		return questionNumber + ";" + question + ";" + Float.toString(betMinimum);
 	}
 
+	/**
+	 * Adds a fee to the question.
+	 * @param fee Fee to be added to the question.
+	 */
 	public void addFee(Fee fee) {
 		this.fees.add(fee);
 		
