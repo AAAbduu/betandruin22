@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="launcherMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+   <children>
+      <Button fx:id="brwseQuestionButton" layoutY="92.0" mnemonicParsing="false" onAction="#onClickBrwseQuestionsBtn" prefHeight="58.0" prefWidth="600.0" text="Browse Questions" />
+      <Button fx:id="createQuestionButton" layoutY="181.0" mnemonicParsing="false" onAction="#onClickCreateQuestionBtn" prefHeight="58.0" prefWidth="600.0" text="Create Question" />
+      <RadioButton fx:id="castellanoRadioButton" layoutX="100.0" layoutY="312.0" mnemonicParsing="false" text="Castellano">
+         <toggleGroup>
+            <ToggleGroup fx:id="Language" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="englishRadioButton" layoutX="254.0" layoutY="312.0" mnemonicParsing="false" selected="true" text="English" toggleGroup="$Language" />
+      <RadioButton fx:id="euskeraRadioButton" layoutX="412.0" layoutY="312.0" mnemonicParsing="false" text="Euskera" toggleGroup="$Language" />
+      <Label fx:id="titleMaintxt" layoutX="173.0" layoutY="14.0" prefHeight="67.0" prefWidth="288.0" text="Welcome to BET&amp;RUIN">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
