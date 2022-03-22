@@ -69,7 +69,7 @@ public class MainGUI extends JFrame {
 		this.setContentPane(mainPane);
 		
 			
-		btnLogin.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.btnLogin.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnLogin.setText(ResourceBundle.getBundle("Etiquetas").getString("Login")); //$NON-NLS-1$ //$NON-NLS-2$
 			
 
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
@@ -111,7 +111,7 @@ public class MainGUI extends JFrame {
 				register.setVisible(true);
 			}
 		});
-		btnRegister.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.btnLogin_1.text")); //$NON-NLS-1$ //$NON-NLS-2$
+		btnRegister.setText(ResourceBundle.getBundle("Etiquetas").getString("Register")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	
@@ -188,7 +188,10 @@ public class MainGUI extends JFrame {
 	private void redraw() {
 		selectOptionLbl.setText(ResourceBundle.getBundle("Etiquetas").
 				getString("SelectUseCase"));
-		
+		btnLogin.setText(ResourceBundle.getBundle("Etiquetas").
+				getString("Login"));
+		btnRegister.setText(ResourceBundle.getBundle("Etiquetas").
+				getString("Register"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
 }
