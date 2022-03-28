@@ -37,12 +37,12 @@ public class BrowseQuestionsGUI extends JFrame {
 	private final JLabel eventDateLbl = new JLabel(ResourceBundle.getBundle("Etiquetas").
 			getString("EventDate"));
 	private final JLabel questionLbl = new JLabel(ResourceBundle.getBundle("Etiquetas").
-			getString("Questions")); 
+			getString("Questions"));
 	private final JLabel eventLbl = new JLabel(ResourceBundle.getBundle("Etiquetas").
-			getString("Events")); 
+			getString("Events"));
 
 	private JButton closeBtn = new JButton(ResourceBundle.getBundle("Etiquetas").
-			getString("Close"));
+			getString("Back"));
 
 	// Code for JCalendar
 	private JCalendar calendar = new JCalendar();
@@ -60,12 +60,12 @@ public class BrowseQuestionsGUI extends JFrame {
 	private DefaultTableModel questionTableModel;
 
 	private String[] eventColumnNames = new String[] {
-			ResourceBundle.getBundle("Etiquetas").getString("EventN"), 
-			ResourceBundle.getBundle("Etiquetas").getString("Event"), 
+			ResourceBundle.getBundle("Etiquetas").getString("EventN"),
+			ResourceBundle.getBundle("Etiquetas").getString("Event"),
 
 	};
 	private String[] questionColumnNames = new String[] {
-			ResourceBundle.getBundle("Etiquetas").getString("QuestionN"), 
+			ResourceBundle.getBundle("Etiquetas").getString("QuestionN"),
 			ResourceBundle.getBundle("Etiquetas").getString("Question")
 	};
 
@@ -102,7 +102,7 @@ public class BrowseQuestionsGUI extends JFrame {
 		closeBtn.setBounds(new Rectangle(274, 419, 130, 30));
 
 		closeBtn.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				jButton2_actionPerformed(e);
 			}
@@ -118,7 +118,7 @@ public class BrowseQuestionsGUI extends JFrame {
 		// Code for JCalendar
 		this.calendar.addPropertyChangeListener(new PropertyChangeListener() {
 
-			
+
 			public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
 
 				if (propertyChangeEvent.getPropertyName().equals("locale")) {
@@ -135,16 +135,16 @@ public class BrowseQuestionsGUI extends JFrame {
 
 					if (currentMonth != previousMonth) {
 						if (currentMonth == previousMonth + 2) {
-							// Si en JCalendar está 30 de enero y se avanza al mes siguiente, 
+							// Si en JCalendar está 30 de enero y se avanza al mes siguiente,
 							// devolvería 2 de marzo (se toma como equivalente a 30 de febrero)
 							// Con este código se dejará como 1 de febrero en el JCalendar
 							currentCalendar.set(Calendar.MONTH, previousMonth + 1);
 							currentCalendar.set(Calendar.DAY_OF_MONTH, 1);
-						}						
+						}
 
 						calendar.setCalendar(currentCalendar);
-						datesWithEventsInCurrentMonth = businessLogic.getEventsMonth(calendar.
-								getDate());
+						datesWithEventsInCurrentMonth = businessLogic.getEventsMonth(calendar.getDate());
+						System.out.println("**********************************" + calendar.getDate());
 					}
 
 					CreateQuestionGUI.paintDaysWithEvents(calendar,datesWithEventsInCurrentMonth);
@@ -166,9 +166,9 @@ public class BrowseQuestionsGUI extends JFrame {
 							System.out.println("Events " + ev);
 							row.add(ev.getEventNumber());
 							row.add(ev.getDescription());
-							row.add(ev); 	// ev object added in order to obtain it with 
+							row.add(ev); 	// ev object added in order to obtain it with
 							// tableModelEvents.getValueAt(i,2)
-							eventTableModel.addRow(row);		
+							eventTableModel.addRow(row);
 						}
 						eventTable.getColumnModel().getColumn(0).setPreferredWidth(25);
 						eventTable.getColumnModel().getColumn(1).setPreferredWidth(268);
@@ -179,7 +179,7 @@ public class BrowseQuestionsGUI extends JFrame {
 						questionLbl.setText(e1.getMessage());
 					}
 				}
-			} 
+			}
 		});
 
 		this.getContentPane().add(calendar, null);
@@ -199,7 +199,7 @@ public class BrowseQuestionsGUI extends JFrame {
 				if (queries.isEmpty())
 					questionLbl.setText(ResourceBundle.getBundle("Etiquetas").
 							getString("NoQuestions") + ": " + ev.getDescription());
-				else 
+				else
 					questionLbl.setText(ResourceBundle.getBundle("Etiquetas").
 							getString("SelectedEvent") + " " + ev.getDescription());
 
@@ -207,7 +207,7 @@ public class BrowseQuestionsGUI extends JFrame {
 					Vector<Object> row = new Vector<Object>();
 					row.add(q.getQuestionNumber());
 					row.add(q.getQuestion());
-					questionTableModel.addRow(row);	
+					questionTableModel.addRow(row);
 				}
 				questionTable.getColumnModel().getColumn(0).setPreferredWidth(25);
 				questionTable.getColumnModel().getColumn(1).setPreferredWidth(268);

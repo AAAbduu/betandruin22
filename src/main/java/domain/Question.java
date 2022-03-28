@@ -1,7 +1,6 @@
 package domain;
 
 import java.io.*;
-import java.util.*;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,19 +24,6 @@ public class Question implements Serializable {
 	private String question; 
 	private float betMinimum;
 	private String result;  
-	
-	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	private Vector<Fee> fees = new Vector<Fee>();
-	
-	
-
-	public Vector<Fee> getFees() {
-		return fees;
-	}
-
-	public void setFees(Vector<Fee> fees) {
-		this.fees = fees;
-	}
 
 	@XmlIDREF
 	private Event event;
@@ -59,7 +45,6 @@ public class Question implements Serializable {
 		this.question = query;
 		this.betMinimum=betMinimum;
 	}
-
 
 	/**
 	 * Gets the  number of the question
@@ -113,7 +98,7 @@ public class Question implements Serializable {
 	/**
 	 * Gets the minimum amount allowed for the bet
 	 * 
-	 * @param  minimum amount to be set
+	 * @param  betMinimum amount to be set
 	 */
 	public void setBetMinimum(float betMinimum) {
 		this.betMinimum = betMinimum;
@@ -132,7 +117,7 @@ public class Question implements Serializable {
 	/**
 	 * Sets the correct result of the  query
 	 * 
-	 * @param correct result of the query
+	 * @param result result of the query
 	 */
 	public void setResult(String result) {
 		this.result = result;
@@ -159,14 +144,5 @@ public class Question implements Serializable {
 	@Override
 	public String toString(){
 		return questionNumber + ";" + question + ";" + Float.toString(betMinimum);
-	}
-
-	/**
-	 * Adds a fee to the question.
-	 * @param fee Fee to be added to the question.
-	 */
-	public void addFee(Fee fee) {
-		this.fees.add(fee);
-		
 	}	
 }

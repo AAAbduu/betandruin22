@@ -27,6 +27,8 @@ public class MainGUI extends JFrame {
 
 	private JPanel mainPane;
 	protected JLabel selectOptionLbl;
+	private JButton browseQuestionsBtn;
+	private JButton createQuestionBtn;
 	private JPanel localePane;
 	private JRadioButton euskaraRbtn;
 	private JRadioButton castellanoRbtn;
@@ -34,8 +36,6 @@ public class MainGUI extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	private BlFacade businessLogic;
-	private JButton btnLogin;
-	private JButton btnRegister;
 
 	public BlFacade getBusinessLogic(){
 		return businessLogic;
@@ -63,22 +63,16 @@ public class MainGUI extends JFrame {
 			}
 		});
 
-		this.setBounds(100, 100, 566, 428);
+		this.setBounds(100, 100, 500, 300);
 
 		this.initializeMainPane();
 		this.setContentPane(mainPane);
-		
-			
-		btnLogin.setText(ResourceBundle.getBundle("Etiquetas").getString("Login")); //$NON-NLS-1$ //$NON-NLS-2$
-			
 
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	
-	
 	private void initializeMainPane() {
 		mainPane = new JPanel();
 		mainPane.setLayout(new GridLayout(4, 1, 0, 0));
@@ -88,51 +82,42 @@ public class MainGUI extends JFrame {
 		selectOptionLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		mainPane.add(selectOptionLbl);
 
-
-		intializeLoginBtn();
-		mainPane.add(btnLogin);
-		
-		initializeRegisterBtn();
-		mainPane.add(btnRegister);
-		
+		initializeBrowseQuestionsBtn();
+		mainPane.add(browseQuestionsBtn);
+		initializeCreateQuestionBtn();
+		mainPane.add(createQuestionBtn);
 
 		initializeLocalePane();
 		mainPane.add(localePane);
-		
-		
-		
 	}
 
-	private void initializeRegisterBtn() {
-		btnRegister = new JButton();
-		btnRegister.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegisterGUI register = new RegisterGUI(businessLogic);
-				register.setVisible(true);
+	private void initializeBrowseQuestionsBtn() {
+		browseQuestionsBtn = new JButton();
+		browseQuestionsBtn.setText(ResourceBundle.getBundle("Etiquetas").
+				getString("BrowseQuestions"));
+		browseQuestionsBtn.addActionListener(new java.awt.event.ActionListener() {
+			
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				BrowseQuestionsGUI findQuestionsWindow = new BrowseQuestionsGUI(businessLogic);
+				findQuestionsWindow.setVisible(true);
 			}
 		});
-		btnRegister.setText(ResourceBundle.getBundle("Etiquetas").getString("Register")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	
-
-	
-
-	private void intializeLoginBtn() {
-		btnLogin = new JButton();
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				LoginGUI login = new LoginGUI(businessLogic);
-				login.setVisible(true);
+	private void initializeCreateQuestionBtn() {
+		createQuestionBtn = new JButton();
+		createQuestionBtn.setText(ResourceBundle.getBundle("Etiquetas").
+				getString("CreateQuestion"));
+		createQuestionBtn.addActionListener(new java.awt.event.ActionListener() {
+			
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				CreateQuestionGUI createQuestionWindow = new CreateQuestionGUI(businessLogic,
+						new Vector<Event>());
+				createQuestionWindow.setBusinessLogic(businessLogic);
+				createQuestionWindow.setVisible(true);
 			}
 		});
-		
-		
 	}
-
-	
-
-	
 
 	private void initializeLocalePane() {
 		localePane = new JPanel();
@@ -176,7 +161,7 @@ public class MainGUI extends JFrame {
 	private void initializeEnglishRbtn() {
 		englishRbtn = new JRadioButton("English");
 		englishRbtn.addActionListener(new ActionListener() {
-		
+			
 			public void actionPerformed(ActionEvent e) {
 				Locale.setDefault(new Locale("en"));
 				System.out.println("Locale: " + Locale.getDefault());
@@ -188,10 +173,10 @@ public class MainGUI extends JFrame {
 	private void redraw() {
 		selectOptionLbl.setText(ResourceBundle.getBundle("Etiquetas").
 				getString("SelectUseCase"));
-		btnLogin.setText(ResourceBundle.getBundle("Etiquetas").
-				getString("Login"));
-		btnRegister.setText(ResourceBundle.getBundle("Etiquetas").
-				getString("Register"));
+		browseQuestionsBtn.setText(ResourceBundle.getBundle("Etiquetas").
+				getString("BrowseQuestions"));
+		createQuestionBtn.setText(ResourceBundle.getBundle("Etiquetas").
+				getString("CreateQuestion"));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
 }

@@ -1,6 +1,10 @@
 package configuration;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -43,7 +47,7 @@ public class ConfigXML {
 
 	private String dataBaseFilename;
 
-	// If "open" a pre-existing database will be opened. If "initialize" a new one will be 
+	// If "open" a pre-existing database will be opened. If "initialize" a new one will be
 	// created with some initial values, eventually deleting a pre-existing one.
 	private String dataBaseOpenMode;
 
@@ -99,6 +103,37 @@ public class ConfigXML {
 		return dataBasePassword;
 	}
 
+	// get a file from the resources folder
+	// works everywhere, IDEA, unit test and JAR file.
+	private InputStream getFileFromResourceAsStream(String fileName) {
+
+		// The class loader that loaded the class
+		ClassLoader classLoader = getClass().getClassLoader();
+		InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+		// the stream holding the file content
+		if (inputStream == null) {
+			throw new IllegalArgumentException("file not found! " + fileName);
+		} else {
+			return inputStream;
+		}
+	}
+
+	private File getFileFromResource(String fileName) throws URISyntaxException {
+
+		ClassLoader classLoader = getClass().getClassLoader();
+		URL resource = classLoader.getResource(fileName);
+		if (resource == null) {
+			throw new IllegalArgumentException("file not found! " + fileName);
+		} else {
+
+			// failed if files have whitespaces or special characters
+			//return new File(resource.getFile());
+
+			return new File(resource.toURI());
+		}
+
+	}
 
 	private ConfigXML(){
 
@@ -106,6 +141,15 @@ public class ConfigXML {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(new File(CONFIGURATION_FILENAME));
+
+
+			// Document doc = dBuilder.parse(getFileFromResourceAsStream("config.xml"));
+
+//			ClassLoader classLoader = getClass().getClassLoader();
+//			File file = new File(classLoader.getResource("config.xml").getFile());
+//			InputStream inputStream = new FileInputStream(file);
+//			Document doc = dBuilder.parse(inputStream);
+
 			doc.getDocumentElement().normalize();
 
 			NodeList list = doc.getElementsByTagName("config");
@@ -138,7 +182,7 @@ public class ConfigXML {
 			System.out.print("Configuration parameters read from config.xml: ");
 			System.out.print("\n\tBusiness Logic is local = " + businessLogicIsLocal);
 			System.out.print("\n\tData Access is local = " + dataAccessIsLocal);
-			System.out.println("\n\tDataBase open mode = " + dataBaseOpenMode); 
+			System.out.println("\n\tDataBase open mode = " + dataBaseOpenMode);
 
 		} catch (Exception e) {
 			System.out.println("Error in ConfigXML.java: problems with " + CONFIGURATION_FILENAME);

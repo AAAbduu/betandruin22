@@ -11,8 +11,6 @@ import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Event;
 import domain.Question;
-import domain.User;
-import exceptions.EventAlreadyExistException;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -26,7 +24,7 @@ public class BlFacadeImplementation implements BlFacade {
 	DataAccess dbManager;
 	ConfigXML config = ConfigXML.getInstance();
 
-	public BlFacadeImplementation()  {		
+	public BlFacadeImplementation()  {
 		System.out.println("Creating BlFacadeImplementation instance");
 		boolean initialize = config.getDataBaseOpenMode().equals("initialize");
 		dbManager = new DataAccess(initialize);
@@ -42,13 +40,13 @@ public class BlFacadeImplementation implements BlFacade {
 			dam.initializeDB();
 			dam.close();
 		}
-		dbManager = dam;		
+		dbManager = dam;
 	}
 
 
 	/**
 	 * This method creates a question for an event, with a question text and the minimum bet
-	 * 
+	 *
 	 * @param event to which question is added
 	 * @param question text of the question
 	 * @param betMinimum minimum quantity of the bet
@@ -56,9 +54,8 @@ public class BlFacadeImplementation implements BlFacade {
 	 * @throws EventFinished if current data is after data of the event
 	 * @throws QuestionAlreadyExist if the same question already exists for the event
 	 */
-	
 	@WebMethod
-	public Question createQuestion(Event event, String question, float betMinimum) 
+	public Question createQuestion(Event event, String question, float betMinimum)
 			throws EventFinished, QuestionAlreadyExist {
 
 		//The minimum bid must be greater than 0
@@ -69,18 +66,19 @@ public class BlFacadeImplementation implements BlFacade {
 			throw new EventFinished(ResourceBundle.getBundle("Etiquetas").
 					getString("ErrorEventHasFinished"));
 
-		qry = dbManager.createQuestion(event, question, betMinimum);		
+		qry = dbManager.createQuestion(event, question, betMinimum);
 		dbManager.close();
 		return qry;
 	}
 
 	/**
-	 * This method invokes the data access to retrieve the events of a given date 
-	 * 
+	 * This method invokes the data access to retrieve the events of a given date
+	 *
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-	@WebMethod	
+
+	@WebMethod
 	public Vector<Event> getEvents(Date date)  {
 		dbManager.open(false);
 		Vector<Event>  events = dbManager.getEvents(date);
@@ -91,10 +89,11 @@ public class BlFacadeImplementation implements BlFacade {
 
 	/**
 	 * This method invokes the data access to retrieve the dates a month for which there are events
-	 * 
-	 * @param date of the month for which days with events want to be retrieved 
+	 *
+	 * @param date of the month for which days with events want to be retrieved
 	 * @return collection of dates
 	 */
+
 	@WebMethod
 	public Vector<Date> getEventsMonth(Date date) {
 		dbManager.open(false);
@@ -110,79 +109,11 @@ public class BlFacadeImplementation implements BlFacade {
 	/**
 	 * This method invokes the data access to initialize the database with some events and questions.
 	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
-	 */	
-	@WebMethod	
+	 */
+	@WebMethod
 	public void initializeBD(){
 		dbManager.open(false);
 		dbManager.initializeDB();
 		dbManager.close();
 	}
-	
-	/**
-	 * Method checks if the user trying to sign-up is already registered in the system.
-	 * @param user User to check if registered.
-	 */
-	public boolean checkIfRegistered(User eUser) {
-		dbManager.open(false);
-		boolean r= dbManager.checkIfRegistered(eUser);	
-		dbManager.close();
-		return r;
-	}
-	/**
-	 * Procedure that register a new user into the system.
-	 * @param user User to be registered.
-	 */
-	public void register(User user) {
-		dbManager.open(false);
-		dbManager.registerUser(user);
-		dbManager.close();
-		
-	}
-
-	public boolean login(String usname, String psswd) {
-		
-		dbManager.open(false);
-		boolean r = dbManager.login(usname,psswd);
-		dbManager.close();
-		return r;
-	}
-
-	
-	/**
-	 * Method which updates an existing question when a fee is added for that question.
-	 * @param toAdd Question to be updated.
-	 * @param toDel previous Question to e deleted.
-	 */
-	public void updateQuestionFees(Question toAdd) {
-		dbManager.open(false);
-		dbManager.updateQuestion(toAdd);
-		dbManager.close();
-		
-	}
-
-	/**
-	 * Method which returns the question associated with its question number in the DB.
-	 * @param qn Question number.
-	 * @return Question which is being found.
-	 */
-	public Question getQuestion(int qn) {
-		dbManager.open(false);
-		Question q = dbManager.findQuestion(qn);
-		dbManager.close();
-		
-		return q;
-	}
-	
-	/**
-	 * Method in charge of adding in the DB a given Event.
-	 * @param toAdd Event to add in the DB.
-	 * @throws EventAlreadyExistException if Event already exists in the DB.
-	 */
-	public void addEvent(Event toAdd) throws EventAlreadyExistException {
-		dbManager.open(false);
-		dbManager.addEvent(toAdd);
-		dbManager.close();
-	}
-
-	
 }

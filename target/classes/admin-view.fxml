@@ -13,10 +13,10 @@
             <Font size="37.0" />
          </font>
       </Label>
-      <Button layoutX="80.0" layoutY="137.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="477.0" layoutY="150.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="80.0" layoutY="245.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="477.0" layoutY="232.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="createNEventBtn" layoutX="80.0" layoutY="137.0" mnemonicParsing="false" text="Create New Event" />
+      <Button fx:id="setFeeBtn" layoutX="458.0" layoutY="150.0" mnemonicParsing="false" text="Set Fee " />
+      <Button fx:id="brwseQBtn" layoutX="80.0" layoutY="200.0" mnemonicParsing="false" text="Browse Questions" />
+      <Button fx:id="createQBtn" layoutX="418.0" layoutY="200.0" mnemonicParsing="false" text="Create New Questions" />
       <Button fx:id="closeBtn" defaultButton="true" layoutX="272.0" layoutY="335.0" mnemonicParsing="false" text="Close">
          <font>
             <Font size="15.0" />

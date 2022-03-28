@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreateEventController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.CreateEventController">
    <children>
       <DatePicker fx:id="datePicker" layoutX="65.0" layoutY="109.0" prefHeight="35.0" prefWidth="216.0" />
       <Pane fx:id="eventPane" layoutX="351.0" layoutY="94.0" prefHeight="298.0" prefWidth="312.0">

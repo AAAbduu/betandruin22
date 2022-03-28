@@ -32,7 +32,7 @@ import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
 public class CreateQuestionGUI extends JFrame {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private BlFacade businessLogic;
@@ -58,14 +58,14 @@ public class CreateQuestionGUI extends JFrame {
 	private JScrollPane eventScrollPane = new JScrollPane();
 
 	private JButton createBtn = new JButton(ResourceBundle.getBundle("Etiquetas").getString("CreateQuestion"));
-	private JButton closeBtn = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
+	private JButton closeBtn = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Back"));
 	private JLabel msgLbl = new JLabel();
 	private JLabel errorLbl = new JLabel();
 
 	private Vector<Date> datesWithEventsInCurrentMonth = new Vector<Date>();
 
 	public void setBusinessLogic(BlFacade bl) {
-		businessLogic = bl;		
+		businessLogic = bl;
 	}
 
 	public CreateQuestionGUI(BlFacade bl, Vector<domain.Event> v) {
@@ -98,14 +98,14 @@ public class CreateQuestionGUI extends JFrame {
 		createBtn.setEnabled(false);
 
 		createBtn.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				jButtonCreate_actionPerformed(e);
 			}
 		});
 		closeBtn.setBounds(new Rectangle(275, 275, 130, 30));
 		closeBtn.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				jButtonClose_actionPerformed(e);
 			}
@@ -143,7 +143,7 @@ public class CreateQuestionGUI extends JFrame {
 
 		// Code for JCalendar
 		this.calendar.addPropertyChangeListener(new PropertyChangeListener() {
-		
+
 			public void propertyChange(PropertyChangeEvent propertychangeevent) {
 				if (propertychangeevent.getPropertyName().equals("locale")) {
 					calendar.setLocale((Locale) propertychangeevent.getNewValue());
@@ -157,8 +157,8 @@ public class CreateQuestionGUI extends JFrame {
 					int monthAnt = currentCalendar.get(Calendar.MONTH);
 					int monthAct = previousCalendar.get(Calendar.MONTH);
 					if (monthAct!=monthAnt) {
-						if (monthAct==monthAnt+2) { 
-							// Si en JCalendar estÃ¡ 30 de enero y se avanza al mes siguiente, 
+						if (monthAct==monthAnt+2) {
+							// Si en JCalendar estÃ¡ 30 de enero y se avanza al mes siguiente,
 							// devolverá 2 de marzo (se toma como equivalente a 30 de febrero)
 							// Con este código se dejará como 1 de febrero en el JCalendar
 							previousCalendar.set(Calendar.MONTH, monthAnt + 1);
@@ -206,7 +206,7 @@ public class CreateQuestionGUI extends JFrame {
 		});
 	}
 
-	public static void paintDaysWithEvents(JCalendar jCalendar, 
+	public static void paintDaysWithEvents(JCalendar jCalendar,
 			Vector<Date> datesWithEventsCurrentMonth) {
 		// For each day with events in current month, the background color for that day is changed.
 
@@ -270,10 +270,10 @@ public class CreateQuestionGUI extends JFrame {
 			} else
 				msgLbl.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorQuestion"));
 		} catch (EventFinished e1) {
-			msgLbl.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished") + 
+			msgLbl.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished") +
 					" : " + event.getDescription());
 		} catch (QuestionAlreadyExist e1) {
-			msgLbl.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorQuestionAlreadyExist"));
+			msgLbl.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorQuestionAlreadyExists"));
 		} catch (java.lang.NumberFormatException e1) {
 			errorLbl.setText(ResourceBundle.getBundle("Etiquetas").getString("ErrorNumber"));
 		} catch (Exception e1) {
