@@ -7,7 +7,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -18,7 +17,6 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
 import businessLogic.BlFacade;
-import domain.Event;
 
 
 public class MainGUI extends JFrame {
