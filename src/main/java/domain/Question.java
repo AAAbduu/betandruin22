@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.*;
+import java.util.Vector;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -27,6 +28,18 @@ public class Question implements Serializable {
 
 	@XmlIDREF
 	private Event event;
+	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private Vector<Fee> fees = new Vector<Fee>();
+
+
+
+	public Vector<Fee> getFees() {
+		return fees;
+	}
+
+	public void setFees(Vector<Fee> fees) {
+		this.fees = fees;
+	}
 
 	public Question(){
 		super();
@@ -144,5 +157,16 @@ public class Question implements Serializable {
 	@Override
 	public String toString(){
 		return questionNumber + ";" + question + ";" + Float.toString(betMinimum);
-	}	
+	}
+
+
+	/**
+	 * Adds a fee to the question.
+	 * @param fee Fee to be added to the question.
+	 */
+	public void addFee(Fee fee) {
+		this.fees.add(fee);
+
+	}
+
 }

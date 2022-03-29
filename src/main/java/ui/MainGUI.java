@@ -41,6 +41,12 @@ public class MainGUI {
     });
   }
 
+  public void hide() {
+
+    stage.hide();
+
+  }
+
 
   class Window {
     Controller c;
@@ -97,11 +103,11 @@ public class MainGUI {
   }
 
   public void showRegister() {
-    setupScene(registerLag.ui, "Register", 1000, 500);
+    setupScene(registerLag.ui, "Register", 400, 600);
   }
 
   public void showLogin() {
-    setupScene(loginLag.ui, "Login", 550, 400);
+    setupScene(loginLag.ui, "Login", 400, 400);
   }
 
   private void setupScene(Parent ui, String title, int width, int height) {

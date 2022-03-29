@@ -11,6 +11,8 @@ import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Event;
 import domain.Question;
+import domain.User;
+import exceptions.EventAlreadyExistException;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -54,6 +56,7 @@ public class BlFacadeImplementation implements BlFacade {
 	 * @throws EventFinished if current data is after data of the event
 	 * @throws QuestionAlreadyExist if the same question already exists for the event
 	 */
+
 	@WebMethod
 	public Question createQuestion(Event event, String question, float betMinimum)
 			throws EventFinished, QuestionAlreadyExist {
@@ -77,7 +80,6 @@ public class BlFacadeImplementation implements BlFacade {
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-
 	@WebMethod
 	public Vector<Event> getEvents(Date date)  {
 		dbManager.open(false);
@@ -93,7 +95,6 @@ public class BlFacadeImplementation implements BlFacade {
 	 * @param date of the month for which days with events want to be retrieved
 	 * @return collection of dates
 	 */
-
 	@WebMethod
 	public Vector<Date> getEventsMonth(Date date) {
 		dbManager.open(false);
@@ -116,4 +117,71 @@ public class BlFacadeImplementation implements BlFacade {
 		dbManager.initializeDB();
 		dbManager.close();
 	}
+
+	/**
+	 * Method checks if the user trying to sign-up is already registered in the system.
+	 * @param eUser User to check if registered.
+	 */
+	public boolean checkIfRegistered(User eUser) {
+		dbManager.open(false);
+		boolean r= dbManager.checkIfRegistered(eUser);
+		dbManager.close();
+		return r;
+	}
+	/**
+	 * Procedure that register a new user into the system.
+	 * @param user User to be registered.
+	 */
+	public void register(User user) {
+		dbManager.open(false);
+		dbManager.registerUser(user);
+		dbManager.close();
+
+	}
+
+	public boolean login(String usname, String psswd) {
+
+		dbManager.open(false);
+		boolean r = dbManager.login(usname,psswd);
+		dbManager.close();
+		return r;
+	}
+
+
+	/**
+	 * Method which updates an existing question when a fee is added for that question.
+	 * @param toAdd Question to be updated.
+	 */
+	public void updateQuestionFees(Question toAdd) {
+		dbManager.open(false);
+		dbManager.updateQuestion(toAdd);
+		dbManager.close();
+
+	}
+
+	/**
+	 * Method which returns the question associated with its question number in the DB.
+	 * @param qn Question number.
+	 * @return Question which is being found.
+	 */
+	public Question getQuestion(int qn) {
+		dbManager.open(false);
+		Question q = dbManager.findQuestion(qn);
+		dbManager.close();
+
+		return q;
+	}
+
+	/**
+	 * Method in charge of adding in the DB a given Event.
+	 * @param toAdd Event to add in the DB.
+	 * @throws EventAlreadyExistException if Event already exists in the DB.
+	 */
+	public void addEvent(Event toAdd) throws EventAlreadyExistException {
+		dbManager.open(false);
+		dbManager.addEvent(toAdd);
+		dbManager.close();
+	}
+
+
 }

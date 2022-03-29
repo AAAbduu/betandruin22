@@ -1,4 +1,4 @@
-	package dataAccess;
+package dataAccess;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -11,13 +11,17 @@ import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Event;
 import domain.Question;
+import domain.User;
+import exceptions.EventAlreadyExistException;
 import exceptions.QuestionAlreadyExist;
 
 /**
@@ -59,29 +63,29 @@ public class DataAccess  {
 			int year = today.get(Calendar.YEAR);
 			if (month == 12) { month = 0; year += 1;}
 
-			Event ev1 = new Event(1, "Atlético-Athletic", UtilDate.newDate(year, month, 17));
-			Event ev2 = new Event(2, "Eibar-Barcelona", UtilDate.newDate(year, month, 17));
-			Event ev3 = new Event(3, "Getafe-Celta", UtilDate.newDate(year, month, 17));
-			Event ev4 = new Event(4, "Alavés-Deportivo", UtilDate.newDate(year, month, 17));
-			Event ev5 = new Event(5, "Español-Villareal", UtilDate.newDate(year, month, 17));
-			Event ev6 = new Event(6, "Las Palmas-Sevilla", UtilDate.newDate(year, month, 17));
-			Event ev7 = new Event(7, "Malaga-Valencia", UtilDate.newDate(year, month, 17));
-			Event ev8 = new Event(8, "Girona-Leganés", UtilDate.newDate(year, month, 17));
-			Event ev9 = new Event(9, "Real Sociedad-Levante", UtilDate.newDate(year, month, 17));
-			Event ev10 = new Event(10, "Betis-Real Madrid", UtilDate.newDate(year, month, 17));
+			Event ev1 = new Event( "Atlético-Athletic", UtilDate.newDate(year, month, 17));
+			Event ev2 = new Event( "Eibar-Barcelona", UtilDate.newDate(year, month, 17));
+			Event ev3 = new Event( "Getafe-Celta", UtilDate.newDate(year, month, 17));
+			Event ev4 = new Event( "Alavés-Deportivo", UtilDate.newDate(year, month, 17));
+			Event ev5 = new Event( "Español-Villareal", UtilDate.newDate(year, month, 17));
+			Event ev6 = new Event( "Las Palmas-Sevilla", UtilDate.newDate(year, month, 17));
+			Event ev7 = new Event( "Malaga-Valencia", UtilDate.newDate(year, month, 17));
+			Event ev8 = new Event( "Girona-Leganés", UtilDate.newDate(year, month, 17));
+			Event ev9 = new Event( "Real Sociedad-Levante", UtilDate.newDate(year, month, 17));
+			Event ev10 = new Event( "Betis-Real Madrid", UtilDate.newDate(year, month, 17));
 
-			Event ev11 = new Event(11, "Atletico-Athletic", UtilDate.newDate(year, month, 1));
-			Event ev12 = new Event(12, "Eibar-Barcelona", UtilDate.newDate(year, month, 1));
-			Event ev13 = new Event(13, "Getafe-Celta", UtilDate.newDate(year, month, 1));
-			Event ev14 = new Event(14, "Alavés-Deportivo", UtilDate.newDate(year, month, 1));
-			Event ev15 = new Event(15, "Español-Villareal", UtilDate.newDate(year, month, 1));
-			Event ev16 = new Event(16, "Las Palmas-Sevilla", UtilDate.newDate(year, month, 1));
+			Event ev11 = new Event( "Atletico-Athletic", UtilDate.newDate(year, month, 1));
+			Event ev12 = new Event( "Eibar-Barcelona", UtilDate.newDate(year, month, 1));
+			Event ev13 = new Event( "Getafe-Celta", UtilDate.newDate(year, month, 1));
+			Event ev14 = new Event( "Alavés-Deportivo", UtilDate.newDate(year, month, 1));
+			Event ev15 = new Event( "Español-Villareal", UtilDate.newDate(year, month, 1));
+			Event ev16 = new Event( "Las Palmas-Sevilla", UtilDate.newDate(year, month, 1));
 
 
-			Event ev17 = new Event(17, "Málaga-Valencia", UtilDate.newDate(year, month + 1, 28));
-			Event ev18 = new Event(18, "Girona-Leganés", UtilDate.newDate(year, month + 1, 28));
-			Event ev19 = new Event(19, "Real Sociedad-Levante", UtilDate.newDate(year, month + 1, 28));
-			Event ev20 = new Event(20, "Betis-Real Madrid", UtilDate.newDate(year, month + 1, 28));
+			Event ev17 = new Event( "Málaga-Valencia", UtilDate.newDate(year, month + 1, 28));
+			Event ev18 = new Event( "Girona-Leganés", UtilDate.newDate(year, month + 1, 28));
+			Event ev19 = new Event( "Real Sociedad-Levante", UtilDate.newDate(year, month + 1, 28));
+			Event ev20 = new Event( "Betis-Real Madrid", UtilDate.newDate(year, month + 1, 28));
 
 			Question q1;
 			Question q2;
@@ -168,7 +172,7 @@ public class DataAccess  {
 		Event ev = db.find(Event.class, event.getEventNumber());
 
 		if (ev.doesQuestionExist(question)) throw new QuestionAlreadyExist(
-				ResourceBundle.getBundle("Etiquetas").getString("ErrorQuestionAlreadyExists"));
+				ResourceBundle.getBundle("Etiquetas").getString("ErrorQuestionAlreadyExist"));
 
 		db.getTransaction().begin();
 		Question q = ev.addQuestion(question, betMinimum);
@@ -264,4 +268,119 @@ public class DataAccess  {
 		db.close();
 		System.out.println("DataBase is closed");
 	}
+
+	/**
+	 * Method checks if the user trying to sign-up is already registered in the system.
+	 * @param eUser User to check if registered.
+	 */
+	public boolean checkIfRegistered(User eUser) {
+
+		TypedQuery<User> query = db.createQuery("SELECT u FROM User u WHERE u.userName=?1 AND u.email=?2", User.class);
+		query.setParameter(1, eUser.getUserName());
+		query.setParameter(2, eUser.getEmail());
+		try {
+			query.getSingleResult();
+		}catch(NoResultException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Procedure that register a new user into the system.
+	 * @param eUser User to be registered.
+	 */
+	public void registerUser(User eUser) {
+
+		db.getTransaction().begin();
+		db.persist(eUser);
+		db.getTransaction().commit();
+
+
+	}
+	/**
+	 * Method which initiates transactions with the DB in order to log-in for registered users.
+	 * @param usname
+	 * @param psswd
+	 * @return boolean which indicates if credentials are correct.
+	 */
+	public boolean login(String usname, String psswd) {
+
+		TypedQuery<User> query = db.createQuery("SELECT u FROM User u WHERE u.userName=?1 AND u.password=?2", User.class);
+		query.setParameter(1, usname);
+		query.setParameter(2, psswd);
+
+		try {
+			query.getSingleResult();
+			System.out.println("Succesfully logged-in!");
+			return true;
+		}catch(NoResultException e) {
+
+			System.out.println("Credendtials are incorrect!");
+			return false;
+
+		}
+
+	}
+	/**
+	 * Method which updates an existing question when a fee is added for that question.
+	 * @param toAdd Question to be updated.
+	 */
+	public void updateQuestion(Question toAdd) {
+		db.getTransaction().begin();
+		db.merge(toAdd);
+		db.flush();
+		db.getTransaction().commit();
+
+	}
+
+	/**
+	 * Method in charge of adding in the DB a given Event.
+	 * @param toAdd Event to add in the DB.
+	 * @throws EventAlreadyExistException if Event already exists in the DB.
+	 */
+	public void addEvent(Event toAdd) throws EventAlreadyExistException {
+
+		if(!this.isEventInDb(toAdd.getDescription(), toAdd.getEventDate())) {
+			db.getTransaction().begin();
+			db.persist(toAdd);
+			db.getTransaction().commit();
+		}
+
+	}
+
+
+	/**
+	 * Method which returns the question associated with its question number in the DB.
+	 * @param qn Question number.
+	 * @return Question which is being found.
+	 */
+	public Question findQuestion(int qn) {
+		return db.find(Question.class, qn);
+
+	}
+
+	/**
+	 * Method checks if there is an already exisiting event in the DB.
+	 * @param event String which contains the description of the event.
+	 * @param date Date in which the Event takes place
+	 * @return false indicating there is no such Event in the database.
+	 * @throws EventAlreadyExistException If the Event already exists.
+	 */
+	private boolean isEventInDb(String event, Date date) throws EventAlreadyExistException {
+
+		TypedQuery<Event> query = db.createQuery("SELECT e FROM Event e WHERE e.description = ?1 AND e.eventDate = ?2", Event.class);
+		query.setParameter(1, event);
+		query.setParameter(2, date);
+
+		try {
+			query.getSingleResult();
+			throw new EventAlreadyExistException();
+		}catch(NoResultException e) {
+			return false;
+		}
+	}
+
+
+
 }
