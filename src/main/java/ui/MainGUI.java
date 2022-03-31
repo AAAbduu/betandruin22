@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.glassfish.pfl.basic.logex.Log;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import uicontrollers.*;
 
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class MainGUI {
 
-  private Window mainLag, registerLag, loginLag, adminViewLag, userViewLag;
+  private Window mainLag, registerLag, loginLag, adminViewLag, userViewLag, browseQuestionsLag, createQuestionsLag;
 
   private BlFacade businessLogic;
   private Stage stage;
@@ -61,6 +62,23 @@ public class MainGUI {
       if (controllerClass == LogInController.class) {
         return new LogInController(businessLogic);
       }
+
+      if (controllerClass == AdminViewController.class) {
+        return new AdminViewController(businessLogic);
+      }
+
+      if (controllerClass == UserViewController.class) {
+        return new UserViewController(businessLogic);
+      }
+
+      if (controllerClass == BrowseQuestionsController.class) {
+        return new BrowseQuestionsController(businessLogic);
+      }
+
+      if (controllerClass == CreateQuestionController.class) {
+        return new CreateQuestionController(businessLogic);
+      }
+
       if (controllerClass == SignUpController.class) {
         return new SignUpController(businessLogic);
       } else {
@@ -90,6 +108,8 @@ public class MainGUI {
     registerLag = load("/signup-view.fxml");
     adminViewLag = load("/admin-view.fxml");
     userViewLag = load("/user-view.fxml");
+    browseQuestionsLag = load("/BrowseQuestions.fxml");
+    createQuestionsLag = load("/CreateQuestion.fxml");
 
     showMain();
 
@@ -105,11 +125,19 @@ public class MainGUI {
   }
 
   public void showRegister() {
-    setupScene(registerLag.ui, "Register", 400, 600);
+    setupScene(registerLag.ui, "Register", 432, 742);
   }
 
   public void showLogin() {
     setupScene(loginLag.ui, "Login", 385, 400);
+  }
+
+  public void showBrowseQ() {
+    setupScene(browseQuestionsLag.ui, "BrowseQuestions", 996, 400);
+  }
+
+  public void showCreateQ() {
+    setupScene(createQuestionsLag.ui, "CreateQuestion", 650, 400);
   }
 
   public void showAdminView() { setupScene(adminViewLag.ui, "Admin", 625, 400);}

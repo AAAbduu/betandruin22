@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.AdminViewController">
    <children>
       <Label fx:id="welcomeLbl" layoutX="151.0" layoutY="44.0" text="WELCOME ADMIN">
@@ -13,11 +12,11 @@
             <Font size="37.0" />
          </font>
       </Label>
-      <Button fx:id="createNEventBtn" layoutX="80.0" layoutY="137.0" mnemonicParsing="false" text="Create New Event" />
-      <Button fx:id="setFeeBtn" layoutX="458.0" layoutY="150.0" mnemonicParsing="false" text="Set Fee " />
-      <Button fx:id="brwseQBtn" layoutX="80.0" layoutY="200.0" mnemonicParsing="false" text="Browse Questions" />
-      <Button fx:id="createQBtn" layoutX="418.0" layoutY="200.0" mnemonicParsing="false" text="Create New Questions" />
-      <Button fx:id="closeBtn" defaultButton="true" layoutX="272.0" layoutY="335.0" mnemonicParsing="false" text="Close">
+      <Button fx:id="createNEventBtn" layoutX="80.0" layoutY="137.0" mnemonicParsing="false" onAction="#onCreateEBtn" text="Create New Event" />
+      <Button fx:id="setFeeBtn" layoutX="458.0" layoutY="150.0" mnemonicParsing="false" onAction="#onSetFeeBtn" text="Set Fee " />
+      <Button fx:id="brwseQBtn" layoutX="80.0" layoutY="200.0" mnemonicParsing="false" onAction="#onBrowseQBtn" text="Browse Questions" />
+      <Button fx:id="createQBtn" layoutX="418.0" layoutY="200.0" mnemonicParsing="false" onAction="#onCreateQBtn" text="Create New Questions" />
+      <Button fx:id="closeBtn" defaultButton="true" layoutX="272.0" layoutY="335.0" mnemonicParsing="false" onAction="#onCloseBtn" text="Close">
          <font>
             <Font size="15.0" />
          </font>

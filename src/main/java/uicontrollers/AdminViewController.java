@@ -1,6 +1,7 @@
 package uicontrollers;
 
 import businessLogic.BlFacade;
+import javafx.event.ActionEvent;
 import ui.MainGUI;
 
 public class AdminViewController implements Controller{
@@ -9,6 +10,10 @@ public class AdminViewController implements Controller{
 
     private BlFacade bl;
     private MainGUI mainGUI;
+
+    public AdminViewController(BlFacade businessLogic) {
+        this.bl = businessLogic;
+    }
 
 
     public BlFacade getBl() {
@@ -22,5 +27,23 @@ public class AdminViewController implements Controller{
     @Override
     public void setMainApp(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
+    }
+
+    public void onCreateEBtn(ActionEvent actionEvent) {
+    }
+
+    public void onSetFeeBtn(ActionEvent actionEvent) {
+    }
+
+    public void onBrowseQBtn(ActionEvent actionEvent) {
+        mainGUI.showBrowseQ();
+    }
+
+    public void onCreateQBtn(ActionEvent actionEvent) {
+        mainGUI.showCreateQ();
+    }
+
+    public void onCloseBtn(ActionEvent actionEvent) {
+        mainGUI.showAdminView();
     }
 }

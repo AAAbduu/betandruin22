@@ -20,19 +20,10 @@ public class LogInController implements Controller{
     @FXML
     private Label statusLbl;
     @FXML
-    private Button closeBtn;
-    @FXML
     private PasswordField psswdField;
     @FXML
-    private Button loginBtn;
-    @FXML
     private TextField usernameTxtField;
-    @FXML
-    private Label usernameLbl;
-    @FXML
-    private Pane loginPane;
-    @FXML
-    private Label psswdLbl;
+
 
 
     private BlFacade businessLogic;
@@ -67,18 +58,21 @@ public class LogInController implements Controller{
 
             boolean r = businessLogic.login(usr,psswd);
 
-            if(true){
+            if(r){
                 statusLbl.setText("Succesfully logged-in!");
 
                 maingui.showUserView();
-                    //loginGUI.showUser();
-                    //show user view
+
 
             }else{
                 statusLbl.setText("That combination of credentials is not correct!");
             }
-            //call data manager in business logic and check if user exists, if exists then show user view. else show message.
-            //wrong combination of credentials.
+
+            statusLbl.setText(null);
+
+            usernameTxtField.setText(null);
+
+            psswdField.setText(null);
 
         }
 
