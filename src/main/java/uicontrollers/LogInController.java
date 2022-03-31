@@ -11,8 +11,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import ui.AdminGUI;
-import ui.LoginGUI;
 import ui.MainGUI;
 
 import java.io.IOException;
@@ -39,7 +37,6 @@ public class LogInController implements Controller{
 
     private BlFacade businessLogic;
 
-    //private AdminGUI adminGUI = new AdminGUI();
 
     private MainGUI maingui;
 
@@ -61,10 +58,9 @@ public class LogInController implements Controller{
         }else if(usr.contentEquals("admin") && psswd.contentEquals("admin")){
             statusLbl.setText("Succesfully logged-in!");
 
-            maingui.hide();
+            //maingui.hide();
+            maingui.showAdminView();
 
-            AdminViewController adminViewController = new AdminViewController();
-            adminViewController.start();
 
 
         }else{
@@ -73,8 +69,8 @@ public class LogInController implements Controller{
 
             if(true){
                 statusLbl.setText("Succesfully logged-in!");
-                    UserViewController userViewController = new UserViewController();
-                    userViewController.start();
+
+                maingui.showUserView();
                     //loginGUI.showUser();
                     //show user view
 
@@ -92,9 +88,7 @@ public class LogInController implements Controller{
 
 
     public void onCloseBtn(ActionEvent actionEvent) {
-
-
-
+        maingui.showMain();
     }
 
     @Override

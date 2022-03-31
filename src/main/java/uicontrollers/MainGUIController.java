@@ -45,6 +45,10 @@ public class MainGUIController implements Controller{
         mainGUI.showRegister();
     }
 
+    @FXML
+    void adminView(ActionEvent event) {
+        mainGUI.showAdminView();
+    }
 
     @FXML
     void initialize() {

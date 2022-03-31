@@ -5,11 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import ui.MainGUI;
 import ui.UserGUI;
 
 import java.io.IOException;
 
-public class UserViewController {
+public class UserViewController implements Controller{
 
 
     public AnchorPane mainPane;
@@ -17,7 +18,7 @@ public class UserViewController {
     public Button brwseQBtn;
     public Label welcomeLbl;
 
-    private UserGUI usergui = new UserGUI();
+    private MainGUI mainGUI;
 
     public void onClickClose(ActionEvent actionEvent) {
     }
@@ -25,8 +26,9 @@ public class UserViewController {
     public void onClickBrwseQ(ActionEvent actionEvent) {
     }
 
-    public void start() throws IOException {
-        usergui.start(new Stage());
-    }
 
+    @Override
+    public void setMainApp(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
+    }
 }

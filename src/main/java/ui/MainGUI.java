@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 public class MainGUI {
 
-  private Window mainLag, registerLag, loginLag;
+  private Window mainLag, registerLag, loginLag, adminViewLag, userViewLag;
 
   private BlFacade businessLogic;
   private Stage stage;
@@ -88,6 +88,8 @@ public class MainGUI {
     mainLag = load("/MainGUI.fxml");
     loginLag = load("/login-view.fxml");
     registerLag = load("/signup-view.fxml");
+    adminViewLag = load("/admin-view.fxml");
+    userViewLag = load("/user-view.fxml");
 
     showMain();
 
@@ -107,8 +109,12 @@ public class MainGUI {
   }
 
   public void showLogin() {
-    setupScene(loginLag.ui, "Login", 400, 400);
+    setupScene(loginLag.ui, "Login", 385, 400);
   }
+
+  public void showAdminView() { setupScene(adminViewLag.ui, "Admin", 625, 400);}
+
+  public void showUserView() { setupScene(userViewLag.ui, "MainTitle", 625, 400);}
 
   private void setupScene(Parent ui, String title, int width, int height) {
     if (scene == null){

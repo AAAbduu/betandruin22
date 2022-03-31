@@ -1,21 +1,26 @@
 package uicontrollers;
 
 import businessLogic.BlFacade;
-import javafx.stage.Stage;
-import ui.AdminGUI;
+import ui.MainGUI;
 
-import java.io.IOException;
+public class AdminViewController implements Controller{
 
-public class AdminViewController {
+
 
     private BlFacade bl;
+    private MainGUI mainGUI;
 
-    private AdminGUI admingui = new AdminGUI();
 
-    public void start() throws IOException {
-        admingui.start(new Stage());
+    public BlFacade getBl() {
+        return bl;
     }
 
+    public void setBl(BlFacade bl) {
+        this.bl = bl;
+    }
 
-
+    @Override
+    public void setMainApp(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
+    }
 }
