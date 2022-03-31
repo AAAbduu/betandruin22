@@ -30,6 +30,7 @@ public class AdminViewController implements Controller{
     }
 
     public void onCreateEBtn(ActionEvent actionEvent) {
+        mainGUI.showCreateEventView();
     }
 
     public void onSetFeeBtn(ActionEvent actionEvent) {

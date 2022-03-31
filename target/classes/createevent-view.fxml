@@ -3,45 +3,18 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.AnchorPane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.CreateEventController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="504.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.AddEventController">
    <children>
-      <DatePicker fx:id="datePicker" layoutX="65.0" layoutY="109.0" prefHeight="35.0" prefWidth="216.0" />
-      <Pane fx:id="eventPane" layoutX="351.0" layoutY="94.0" prefHeight="298.0" prefWidth="312.0">
-         <children>
-            <ListView fx:id="listViewEvents" layoutX="-2.0" layoutY="49.0" prefHeight="224.0" prefWidth="312.0" />
-            <Button fx:id="addEventBtn" layoutX="-2.0" layoutY="272.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="312.0" text="+  Add a new event" />
-            <Label layoutX="28.0" layoutY="13.0" text="Event#" />
-            <Label layoutX="210.0" layoutY="13.0" text="Event" />
-            <Line endX="171.0" endY="-2.0" layoutX="129.0" layoutY="38.0" startX="-120.0" startY="-2.0" strokeWidth="3.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="60.0" layoutX="-2.0" layoutY="-16.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="312.0" />
-         </children>
-      </Pane>
-      <Label layoutX="142.0" layoutY="71.0" text="Date Event:" />
-      <Label layoutX="492.0" layoutY="42.0" text="Events:" />
-      <Pane fx:id="createEventPane" layoutX="45.0" layoutY="404.0" prefHeight="200.0" prefWidth="613.0" style="-fx-border-color: black; -fx-border-width: 3;">
-         <children>
-            <TextField fx:id="localTeamtxtF" alignment="CENTER" layoutX="70.0" layoutY="58.0" promptText="TeamL">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="visiterTeamTxtF" alignment="CENTER" layoutX="383.0" layoutY="58.0" promptText="TeamV" />
-            <Label alignment="CENTER" layoutX="296.0" layoutY="39.0" text="-">
-               <font>
-                  <Font size="51.0" />
-               </font>
-            </Label>
-            <Button fx:id="addNewCreatedEvent" layoutX="276.0" layoutY="142.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="Add" />
-         </children>
-      </Pane>
-      <Button fx:id="closeBtn" layoutX="315.0" layoutY="624.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Close" />
+      <Button fx:id="createEventBtn" defaultButton="true" layoutX="330.0" layoutY="246.0" mnemonicParsing="false" onAction="#onCreateEventBtn" text="%CreateEvent" />
+      <Button fx:id="backBtn" layoutX="92.0" layoutY="246.0" mnemonicParsing="false" onAction="#onBackBtn" text="%Back" />
+      <DatePicker fx:id="datepicker" layoutX="148.0" layoutY="124.0" />
+      <TextField fx:id="txtEvent" layoutX="126.0" layoutY="162.0" prefHeight="25.0" prefWidth="252.0" />
+      <Label layoutX="149.0" layoutY="101.0" text="%Sdate" wrapText="true" />
+      <Label layoutX="126.0" layoutY="194.0" text="%CEventInfo" />
+      <Label layoutX="77.0" layoutY="166.0" text="%Event" />
+      <Label fx:id="infoLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="126.0" layoutY="214.0" prefHeight="25.0" prefWidth="270.0" wrapText="true" />
    </children>
-</Pane>
+</AnchorPane>
