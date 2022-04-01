@@ -154,12 +154,14 @@ public class SetFeeController implements Controller{
             comboEvents.setItems(oListEvents);
 
         });
-        comboEvents.setOnAction(actionEvent ->{
-            Event event = comboEvents.getSelectionModel().getSelectedItem();
-            ObservableList<Question> observableList = FXCollections.observableList(event.getQuestions());
-            if(observableList!=null) {
-                comboQuestions.setItems(observableList);
-            }
+        comboEvents.setOnAction(actionEvent -> {
+                    Event event = comboEvents.getSelectionModel().getSelectedItem();
+                    if (event != null) {
+                        ObservableList<Question> observableList = FXCollections.observableList(event.getQuestions());
+                        if (observableList != null) {
+                            comboQuestions.setItems(observableList);
+                        }
+                    }
                 }
         );
 

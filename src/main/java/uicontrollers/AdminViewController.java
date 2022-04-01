@@ -46,6 +46,6 @@ public class AdminViewController implements Controller{
     }
 
     public void onCloseBtn(ActionEvent actionEvent) {
-        mainGUI.showAdminView();
+        mainGUI.showMain();
     }
 }

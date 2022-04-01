@@ -12,11 +12,11 @@
             <Font size="37.0" />
          </font>
       </Label>
-      <Button fx:id="createNEventBtn" layoutX="80.0" layoutY="137.0" mnemonicParsing="false" onAction="#onCreateEBtn" text="Create New Event" />
-      <Button fx:id="setFeeBtn" layoutX="458.0" layoutY="150.0" mnemonicParsing="false" onAction="#onSetFeeBtn" text="Set Fee " />
-      <Button fx:id="brwseQBtn" layoutX="80.0" layoutY="200.0" mnemonicParsing="false" onAction="#onBrowseQBtn" text="Browse Questions" />
-      <Button fx:id="createQBtn" layoutX="418.0" layoutY="200.0" mnemonicParsing="false" onAction="#onCreateQBtn" text="Create New Questions" />
-      <Button fx:id="closeBtn" defaultButton="true" layoutX="272.0" layoutY="335.0" mnemonicParsing="false" onAction="#onCloseBtn" text="Close">
+      <Button fx:id="createNEventBtn" layoutX="80.0" layoutY="137.0" mnemonicParsing="false" onAction="#onCreateEBtn" text="%CreateNewEvent" />
+      <Button fx:id="setFeeBtn" layoutX="458.0" layoutY="150.0" mnemonicParsing="false" onAction="#onSetFeeBtn" text="%SetFee" />
+      <Button fx:id="brwseQBtn" layoutX="80.0" layoutY="200.0" mnemonicParsing="false" onAction="#onBrowseQBtn" text="%BrowseQuestions" />
+      <Button fx:id="createQBtn" layoutX="418.0" layoutY="200.0" mnemonicParsing="false" onAction="#onCreateQBtn" text="%CreateNewQuestions" />
+      <Button fx:id="closeBtn" defaultButton="true" layoutX="272.0" layoutY="335.0" mnemonicParsing="false" onAction="#onCloseBtn" text="%Back">
          <font>
             <Font size="15.0" />
          </font>
