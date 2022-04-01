@@ -17,7 +17,8 @@ import java.util.ResourceBundle;
 
 public class MainGUI {
 
-  private Window mainLag, registerLag, loginLag, adminViewLag, userViewLag, browseQuestionsLag, createQuestionsLag, createEventLag;
+  private Window mainLag, registerLag, loginLag, adminViewLag, userViewLag,
+          browseQuestionsLag, createQuestionsLag, createEventLag, createFeeLag;
 
   private BlFacade businessLogic;
   private Stage stage;
@@ -79,6 +80,10 @@ public class MainGUI {
         return new CreateQuestionController(businessLogic);
       }
 
+      if (controllerClass == SetFeeController.class) {
+        return new  SetFeeController(businessLogic);
+      }
+
       if (controllerClass == AddEventController.class) {
         return new AddEventController(businessLogic);
       }
@@ -115,6 +120,9 @@ public class MainGUI {
     browseQuestionsLag = load("/BrowseQuestions.fxml");
     createQuestionsLag = load("/CreateQuestion.fxml");
     createEventLag = load("/CreateEvent-view.fxml");
+
+    createFeeLag = load("/SetFee-view.fxml");
+
     showMain();
 
   }
@@ -142,6 +150,10 @@ public class MainGUI {
 
   public void showCreateQ() {
     setupScene(createQuestionsLag.ui, "CreateQuestion", 650, 400);
+  }
+
+  public void showCreateFee() {
+    setupScene(createFeeLag.ui, "CreateFee", 650, 400);
   }
 
   public void showAdminView() { setupScene(adminViewLag.ui, "Admin", 625, 400);}

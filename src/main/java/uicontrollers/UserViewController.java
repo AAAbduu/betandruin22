@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ui.MainGUI;
-import ui.UserGUI;
+
 
 import java.io.IOException;
 

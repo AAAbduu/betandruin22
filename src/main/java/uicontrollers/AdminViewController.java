@@ -34,6 +34,7 @@ public class AdminViewController implements Controller{
     }
 
     public void onSetFeeBtn(ActionEvent actionEvent) {
+        mainGUI.showCreateFee();
     }
 
     public void onBrowseQBtn(ActionEvent actionEvent) {
