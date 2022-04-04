@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="856.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.betController">
+   <children>
+      <Label layoutX="332.0" layoutY="45.0" text="%Bet">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="datepicker" layoutX="62.0" layoutY="220.0" onAction="#onDatePicker" />
+      <Label layoutX="62.0" layoutY="191.0" text="%SelectDate" />
+      <Label layoutX="384.0" layoutY="191.0" text="%Events" />
+      <TableView fx:id="eventTableView" layoutX="384.0" layoutY="233.0" onMouseClicked="#selectEventClick" prefHeight="200.0" prefWidth="270.0">
+        <columns>
+          <TableColumn fx:id="eventIdColumn" prefWidth="62.0" resizable="false" text="Id" />
+          <TableColumn fx:id="eventColumn" prefWidth="206.0" resizable="false" text="%Event" />
+        </columns>
+      </TableView>
+      <Label layoutX="384.0" layoutY="448.0" text="%Questions" />
+      <TableView fx:id="questionTableView" layoutX="384.0" layoutY="475.0" onMouseClicked="#selectQuestionClick" prefHeight="200.0" prefWidth="270.0">
+         <columns>
+            <TableColumn fx:id="questionIdColumn" prefWidth="62.0" resizable="false" text="Id" />
+            <TableColumn fx:id="questionColumn" prefWidth="206.0" resizable="false" text="%Question" />
+         </columns>
+      </TableView>
+      <Label layoutX="62.0" layoutY="335.0" text="%Fees" />
+      <TableView fx:id="feeTableView" layoutX="62.0" layoutY="362.0" onMouseClicked="#onFeeSelected" prefHeight="200.0" prefWidth="270.0">
+         <columns>
+            <TableColumn fx:id="feeIdColumn" prefWidth="62.0" resizable="false" text="%Fee" />
+            <TableColumn fx:id="descriptionFeeColumn" prefWidth="206.0" resizable="false" text="%Prediction" />
+         </columns>
+      </TableView>
+      <Label layoutX="66.0" layoutY="641.0" text="%avMoney" />
+      <Label layoutX="66.0" layoutY="727.0" text="%Bet" />
+      <TextField fx:id="amountBetField" layoutX="117.0" layoutY="723.0" />
+      <Label fx:id="statusLbl" layoutX="87.0" layoutY="770.0" wrapText="true" />
+      <Label layoutX="402.0" layoutY="727.0" text="%calcRate" />
+      <Button fx:id="backBtn" layoutX="223.0" layoutY="798.0" mnemonicParsing="false" onAction="#onBackBtn" text="%Back" />
+      <Button fx:id="betBtn" defaultButton="true" layoutX="433.0" layoutY="798.0" mnemonicParsing="false" onAction="#onBetBtn" text="%Bet" />
+   </children>
+</AnchorPane>
