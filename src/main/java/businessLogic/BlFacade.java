@@ -67,9 +67,9 @@ public interface BlFacade  {
 	 * Method which initiates transactions with the DB in order to log-in for registered users.
 	 * @param usname
 	 * @param psswd
-	 * @return boolean which indicates if credentials are correct.
+	 * @return User logged-in
 	 */
-	public boolean login(String usname, String psswd);
+	public User login(String usname, String psswd);
 
 
 	/**
@@ -91,5 +91,10 @@ public interface BlFacade  {
 	 * @param toAdd Event to add in the DB.
 	 * @throws EventAlreadyExistException if Event already exists in the DB.
 	 */
-	public void addEvent(Event toAdd) throws EventAlreadyExistException;
+	void addEvent(Event toAdd) throws EventAlreadyExistException;
+
+    void setUser(User eUser);
+
+	User getUser();
+
 }

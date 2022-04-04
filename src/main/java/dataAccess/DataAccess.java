@@ -304,20 +304,20 @@ public class DataAccess  {
 	 * @param psswd
 	 * @return boolean which indicates if credentials are correct.
 	 */
-	public boolean login(String usname, String psswd) {
+	public User login(String usname, String psswd) {
 
 		TypedQuery<User> query = db.createQuery("SELECT u FROM User u WHERE u.userName=?1 AND u.password=?2", User.class);
 		query.setParameter(1, usname);
 		query.setParameter(2, psswd);
 
 		try {
-			query.getSingleResult();
+			User u = query.getSingleResult();
 			System.out.println("Succesfully logged-in!");
-			return true;
+			return u;
 		}catch(NoResultException e) {
 
 			System.out.println("Credendtials are incorrect!");
-			return false;
+			return null;
 
 		}
 

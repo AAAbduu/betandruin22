@@ -1,13 +1,11 @@
 package ui;
 
 import businessLogic.BlFacade;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.glassfish.pfl.basic.logex.Log;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import uicontrollers.*;
 
@@ -18,7 +16,7 @@ import java.util.ResourceBundle;
 public class MainGUI {
 
   private Window mainLag, registerLag, loginLag, adminViewLag, userViewLag,
-          browseQuestionsLag, createQuestionsLag, createEventLag, createFeeLag;
+          browseQuestionsLag, createQuestionsLag, createRemoveEventLag, createFeeLag, betLag;
 
   private BlFacade businessLogic;
   private Stage stage;
@@ -41,12 +39,6 @@ public class MainGUI {
         e.printStackTrace();
       }
     });
-  }
-
-  public void hide() {
-
-    stage.hide();
-
   }
 
 
@@ -76,6 +68,10 @@ public class MainGUI {
         return new BrowseQuestionsController(businessLogic);
       }
 
+      if (controllerClass == betController.class) {
+        return new betController(businessLogic);
+      }
+
       if (controllerClass == CreateQuestionController.class) {
         return new CreateQuestionController(businessLogic);
       }
@@ -84,8 +80,8 @@ public class MainGUI {
         return new  SetFeeController(businessLogic);
       }
 
-      if (controllerClass == AddEventController.class) {
-        return new AddEventController(businessLogic);
+      if (controllerClass == AddRemoveController.class) {
+        return new AddRemoveController(businessLogic);
       }
 
       if (controllerClass == SignUpController.class) {
@@ -119,9 +115,10 @@ public class MainGUI {
     userViewLag = load("/user-view.fxml");
     browseQuestionsLag = load("/BrowseQuestions.fxml");
     createQuestionsLag = load("/CreateQuestion.fxml");
-    createEventLag = load("/CreateEvent-view.fxml");
+    createRemoveEventLag = load("/CreateRemoveEvent-view.fxml");
 
     createFeeLag = load("/SetFee-view.fxml");
+    betLag = load("/bet-view.fxml");
 
     showMain();
 
@@ -158,9 +155,14 @@ public class MainGUI {
 
   public void showAdminView() { setupScene(adminViewLag.ui, "Admin", 625, 400);}
 
-  public void showUserView() { setupScene(userViewLag.ui, "MainTitle", 625, 400);}
+  public void showUserView() {
+    ((UserViewController)userViewLag.c).setUser();
+    setupScene(userViewLag.ui, "MainTitle", 625, 400);
+  }
 
-  public void showCreateEventView() { setupScene(createEventLag.ui, "CreateEvent", 625, 400);}
+  public void showBetView() { setupScene(betLag.ui, "Bet", 750, 865);}
+
+  public void showCreateEventView() { setupScene(createRemoveEventLag.ui, "CreateEvent", 700, 610);}
 
   private void setupScene(Parent ui, String title, int width, int height) {
     if (scene == null){

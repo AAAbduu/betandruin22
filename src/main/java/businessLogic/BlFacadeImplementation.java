@@ -25,6 +25,7 @@ public class BlFacadeImplementation implements BlFacade {
 
 	DataAccess dbManager;
 	ConfigXML config = ConfigXML.getInstance();
+	private User currentUser;
 
 	public BlFacadeImplementation()  {
 		System.out.println("Creating BlFacadeImplementation instance");
@@ -139,10 +140,10 @@ public class BlFacadeImplementation implements BlFacade {
 
 	}
 
-	public boolean login(String usname, String psswd) {
+	public User login(String usname, String psswd) {
 
 		dbManager.open(false);
-		boolean r = dbManager.login(usname,psswd);
+		User r = dbManager.login(usname,psswd);
 		dbManager.close();
 		return r;
 	}
@@ -181,6 +182,16 @@ public class BlFacadeImplementation implements BlFacade {
 		dbManager.open(false);
 		dbManager.addEvent(toAdd);
 		dbManager.close();
+	}
+
+	@Override
+	public void setUser(User eUser) {
+		this.currentUser = eUser;
+	}
+
+	@Override
+	public User getUser() {
+		return currentUser;
 	}
 
 

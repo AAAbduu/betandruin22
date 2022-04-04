@@ -1,6 +1,7 @@
 package uicontrollers;
 
 import businessLogic.BlFacade;
+import domain.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -24,6 +25,7 @@ public class LogInController implements Controller{
     private BlFacade businessLogic;
 
 
+
     private MainGUI maingui;
 
 
@@ -31,8 +33,9 @@ public class LogInController implements Controller{
 
         this.businessLogic = businessLogic;
 
-
     }
+
+
 
 
     public void onLoginBtn(ActionEvent actionEvent) throws IOException {
@@ -44,6 +47,8 @@ public class LogInController implements Controller{
         }else if(usr.contentEquals("admin") && psswd.contentEquals("admin")){
             statusLbl.setText("Succesfully logged-in!");
 
+            this.businessLogic.setUser(null);
+
             maingui.showAdminView();
 
             usernameTxtField.setText(null);
@@ -54,12 +59,16 @@ public class LogInController implements Controller{
 
         }else{
 
-            boolean r = businessLogic.login(usr,psswd);
+            User r = businessLogic.login(usr,psswd);
 
-            if(r){
+            if(r!=null){
                 statusLbl.setText("Succesfully logged-in!");
 
+                this.businessLogic.setUser(r);
+
                 maingui.showUserView();
+
+
 
 
             }else{

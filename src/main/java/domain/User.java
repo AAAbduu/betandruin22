@@ -18,6 +18,7 @@ public class User {
     private String lastName;
     private String email;
     private Date birthDate;
+    private double money = 0;
 
 
 
@@ -28,6 +29,14 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.birthDate = birthDate;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
     }
 
     /**
