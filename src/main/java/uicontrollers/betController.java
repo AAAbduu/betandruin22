@@ -12,7 +12,9 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.DatePickerSkin;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import ui.MainGUI;
 import utils.Dates;
@@ -40,6 +42,8 @@ public class betController implements Controller{
     public Label statusLbl;
     public Button backBtn;
     public Button betBtn;
+    public Label availableMoney;
+    public Label calculatedAmountWin;
 
 
     private BlFacade businessLogic;
@@ -81,6 +85,11 @@ public class betController implements Controller{
     }
     @FXML
     void initialize() {
+
+
+
+
+
 
         events = FXCollections.observableArrayList();
         questions = FXCollections.observableArrayList();
@@ -205,6 +214,48 @@ public class betController implements Controller{
         if(fee!=null) {
             this.amountBetField.setDisable(false);
             this.betBtn.setDisable(false);
+
+
         }
     }
+
+
+    public void setUser() {
+
+        this.availableMoney.setText(String.valueOf(this.businessLogic.getUser().getMoney()));
+
+    }
+
+
+
+    public void onChangingInputRelease(KeyEvent keyEvent) {
+
+        Fee fee = this.feeTableView.getSelectionModel().getSelectedItem();
+        if(fee!=null) {
+            this.amountBetField.setDisable(false);
+            this.betBtn.setDisable(false);
+
+            if (this.amountBetField.getLength()==0) {
+                this.calculatedAmountWin.setTextFill(Color.rgb(43,233,0));
+
+                this.calculatedAmountWin.setText("0.0");
+                return;
+            }
+
+            try {
+                double calculatedWin = Double.valueOf(this.amountBetField.getText()) * fee.getFee();
+                this.calculatedAmountWin.setTextFill(Color.rgb(43,233,0));
+
+                this.calculatedAmountWin.setText(String.valueOf(calculatedWin));
+
+            }catch (Exception e){
+                this.calculatedAmountWin.setTextFill(Color.web("red"));
+                this.calculatedAmountWin.setText("NAN");
+
+            }
+
+        }
+
+    }
+
 }

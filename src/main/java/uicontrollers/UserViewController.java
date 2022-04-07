@@ -4,12 +4,22 @@ import businessLogic.BlFacade;
 import domain.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import ui.MainGUI;
 
 public class UserViewController implements Controller{
 
+    @FXML
+    private Button addMoneyBtn;
+    @FXML
+    private Button placeBetBtn;
+    @FXML
+    private Label currentMoney;
+    @FXML
+    private Label statusLbl;
     @FXML
     private TextField quantityToAddField;
     @FXML
@@ -30,9 +40,8 @@ public class UserViewController implements Controller{
 
     @FXML
     public void initialize(){
-        System.out.println("Testing");
-        if(this.bl.getUser()!=null)
-        welcomeLbl.setText(welcomeLbl.getText()+" "+this.bl.getUser().getName());
+        this.addMoneyBtn.setDisable(true);
+
     }
 
     public void onClickClose(ActionEvent actionEvent) {
@@ -54,6 +63,29 @@ public class UserViewController implements Controller{
     }
 
     public void onAddMoneyBtn(ActionEvent actionEvent) {
+
+        String moneyQ = this.quantityToAddField.getText();
+
+        try {
+            double money = Double.valueOf(moneyQ);
+            if(money>0) {
+
+                this.bl.getUser().setMoney(this.bl.getUser().getMoney() + money);
+
+                this.currentMoney.setText(String.valueOf(this.bl.getUser().getMoney()));
+
+                this.statusLbl.setText("Correctly added!");
+
+                //Update in the database the user.
+
+                this.quantityToAddField.setText(null);
+            }
+        }catch (Exception e)
+        {
+            statusLbl.setText("Incorrect input!");
+        }
+
+
     }
 
     public void onPlaceBetBtn(ActionEvent actionEvent) {
@@ -61,6 +93,22 @@ public class UserViewController implements Controller{
     }
 
     public void setUser() {
-        lblCurrentUser.setText(bl.getUser().getUserName());
+        lblCurrentUser.setText(bl.getUser().getUserName()+"!");
+
+        currentMoney.setText(String.valueOf(bl.getUser().getMoney()));
+
+
+    }
+
+    public void onFocusInQField(MouseEvent mouseEvent) {
+
+        this.addMoneyBtn.setDisable(false);
+
+    }
+
+    public void onClickInMainPane(MouseEvent mouseEvent) {
+
+        this.addMoneyBtn.setDisable(true);
+
     }
 }

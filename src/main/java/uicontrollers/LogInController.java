@@ -90,6 +90,7 @@ public class LogInController implements Controller{
 
     public void onCloseBtn(ActionEvent actionEvent) {
         maingui.showMain();
+        this.businessLogic.setUser(null);
     }
 
     @Override

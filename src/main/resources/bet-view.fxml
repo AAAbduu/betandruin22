@@ -41,10 +41,12 @@
       </TableView>
       <Label layoutX="66.0" layoutY="641.0" text="%avMoney" />
       <Label layoutX="66.0" layoutY="727.0" text="%Bet" />
-      <TextField fx:id="amountBetField" layoutX="117.0" layoutY="723.0" />
+      <TextField fx:id="amountBetField" layoutX="117.0" layoutY="723.0" onKeyReleased="#onChangingInputRelease" />
       <Label fx:id="statusLbl" layoutX="87.0" layoutY="770.0" wrapText="true" />
       <Label layoutX="402.0" layoutY="727.0" text="%calcRate" />
       <Button fx:id="backBtn" layoutX="223.0" layoutY="798.0" mnemonicParsing="false" onAction="#onBackBtn" text="%Back" />
       <Button fx:id="betBtn" defaultButton="true" layoutX="433.0" layoutY="798.0" mnemonicParsing="false" onAction="#onBetBtn" text="%Bet" />
+      <Label fx:id="availableMoney" layoutX="197.0" layoutY="641.0" prefHeight="17.0" />
+      <Label fx:id="calculatedAmountWin" layoutX="519.0" layoutY="728.0" textFill="#00ff40" />
    </children>
 </AnchorPane>

@@ -120,7 +120,7 @@ public class MainGUI {
     createFeeLag = load("/SetFee-view.fxml");
     betLag = load("/bet-view.fxml");
 
-    showMain();
+    showLogin();
 
   }
 
@@ -157,10 +157,13 @@ public class MainGUI {
 
   public void showUserView() {
     ((UserViewController)userViewLag.c).setUser();
-    setupScene(userViewLag.ui, "MainTitle", 625, 400);
+    setupScene(userViewLag.ui, "MainTitle", 615, 550);
   }
 
-  public void showBetView() { setupScene(betLag.ui, "Bet", 750, 865);}
+  public void showBetView() {
+    ((betController)betLag.c).setUser();
+    setupScene(betLag.ui, "Bet", 750, 865);
+  }
 
   public void showCreateEventView() { setupScene(createRemoveEventLag.ui, "CreateEvent", 700, 610);}
 

@@ -19,8 +19,8 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <TextField fx:id="usernameTxtField" layoutX="150.0" layoutY="143.0" text="admin" />
-      <PasswordField fx:id="psswdField" layoutX="150.0" layoutY="226.0" text="admin" />
+      <TextField fx:id="usernameTxtField" layoutX="150.0" layoutY="143.0" text="abdu" />
+      <PasswordField fx:id="psswdField" layoutX="150.0" layoutY="226.0" text="abdu" />
       <Label layoutX="92.0" layoutY="46.0" text="%WelcomeMsg">
          <font>
             <Font size="25.0" />
