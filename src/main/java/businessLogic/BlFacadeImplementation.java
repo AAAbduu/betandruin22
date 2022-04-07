@@ -9,6 +9,7 @@ import javax.jws.WebService;
 
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
+import domain.Bet;
 import domain.Event;
 import domain.Question;
 import domain.User;
@@ -192,6 +193,22 @@ public class BlFacadeImplementation implements BlFacade {
 	@Override
 	public User getUser() {
 		return currentUser;
+	}
+
+	@Override
+	public void setBet(Bet bet) {
+		dbManager.open(false);
+		dbManager.setBet(bet);
+		dbManager.close();
+	}
+
+	@Override
+	public void updateUser(User user) {
+
+		dbManager.open(false);
+		dbManager.updateUser(user);
+		dbManager.close();
+
 	}
 
 

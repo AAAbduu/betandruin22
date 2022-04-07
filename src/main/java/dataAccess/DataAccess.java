@@ -18,6 +18,7 @@ import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import configuration.UtilDate;
+import domain.Bet;
 import domain.Event;
 import domain.Question;
 import domain.User;
@@ -382,5 +383,19 @@ public class DataAccess  {
 	}
 
 
+	public void setBet(Bet bet) {
 
+		db.getTransaction().begin();
+		db.persist(bet);
+		db.getTransaction().commit();
+
+	}
+
+	public void updateUser(User user) {
+
+		db.getTransaction().begin();
+		db.merge(user);
+		db.getTransaction().commit();
+
+	}
 }

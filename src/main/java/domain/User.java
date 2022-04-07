@@ -1,7 +1,9 @@
 package domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -20,6 +22,16 @@ public class User {
     private Date birthDate;
     private double money = 0;
 
+    public List<Bet> getBets() {
+        return bets;
+    }
+
+    public void setBets(List<Bet> bets) {
+        this.bets = bets;
+    }
+
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private List<Bet> bets;
 
 
     public User(String userName, String password, String name, String lastName, String email, Date birthDate) {
@@ -29,6 +41,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.birthDate = birthDate;
+        bets = new ArrayList<>();
     }
 
     public double getMoney() {
@@ -132,4 +145,9 @@ public class User {
         this.birthDate = birthDate;
     }
 
+    public void addBet(Bet bet) {
+
+        this.bets.add(bet);
+
+    }
 }

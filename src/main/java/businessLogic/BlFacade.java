@@ -6,6 +6,7 @@ import java.util.Vector;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import domain.Bet;
 import domain.Event;
 import domain.Question;
 import domain.User;
@@ -97,4 +98,7 @@ public interface BlFacade  {
 
 	User getUser();
 
+    void setBet(Bet bet);
+
+	void updateUser(User user);
 }

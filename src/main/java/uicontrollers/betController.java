@@ -1,6 +1,7 @@
 package uicontrollers;
 
 import businessLogic.BlFacade;
+import domain.Bet;
 import domain.Event;
 import domain.Fee;
 import domain.Question;
@@ -66,6 +67,36 @@ public class betController implements Controller{
     }
 
     public void onBetBtn(ActionEvent actionEvent) {
+
+        try {
+            double amount = Double.valueOf(this.amountBetField.getText());
+            if(amount>this.businessLogic.getUser().getMoney()){
+                this.statusLbl.setText("You dont have enough money!");
+            }else{
+
+                Fee fee = this.feeTableView.getSelectionModel().getSelectedItem();
+                Question question = this.questionTableView.getSelectionModel().getSelectedItem();
+                Event event = this.eventTableView.getSelectionModel().getSelectedItem();
+                double calculatedAmount = amount*fee.getFee();
+
+                Bet bet = new Bet(this.businessLogic.getUser(),amount,calculatedAmount,fee,question,event);
+
+                this.businessLogic.getUser().addBet(bet);
+
+                this.businessLogic.getUser().setMoney(this.businessLogic.getUser().getMoney()-amount);
+
+                this.businessLogic.updateUser(this.businessLogic.getUser());
+
+                this.businessLogic.setBet(bet);
+
+                this.statusLbl.setText("Bet placed correctly!");
+
+                this.availableMoney.setText(String.valueOf(this.businessLogic.getUser().getMoney()));
+
+            }
+        }catch (Exception e){
+                e.printStackTrace();
+        }
     }
 
 
@@ -85,10 +116,6 @@ public class betController implements Controller{
     }
     @FXML
     void initialize() {
-
-
-
-
 
 
         events = FXCollections.observableArrayList();
@@ -213,8 +240,6 @@ public class betController implements Controller{
         Fee fee = this.feeTableView.getSelectionModel().getSelectedItem();
         if(fee!=null) {
             this.amountBetField.setDisable(false);
-            this.betBtn.setDisable(false);
-
 
         }
     }
@@ -233,11 +258,11 @@ public class betController implements Controller{
         Fee fee = this.feeTableView.getSelectionModel().getSelectedItem();
         if(fee!=null) {
             this.amountBetField.setDisable(false);
-            this.betBtn.setDisable(false);
+
 
             if (this.amountBetField.getLength()==0) {
                 this.calculatedAmountWin.setTextFill(Color.rgb(43,233,0));
-
+                this.betBtn.setDisable(true);
                 this.calculatedAmountWin.setText("0.0");
                 return;
             }
@@ -245,11 +270,12 @@ public class betController implements Controller{
             try {
                 double calculatedWin = Double.valueOf(this.amountBetField.getText()) * fee.getFee();
                 this.calculatedAmountWin.setTextFill(Color.rgb(43,233,0));
-
+                this.betBtn.setDisable(false);
                 this.calculatedAmountWin.setText(String.valueOf(calculatedWin));
 
             }catch (Exception e){
                 this.calculatedAmountWin.setTextFill(Color.web("red"));
+                this.betBtn.setDisable(true);
                 this.calculatedAmountWin.setText("NAN");
 
             }

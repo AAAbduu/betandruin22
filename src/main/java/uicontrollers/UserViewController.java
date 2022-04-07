@@ -1,17 +1,23 @@
 package uicontrollers;
 
 import businessLogic.BlFacade;
+import domain.Bet;
 import domain.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import ui.MainGUI;
 
 public class UserViewController implements Controller{
 
+    public TableView currentBets;
+    public TableColumn amounBet;
+    public TableColumn eventDescription;
+    private ObservableList <Bet> currentBetsTable;
     @FXML
     private Button addMoneyBtn;
     @FXML
@@ -40,6 +46,8 @@ public class UserViewController implements Controller{
 
     @FXML
     public void initialize(){
+
+
         this.addMoneyBtn.setDisable(true);
 
     }
@@ -76,12 +84,13 @@ public class UserViewController implements Controller{
 
                 this.statusLbl.setText("Correctly added!");
 
-                //Update in the database the user.
+                this.bl.updateUser(this.bl.getUser());
 
                 this.quantityToAddField.setText(null);
             }
         }catch (Exception e)
         {
+            e.printStackTrace();
             statusLbl.setText("Incorrect input!");
         }
 
@@ -94,6 +103,15 @@ public class UserViewController implements Controller{
 
     public void setUser() {
         lblCurrentUser.setText(bl.getUser().getUserName()+"!");
+
+        currentBetsTable = FXCollections.observableArrayList();
+
+        this.amounBet.setCellValueFactory(new PropertyValueFactory<>("calculatedAmount"));
+        this.eventDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        if(currentBets.getItems()!=null) currentBets.getItems().clear();
+
+        currentBets.getItems().addAll(this.bl.getUser().getBets());
 
         currentMoney.setText(String.valueOf(bl.getUser().getMoney()));
 

@@ -146,6 +146,7 @@ public class SetFeeController implements Controller{
 
         // when a date is selected...
         datePicker.setOnAction(actionEvent -> {
+            if(comboEvents.getItems()!=null)
             comboEvents.getItems().clear();
 
             oListEvents = FXCollections.observableArrayList(new ArrayList<>());
