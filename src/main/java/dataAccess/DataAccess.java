@@ -148,6 +148,9 @@ public class DataAccess  {
 			db.persist(ev19);
 			db.persist(ev20);
 
+
+			db.persist(new User("a", "a", "a", "a", "a", new Date()));
+
 			db.getTransaction().commit();
 			System.out.println("The database has been initialized");
 		}
@@ -386,7 +389,7 @@ public class DataAccess  {
 	public void setBet(Bet bet) {
 
 		db.getTransaction().begin();
-		db.persist(bet);
+		db.merge(bet);
 		db.getTransaction().commit();
 
 	}
@@ -398,4 +401,30 @@ public class DataAccess  {
 		db.getTransaction().commit();
 
 	}
+
+    public void removeEvent(Event event) {
+
+		db.getTransaction().begin();
+		Object detached = db.merge(event);
+		TypedQuery<Bet> query = db.createQuery("SELECT e FROM Bet e WHERE e.event = ?1", Bet.class);
+		query.setParameter(1,event);
+		TypedQuery<User> queryUser = db.createQuery("SELECT e FROM User e " , User.class);
+
+		List <Bet> bets = query.getResultList();
+
+		for(Bet b: bets){
+			//queryUser.setParameter(1,b);
+			List <User> users = queryUser.getResultList();
+			for(User u : users){
+				u.removeBet(b);
+				u.setMoney(u.getMoney()+b.getAmountBet());
+				db.refresh(u);
+			}
+			db.remove(b);
+		}
+		db.remove(detached);
+
+		db.getTransaction().commit();
+
+    }
 }

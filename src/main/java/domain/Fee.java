@@ -9,6 +9,8 @@ public class Fee {
     @GeneratedValue
     private Integer feeNumber;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Question question;
 
     private String result;
     private double fee;

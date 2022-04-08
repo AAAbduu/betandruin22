@@ -88,7 +88,7 @@ public class betController implements Controller{
 
                 this.businessLogic.updateUser(this.businessLogic.getUser());
 
-                this.businessLogic.setBet(bet);
+                //this.businessLogic.setBet(bet);
 
                 this.statusLbl.setText("Bet placed correctly!");
 

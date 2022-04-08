@@ -1,8 +1,6 @@
 package domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Bet {
@@ -15,8 +13,12 @@ public class Bet {
     private double amountBet;
     private double calculatedAmount;
     private Fee fee;
+
+
     private Question question;
     private String description;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Event event;
 
     public Question getQuestion() {

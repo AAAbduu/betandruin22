@@ -157,7 +157,7 @@ public class MainGUI {
 
   public void showUserView() {
     ((UserViewController)userViewLag.c).setUser();
-    setupScene(userViewLag.ui, "MainTitle", 615, 550);
+    setupScene(userViewLag.ui, "MainTitle", 615, 650);
   }
 
   public void showBetView() {

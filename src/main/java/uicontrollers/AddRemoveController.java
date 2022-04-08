@@ -28,7 +28,7 @@ import java.util.Vector;
 
 public class AddRemoveController implements Controller {
 
-    public TableView eventTableView;
+    public TableView<Event> eventTableView;
     public TableColumn idColumn;
     public TableColumn eventColumn;
     public Button addEventBtn;
@@ -95,6 +95,14 @@ public class AddRemoveController implements Controller {
     }
 
     public void onRemoveEventBtn(ActionEvent actionEvent) {
+
+        Event event = this.eventTableView.getSelectionModel().getSelectedItem();
+
+        this.businessLogic.removeEvent(event);
+
+        this.eventTableView.getItems().remove(event);
+
+
     }
 
     public void onAddEventCancelBtn(ActionEvent actionEvent) {
@@ -128,7 +136,6 @@ public class AddRemoveController implements Controller {
         this.removeEventBtn.setDisable(true);
         this.addEventPane.setVisible(false);
 
-        //setupEventSelection();
 
         setEventsPrePost(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue());
 
@@ -169,14 +176,6 @@ public class AddRemoveController implements Controller {
             }
         });
 
-        // a date has been chosen, update the combobox of Events
-       /* datepicker.setOnAction(actionEvent -> {
-            tblEvents.getItems().clear();
-            Vector<Event> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
-            for (domain.Event ev : events) {
-                tblEvents.getItems().add(ev);
-            }
-        });*/
 
         // Bind columns to Event attributes
         this.idColumn.setCellValueFactory(new PropertyValueFactory<>("eventNumber"));
@@ -213,6 +212,12 @@ public class AddRemoveController implements Controller {
         Vector <Event> events = businessLogic.getEvents(sDate);
 
         this.eventTableView.getItems().addAll(events);
+
+    }
+
+    public void onMouseClickInTable(MouseEvent mouseEvent) {
+
+        this.removeEventBtn.setDisable(false);
 
     }
 }

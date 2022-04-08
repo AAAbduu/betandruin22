@@ -211,5 +211,12 @@ public class BlFacadeImplementation implements BlFacade {
 
 	}
 
+	@Override
+	public void removeEvent(Event event) {
+		dbManager.open(false);
+		dbManager.removeEvent(event);
+		dbManager.close();
+	}
+
 
 }

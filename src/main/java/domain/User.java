@@ -30,7 +30,7 @@ public class User {
         this.bets = bets;
     }
 
-    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Bet> bets;
 
 
@@ -148,6 +148,12 @@ public class User {
     public void addBet(Bet bet) {
 
         this.bets.add(bet);
+
+    }
+
+    public void removeBet(Bet b) {
+
+        this.bets.remove(b);
 
     }
 }

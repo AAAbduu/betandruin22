@@ -101,4 +101,6 @@ public interface BlFacade  {
     void setBet(Bet bet);
 
 	void updateUser(User user);
+
+    void removeEvent(Event event);
 }

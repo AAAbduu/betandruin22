@@ -22,7 +22,7 @@
       </Label>
       <Pane fx:id="eventPane" layoutX="399.0" layoutY="209.0" prefHeight="273.0" prefWidth="218.0">
          <children>
-            <TableView fx:id="eventTableView" prefHeight="200.0" prefWidth="218.0">
+            <TableView fx:id="eventTableView" onMouseClicked="#onMouseClickInTable" prefHeight="200.0" prefWidth="218.0">
               <columns>
                 <TableColumn fx:id="idColumn" prefWidth="40.0" resizable="false" text="Id" />
                 <TableColumn fx:id="eventColumn" prefWidth="176.0" resizable="false" text="%Event" />

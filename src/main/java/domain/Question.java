@@ -28,7 +28,7 @@ public class Question implements Serializable {
 
 	@XmlIDREF
 	private Event event;
-	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Vector<Fee> fees = new Vector<Fee>();
 
 
