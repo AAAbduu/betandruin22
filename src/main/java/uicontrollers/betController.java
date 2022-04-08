@@ -72,6 +72,7 @@ public class betController implements Controller{
             double amount = Double.valueOf(this.amountBetField.getText());
             if(amount>this.businessLogic.getUser().getMoney()){
                 this.statusLbl.setText("You dont have enough money!");
+                return;
             }else{
 
                 Fee fee = this.feeTableView.getSelectionModel().getSelectedItem();

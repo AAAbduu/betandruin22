@@ -3,6 +3,7 @@ package uicontrollers;
 import businessLogic.BlFacade;
 import domain.Bet;
 import domain.User;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,7 +15,7 @@ import ui.MainGUI;
 
 public class UserViewController implements Controller{
 
-    public TableView currentBets;
+    public TableView<Bet> currentBets;
     public TableColumn amounBet;
     public TableColumn eventDescription;
     private ObservableList <Bet> currentBetsTable;
@@ -111,6 +112,37 @@ public class UserViewController implements Controller{
 
         if(currentBets.getItems()!=null) currentBets.getItems().clear();
 
+
+
+
+        this.eventDescription.setCellFactory
+                (
+                        column ->
+                        {
+                            return new TableCell<Bet, String>() {
+                                @Override
+                                protected void updateItem(String item, boolean empty) {
+                                    super.updateItem(item, empty);
+                                    setText(item);
+
+                                    this.setOnMouseEntered(e -> {
+                                        TableCell<Bet, String> cell = (TableCell<Bet, String>) e.getPickResult().getIntersectedNode();
+                                        try {
+                                            setTooltip(new Tooltip("Event: " + super.getTableView().getItems().get(cell.getIndex()).getDescription()
+                                                    + "\nQuestion: " + super.getTableView().getItems().get(cell.getIndex()).getQuestion().getQuestion()
+                                                    + "\nPrediction: " + super.getTableView().getItems().get(cell.getIndex()).getFee().getResult()
+                                                    + "\nFee: " + super.getTableView().getItems().get(cell.getIndex()).getFee().getFee()
+                                                    + "\nBet:" + super.getTableView().getItems().get(cell.getIndex()).getAmountBet()));
+                                        }catch(Exception o){
+
+                                        }
+                                    });
+
+
+                                }
+                            };
+                        });
+
         currentBets.getItems().addAll(this.bl.getUser().getBets());
 
         currentMoney.setText(String.valueOf(bl.getUser().getMoney()));
@@ -129,4 +161,26 @@ public class UserViewController implements Controller{
         this.addMoneyBtn.setDisable(true);
 
     }
+
+
+
+    public static class HoverCell extends TableCell<Bet, String> {
+
+        public HoverCell(StringProperty hoverProperty) {
+            setOnMouseEntered(e -> hoverProperty.set(getItem()));
+            setOnMouseExited(e -> hoverProperty.set(null));
+        }
+
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            setText(item);
+            setTooltip(new Tooltip("Event: " + super.getTableView().getSelectionModel().getSelectedItem().getDescription()
+                    + "\nQuestion: " + super.getTableView().getItems().get(0).getQuestion().getQuestion()
+                    + "\nPrediction: " + super.getTableView().getItems().get(0).getFee().getResult()
+                    + "\nFee: " + super.getTableView().getItems().get(0).getFee().getFee()
+                    + "\nBet:" + super.getTableView().getItems().get(0).getAmountBet()));
+        }
+    }
+
 }
