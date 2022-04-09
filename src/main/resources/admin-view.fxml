@@ -2,24 +2,31 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.AdminViewController">
    <children>
-      <Label fx:id="welcomeLbl" layoutX="151.0" layoutY="44.0" text="WELCOME ADMIN">
+      <Label fx:id="welcomeLbl" layoutX="148.0" layoutY="110.0" text="%WelcomeAdmin">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
-      <Button fx:id="createNEventBtn" layoutX="80.0" layoutY="137.0" mnemonicParsing="false" onAction="#onCreateEBtn" text="%CreateNewEvent" />
-      <Button fx:id="setFeeBtn" layoutX="458.0" layoutY="150.0" mnemonicParsing="false" onAction="#onSetFeeBtn" text="%SetFee" />
-      <Button fx:id="brwseQBtn" layoutX="80.0" layoutY="200.0" mnemonicParsing="false" onAction="#onBrowseQBtn" text="%BrowseQuestions" />
-      <Button fx:id="createQBtn" layoutX="418.0" layoutY="200.0" mnemonicParsing="false" onAction="#onCreateQBtn" text="%CreateNewQuestions" />
+      <Button fx:id="createNEventBtn" layoutX="58.0" layoutY="203.0" mnemonicParsing="false" onAction="#onCreateEBtn" text="%CreateNewEvent" />
+      <Button fx:id="setFeeBtn" layoutX="436.0" layoutY="216.0" mnemonicParsing="false" onAction="#onSetFeeBtn" text="%SetFee" />
+      <Button fx:id="brwseQBtn" layoutX="58.0" layoutY="266.0" mnemonicParsing="false" onAction="#onBrowseQBtn" text="%BrowseQuestions" />
+      <Button fx:id="createQBtn" layoutX="396.0" layoutY="266.0" mnemonicParsing="false" onAction="#onCreateQBtn" text="%CreateNewQuestions" />
       <Button fx:id="closeBtn" defaultButton="true" layoutX="272.0" layoutY="335.0" mnemonicParsing="false" onAction="#onCloseBtn" text="%Back">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
+      <ImageView fitHeight="86.0" fitWidth="146.0" layoutX="243.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

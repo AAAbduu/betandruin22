@@ -5,13 +5,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="405.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.BrowseQuestionsController">
     <children>
-        <DatePicker fx:id="datepicker" layoutX="24.0" layoutY="78.0" />
-        <Label layoutX="24.0" layoutY="49.0" text="%EventDate" />
-        <TableView fx:id="tblEvents" layoutX="232.0" layoutY="78.0" prefHeight="200.0" prefWidth="330.0">
+        <DatePicker fx:id="datepicker" layoutX="22.0" layoutY="106.0" />
+        <Label layoutX="22.0" layoutY="77.0" text="%EventDate" />
+        <TableView fx:id="tblEvents" layoutX="230.0" layoutY="106.0" prefHeight="200.0" prefWidth="330.0">
             <columns>
                 <TableColumn fx:id="ec1" maxWidth="200.0" minWidth="30.0" prefWidth="200.0" text="Id" />
                 <TableColumn fx:id="ec2" prefWidth="284.0" text="%Event" />
@@ -20,7 +22,7 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-        <TableView fx:id="tblQuestions" layoutX="580.0" layoutY="78.0" prefHeight="200.0" prefWidth="393.0">
+        <TableView fx:id="tblQuestions" layoutX="578.0" layoutY="106.0" prefHeight="200.0" prefWidth="393.0">
             <columns>
                 <TableColumn fx:id="qc1" prefWidth="39.0" text="%QuestionN" />
                 <TableColumn fx:id="qc2" prefWidth="352.0" text="%Question" />
@@ -29,9 +31,14 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-        <Label layoutX="232.0" layoutY="49.0" text="%Events" />
+        <Label layoutX="230.0" layoutY="77.0" text="%Events" />
         <Label layoutX="358.0" layoutY="49.0" text="  " />
-        <Label layoutX="576.0" layoutY="49.0" text="%SelectedEvent" />
-        <Button fx:id="btnClose" layoutX="535.0" layoutY="332.0" mnemonicParsing="false" onAction="#closeClick" text="%Back" />
+        <Label layoutX="574.0" layoutY="77.0" text="%SelectedEvent" />
+        <Button fx:id="btnClose" layoutX="533.0" layoutY="360.0" mnemonicParsing="false" onAction="#closeClick" text="%Back" />
+      <ImageView fitHeight="98.0" fitWidth="148.0" layoutX="431.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

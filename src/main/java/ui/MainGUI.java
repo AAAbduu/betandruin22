@@ -120,7 +120,7 @@ public class MainGUI {
     createFeeLag = load("/SetFee-view.fxml");
     betLag = load("/bet-view.fxml");
 
-    showLogin();
+    showMain();
 
   }
 
@@ -130,7 +130,7 @@ public class MainGUI {
 
 
   public void showMain(){
-    setupScene(mainLag.ui, "MainTitle", 320, 250);
+    setupScene(mainLag.ui, "MainTitle", 363, 282);
   }
 
   public void showRegister() {
@@ -142,7 +142,7 @@ public class MainGUI {
   }
 
   public void showBrowseQ() {
-    setupScene(browseQuestionsLag.ui, "BrowseQuestions", 996, 400);
+    setupScene(browseQuestionsLag.ui, "BrowseQuestions", 996, 420);
   }
 
   public void showCreateQ() {
@@ -150,7 +150,7 @@ public class MainGUI {
   }
 
   public void showCreateFee() {
-    setupScene(createFeeLag.ui, "CreateFee", 650, 400);
+    setupScene(createFeeLag.ui, "CreateFee", 650, 430);
   }
 
   public void showAdminView() { setupScene(adminViewLag.ui, "Admin", 625, 400);}

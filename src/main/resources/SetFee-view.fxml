@@ -5,22 +5,29 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.SetFeeController">
    <children>
-      <DatePicker fx:id="datePicker" layoutX="53.0" layoutY="85.0" />
-      <Label layoutX="53.0" layoutY="60.0" text="%EventDate" />
-      <Label layoutX="328.0" layoutY="60.0" text="%ListEvents" />
-      <ComboBox fx:id="comboEvents" layoutX="326.0" layoutY="86.0" prefWidth="150.0" />
-      <Label layoutX="64.0" layoutY="226.0" text="%Result" />
-      <Label layoutX="67.0" layoutY="266.0" text="%Fee" />
-      <TextField fx:id="txtResult" layoutX="137.0" layoutY="222.0" prefHeight="26.0" prefWidth="168.0" />
-      <TextField fx:id="txtFee" layoutX="137.0" layoutY="262.0" prefHeight="26.0" prefWidth="106.0" />
-      <Button fx:id="btnSetFee" defaultButton="true" layoutX="297.0" layoutY="328.0" mnemonicParsing="false" onAction="#onSetFeeBtn" prefHeight="26.0" prefWidth="130.0" text="%SetFee" />
-      <Button layoutX="146.0" layoutY="328.0" mnemonicParsing="false" onAction="#closeClick" prefHeight="26.0" prefWidth="88.0" text="%Back" />
-      <Label layoutX="54.0" layoutY="141.0" text="%ListQuestions" />
-      <ComboBox fx:id="comboQuestions" layoutX="52.0" layoutY="167.0" prefWidth="150.0" />
+      <DatePicker fx:id="datePicker" layoutX="75.0" layoutY="117.0" />
+      <Label layoutX="75.0" layoutY="92.0" text="%EventDate" />
+      <Label layoutX="350.0" layoutY="92.0" text="%ListEvents" />
+      <ComboBox fx:id="comboEvents" layoutX="348.0" layoutY="118.0" prefWidth="150.0" />
+      <Label layoutX="86.0" layoutY="258.0" text="%Result" />
+      <Label layoutX="89.0" layoutY="298.0" text="%Fee" />
+      <TextField fx:id="txtResult" layoutX="159.0" layoutY="254.0" prefHeight="26.0" prefWidth="168.0" />
+      <TextField fx:id="txtFee" layoutX="159.0" layoutY="294.0" prefHeight="26.0" prefWidth="106.0" />
+      <Button fx:id="btnSetFee" defaultButton="true" layoutX="319.0" layoutY="360.0" mnemonicParsing="false" onAction="#onSetFeeBtn" prefHeight="26.0" prefWidth="130.0" text="%SetFee" />
+      <Button layoutX="168.0" layoutY="360.0" mnemonicParsing="false" onAction="#closeClick" prefHeight="26.0" prefWidth="88.0" text="%Back" />
+      <Label layoutX="76.0" layoutY="173.0" text="%ListQuestions" />
+      <ComboBox fx:id="comboQuestions" layoutX="74.0" layoutY="199.0" prefWidth="150.0" />
       <Label fx:id="statusLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="298.0" wrapText="true" />
+      <ImageView fitHeight="104.0" fitWidth="130.0" layoutX="224.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -5,6 +5,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -13,7 +15,7 @@
    <children>
       <Button fx:id="closeBtn" defaultButton="true" layoutX="273.0" layoutY="573.0" mnemonicParsing="false" onAction="#onClickClose" text="%Back" />
       <Button fx:id="brwseQBtn" layoutX="417.0" layoutY="187.0" mnemonicParsing="false" onAction="#onClickBrwseQ" text="%BrowseQuestions" />
-      <Label fx:id="welcomeLbl" layoutX="150.0" layoutY="35.0" text="%Welcome">
+      <Label fx:id="welcomeLbl" layoutX="155.0" layoutY="97.0" text="%Welcome">
          <font>
             <Font size="37.0" />
          </font>
@@ -30,7 +32,7 @@
          </children>
       </Pane>
       <Button fx:id="placeBetBtn" layoutX="442.0" layoutY="246.0" mnemonicParsing="false" onAction="#onPlaceBetBtn" text="%placeBet" />
-      <Label fx:id="lblCurrentUser" layoutX="335.0" layoutY="35.0" text="  ">
+      <Label fx:id="lblCurrentUser" layoutX="350.0" layoutY="97.0" text="  ">
          <font>
             <Font name="System Bold" size="37.0" />
          </font></Label>
@@ -40,5 +42,10 @@
           <TableColumn fx:id="eventDescription" prefWidth="143.0" resizable="false" text="EventDescription" />
         </columns>
       </TableView>
+      <ImageView fitHeight="107.0" fitWidth="138.0" layoutX="231.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
