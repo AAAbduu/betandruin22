@@ -18,7 +18,7 @@
       <Label layoutX="86.0" layoutY="258.0" text="%Result" />
       <Label layoutX="89.0" layoutY="298.0" text="%Fee" />
       <TextField fx:id="txtResult" layoutX="159.0" layoutY="254.0" prefHeight="26.0" prefWidth="168.0" />
-      <TextField fx:id="txtFee" layoutX="159.0" layoutY="294.0" prefHeight="26.0" prefWidth="106.0" />
+      <TextField fx:id="txtFee" layoutX="159.0" layoutY="294.0" onKeyPressed="#onInputFee" prefHeight="26.0" prefWidth="106.0" />
       <Button fx:id="btnSetFee" defaultButton="true" layoutX="319.0" layoutY="360.0" mnemonicParsing="false" onAction="#onSetFeeBtn" prefHeight="26.0" prefWidth="130.0" text="%SetFee" />
       <Button layoutX="168.0" layoutY="360.0" mnemonicParsing="false" onAction="#closeClick" prefHeight="26.0" prefWidth="88.0" text="%Back" />
       <Label layoutX="76.0" layoutY="173.0" text="%ListQuestions" />

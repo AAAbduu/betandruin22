@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.skin.DatePickerSkin;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 import ui.MainGUI;
 import utils.Dates;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class SetFeeController implements Controller{
+    public Button btnSetFee;
     @FXML
     private Label statusLbl;
     @FXML
@@ -92,6 +94,7 @@ public class SetFeeController implements Controller{
     void initialize() {
 
 
+        this.btnSetFee.setDisable(true);
         // only show the text of the event in the combobox (without the id)
         Callback<ListView<Event>, ListCell<Event>> factory = lv -> new ListCell<>() {
             @Override
@@ -148,12 +151,16 @@ public class SetFeeController implements Controller{
         datePicker.setOnAction(actionEvent -> {
             if(comboEvents.getItems()!=null)
             comboEvents.getItems().clear();
+            try {
 
-            oListEvents = FXCollections.observableArrayList(new ArrayList<>());
-            oListEvents.setAll(businessLogic.getEvents(Dates.convertToDate(datePicker.getValue())));
 
-            comboEvents.setItems(oListEvents);
+                oListEvents = FXCollections.observableArrayList(new ArrayList<>());
+                oListEvents.setAll(businessLogic.getEvents(Dates.convertToDate(datePicker.getValue())));
 
+                comboEvents.setItems(oListEvents);
+            }catch(Exception e){
+
+            }
         });
         comboEvents.setOnAction(actionEvent -> {
                     Event event = comboEvents.getSelectionModel().getSelectedItem();
@@ -199,6 +206,16 @@ public class SetFeeController implements Controller{
         }else{
             statusLbl.setText("Result cannot be empty");
         }
+    }
+
+    public void onInputFee(KeyEvent keyEvent) {
+
+        if((txtFee.getLength()>0)){
+            this.btnSetFee.setDisable(false);
+        }else if(txtFee.getLength()==0){
+            this.btnSetFee.setDisable(true);
+        }
+
     }
 }
 
