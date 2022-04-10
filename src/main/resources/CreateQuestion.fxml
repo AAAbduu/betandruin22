@@ -17,10 +17,10 @@
       <Label layoutX="329.0" layoutY="104.0" text="%ListEvents" />
       <ComboBox fx:id="comboEvents" layoutX="327.0" layoutY="130.0" prefWidth="150.0" />
       <Label layoutX="75.0" layoutY="243.0" text="%Question" />
-      <Label layoutX="14.0" layoutY="283.0" text="%MinimumBetPrice" />
+      <Label layoutX="45.0" layoutY="283.0" text="%MinimumBetPrice" />
       <TextField fx:id="txtQuestion" layoutX="169.0" layoutY="240.0" prefHeight="26.0" prefWidth="359.0" />
       <TextField fx:id="txtMinBet" layoutX="169.0" layoutY="281.0" prefHeight="26.0" prefWidth="106.0" />
-      <Button fx:id="btnCreateQuestion" layoutX="121.0" layoutY="337.0" mnemonicParsing="false" onAction="#createQuestionClick" prefHeight="26.0" prefWidth="130.0" text="%CreateQuestion">
+      <Button fx:id="btnCreateQuestion" layoutX="121.0" layoutY="337.0" mnemonicParsing="false" onAction="#createQuestionClick" prefHeight="26.0" prefWidth="130.0" text="%CreateQuestion" wrapText="true">
          <graphic>
             <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="48.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
          </graphic></Button>
