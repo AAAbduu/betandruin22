@@ -9,7 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="405.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.BrowseQuestionsController">
+<AnchorPane prefHeight="405.0" prefWidth="992.0" stylesheets="@css/basicStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.BrowseQuestionsController">
     <children>
         <DatePicker fx:id="datepicker" layoutX="22.0" layoutY="106.0" />
         <Label layoutX="22.0" layoutY="77.0" text="%EventDate" />
@@ -24,8 +24,8 @@
         </TableView>
         <TableView fx:id="tblQuestions" layoutX="578.0" layoutY="106.0" prefHeight="200.0" prefWidth="393.0">
             <columns>
-                <TableColumn fx:id="qc1" prefWidth="39.0" text="%QuestionN" />
-                <TableColumn fx:id="qc2" prefWidth="352.0" text="%Question" />
+                <TableColumn fx:id="qc1" prefWidth="136.0" text="%QuestionN" />
+                <TableColumn fx:id="qc2" prefWidth="255.0" text="%Question" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
