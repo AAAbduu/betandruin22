@@ -416,11 +416,10 @@ public class DataAccess  {
 			//queryUser.setParameter(1,b);
 			List <User> users = queryUser.getResultList();
 			for(User u : users) {
-				if (u.getBets().contains(b)) {
 					u.removeBet(b);
 					u.setMoney(u.getMoney() + b.getAmountBet());
 					db.refresh(u);
-				}
+
 			}
 			db.remove(b);
 		}

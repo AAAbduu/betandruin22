@@ -93,8 +93,6 @@ public class SetFeeController implements Controller{
     @FXML
     void initialize() {
 
-
-        this.btnSetFee.setDisable(true);
         // only show the text of the event in the combobox (without the id)
         Callback<ListView<Event>, ListCell<Event>> factory = lv -> new ListCell<>() {
             @Override
@@ -208,14 +206,6 @@ public class SetFeeController implements Controller{
         }
     }
 
-    public void onInputFee(KeyEvent keyEvent) {
 
-        if((txtFee.getLength()>0)){
-            this.btnSetFee.setDisable(false);
-        }else if(txtFee.getLength()==0){
-            this.btnSetFee.setDisable(true);
-        }
-
-    }
 }
 

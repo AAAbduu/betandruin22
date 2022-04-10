@@ -7,6 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <Pane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="401.0" stylesheets="@css/basicStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.LogInController">
@@ -23,13 +24,19 @@
       </Label>
       <TextField fx:id="usernameTxtField" layoutX="150.0" layoutY="143.0" text="a" />
       <PasswordField fx:id="psswdField" layoutX="150.0" layoutY="226.0" text="a" />
-      <Label layoutX="93.0" layoutY="84.0" text="%WelcomeMsg">
+      <Label id="title" layoutX="93.0" layoutY="84.0" text="%WelcomeMsg">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="loginBtn" defaultButton="true" layoutX="230.0" layoutY="321.0" mnemonicParsing="false" onAction="#onLoginBtn" prefWidth="87.0" text="%Login" wrapText="true" />
-      <Button fx:id="closeBtn" layoutX="111.0" layoutY="321.0" mnemonicParsing="false" onAction="#onCloseBtn" text="%Back" />
+      <Button fx:id="loginBtn" defaultButton="true" layoutX="230.0" layoutY="321.0" mnemonicParsing="false" onAction="#onLoginBtn" prefWidth="87.0" text="%Login" wrapText="true">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="48.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
+      <Button fx:id="closeBtn" layoutX="111.0" layoutY="321.0" mnemonicParsing="false" onAction="#onCloseBtn" text="%Back">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="48.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
       <Label fx:id="statusLbl" layoutX="61.0" layoutY="283.0" wrapText="true" />
       <ImageView fitHeight="93.0" fitWidth="127.0" layoutX="139.0" pickOnBounds="true" preserveRatio="true">
          <image>

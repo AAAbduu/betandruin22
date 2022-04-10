@@ -8,10 +8,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane prefHeight="405.0" prefWidth="992.0" stylesheets="@css/basicStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.BrowseQuestionsController">
     <children>
-        <DatePicker fx:id="datepicker" layoutX="22.0" layoutY="106.0" />
+        <DatePicker id="datepicker" fx:id="datepicker" layoutX="22.0" layoutY="106.0" />
         <Label layoutX="22.0" layoutY="77.0" text="%EventDate" />
         <TableView fx:id="tblEvents" layoutX="230.0" layoutY="106.0" prefHeight="200.0" prefWidth="330.0">
             <columns>
@@ -34,7 +35,10 @@
         <Label layoutX="230.0" layoutY="77.0" text="%Events" />
         <Label layoutX="358.0" layoutY="49.0" text="  " />
         <Label layoutX="574.0" layoutY="77.0" text="%SelectedEvent" />
-        <Button fx:id="btnClose" layoutX="533.0" layoutY="360.0" mnemonicParsing="false" onAction="#closeClick" text="%Back" />
+        <Button fx:id="btnClose" layoutX="496.0" layoutY="360.0" mnemonicParsing="false" onAction="#closeClick" text="%Back">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="48.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
       <ImageView fitHeight="98.0" fitWidth="148.0" layoutX="431.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@logo.png" />

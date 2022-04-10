@@ -5,23 +5,39 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/basicStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.AdminViewController">
    <children>
-      <Label fx:id="welcomeLbl" layoutX="148.0" layoutY="110.0" text="%WelcomeAdmin">
+      <Label id="title" fx:id="welcomeLbl" layoutX="220.0" layoutY="110.0" text="%WelcomeAdmin">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
-      <Button fx:id="createNEventBtn" layoutX="58.0" layoutY="203.0" mnemonicParsing="false" onAction="#onCreateEBtn" text="%CreateNewEvent" />
-      <Button fx:id="setFeeBtn" layoutX="436.0" layoutY="216.0" mnemonicParsing="false" onAction="#onSetFeeBtn" text="%SetFee" />
-      <Button fx:id="brwseQBtn" layoutX="58.0" layoutY="266.0" mnemonicParsing="false" onAction="#onBrowseQBtn" text="%BrowseQuestions" />
-      <Button fx:id="createQBtn" layoutX="396.0" layoutY="266.0" mnemonicParsing="false" onAction="#onCreateQBtn" text="%CreateNewQuestions" />
+      <Button fx:id="createNEventBtn" layoutX="58.0" layoutY="203.0" mnemonicParsing="false" onAction="#onCreateEBtn" text="%CreateNewEvent">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="50.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
+      <Button fx:id="setFeeBtn" layoutX="436.0" layoutY="219.0" mnemonicParsing="false" onAction="#onSetFeeBtn" text="%SetFee">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="50.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
+      <Button fx:id="brwseQBtn" layoutX="58.0" layoutY="266.0" mnemonicParsing="false" onAction="#onBrowseQBtn" text="%BrowseQuestions">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="50.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
+      <Button fx:id="createQBtn" layoutX="396.0" layoutY="266.0" mnemonicParsing="false" onAction="#onCreateQBtn" text="%CreateNewQuestions">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="50.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
       <Button fx:id="closeBtn" defaultButton="true" layoutX="272.0" layoutY="335.0" mnemonicParsing="false" onAction="#onCloseBtn" text="%Back">
          <font>
             <Font size="15.0" />
          </font>
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="50.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic>
       </Button>
       <ImageView fitHeight="86.0" fitWidth="146.0" layoutX="243.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>

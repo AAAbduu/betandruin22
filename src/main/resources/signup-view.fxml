@@ -9,6 +9,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <Pane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="742.0" prefWidth="416.0" stylesheets="@css/basicStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.SignUpController">
@@ -25,12 +26,15 @@
       </Label>
       <TextField fx:id="usernameTxtField" layoutX="162.0" layoutY="357.0" />
       <PasswordField fx:id="psswdField" layoutX="161.0" layoutY="413.0" />
-      <Label layoutX="113.0" layoutY="94.0" text="%WelcomeMsg">
+      <Label id="title" layoutX="113.0" layoutY="94.0" text="%WelcomeMsg">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="signupBtn" defaultButton="true" layoutX="292.0" layoutY="660.0" mnemonicParsing="false" onAction="#onSignupBtn" text="%Register" />
+      <Button fx:id="signupBtn" defaultButton="true" layoutX="292.0" layoutY="660.0" mnemonicParsing="false" onAction="#onSignupBtn" text="%Register">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="48.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
       <Label fx:id="nameLbl" layoutX="60.0" layoutY="154.0" text="%Name">
          <font>
             <Font size="17.0" />
@@ -54,10 +58,13 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dateOfBPicker" layoutX="162.0" layoutY="306.0" prefHeight="11.0" prefWidth="159.0" />
+      <DatePicker id="datepicker" fx:id="dateOfBPicker" layoutX="162.0" layoutY="306.0" prefHeight="11.0" prefWidth="159.0" />
       <CheckBox fx:id="acceptCondChkB" layoutX="96.0" layoutY="537.0" mnemonicParsing="false" text="%acceptCond" />
       <CheckBox fx:id="declareAgeChkB" layoutX="96.0" layoutY="574.0" mnemonicParsing="false" text="%declareAge" />
-      <Button fx:id="backBtn" layoutX="78.0" layoutY="660.0" mnemonicParsing="false" onAction="#onBackBtn" text="%Back" />
+      <Button fx:id="backBtn" layoutX="78.0" layoutY="660.0" mnemonicParsing="false" onAction="#onBackBtn" text="%Back">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="48.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
       <Label fx:id="psswdLbl1" layoutX="18.0" layoutY="458.0" text="%confirmPsswd">
          <font>
             <Font size="17.0" />

@@ -5,16 +5,23 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="282.0" prefWidth="363.0" stylesheets="/css/basicStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.MainGUIController">
    <children>
-      <Label fx:id="selectOptionLbl" layoutX="102.0" layoutY="102.0" text="%WelcomeMsg">
+      <Label id="title" fx:id="selectOptionLbl" layoutX="77.0" layoutY="99.0" text="%WelcomeMsg">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Button fx:id="loginBtn" layoutX="91.0" layoutY="143.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="181.0" text="%Login" />
-      <Button fx:id="registerBtn" layoutX="91.0" layoutY="194.0" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="181.0" text="%Register" />
+      <Button fx:id="loginBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="91.0" layoutY="143.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="181.0" text="%Login">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="50.0" height="26.0" stroke="BLACK" strokeType="INSIDE" translateX="-50.0" width="26.0" />
+         </graphic></Button>
+      <Button fx:id="registerBtn" contentDisplay="CENTER" layoutX="91.0" layoutY="194.0" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="181.0" text="%Register">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="50.0" height="26.0" stroke="BLACK" strokeType="INSIDE" translateX="-50.0" width="26.0" />
+         </graphic></Button>
       <ImageView fitHeight="78.0" fitWidth="140.0" layoutX="130.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@logo.png" />

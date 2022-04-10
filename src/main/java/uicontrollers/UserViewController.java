@@ -124,7 +124,7 @@ public class UserViewController implements Controller{
                                 protected void updateItem(String item, boolean empty) {
                                     super.updateItem(item, empty);
                                     setText(item);
-
+                                try {
                                     this.setOnMouseEntered(e -> {
                                         TableCell<Bet, String> cell = (TableCell<Bet, String>) e.getPickResult().getIntersectedNode();
                                         try {
@@ -133,11 +133,13 @@ public class UserViewController implements Controller{
                                                     + "\nPrediction: " + super.getTableView().getItems().get(cell.getIndex()).getFee().getResult()
                                                     + "\nFee: " + super.getTableView().getItems().get(cell.getIndex()).getFee().getFee()
                                                     + "\nBet:" + super.getTableView().getItems().get(cell.getIndex()).getAmountBet()));
-                                        }catch(Exception o){
+                                        } catch (Exception o) {
 
                                         }
                                     });
-
+                                }catch(Exception e){
+                                    
+                                }
 
                                 }
                             };
