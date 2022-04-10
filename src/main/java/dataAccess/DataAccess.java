@@ -413,13 +413,12 @@ public class DataAccess  {
 		List <Bet> bets = query.getResultList();
 
 		for(Bet b: bets){
-			//queryUser.setParameter(1,b);
 			List <User> users = queryUser.getResultList();
 			for(User u : users) {
 					u.removeBet(b);
 					u.setMoney(u.getMoney() + b.getAmountBet());
+					db.merge(u);
 					db.refresh(u);
-
 			}
 			db.remove(b);
 		}

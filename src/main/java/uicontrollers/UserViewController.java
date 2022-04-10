@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import ui.MainGUI;
 
+import java.util.ArrayList;
+
 public class UserViewController implements Controller{
 
     public TableView<Bet> currentBets;
@@ -103,17 +105,15 @@ public class UserViewController implements Controller{
     }
 
     public void setUser() {
-        lblCurrentUser.setText(bl.getUser().getUserName()+"!");
+        lblCurrentUser.setText(bl.getUser().getUserName() + "!");
 
         currentBetsTable = FXCollections.observableArrayList();
 
         this.amounBet.setCellValueFactory(new PropertyValueFactory<>("calculatedAmount"));
         this.eventDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        if(currentBets.getItems()!=null) currentBets.getItems().clear();
 
-
-
+        currentBetsTable.clear();
 
         this.eventDescription.setCellFactory
                 (
@@ -124,32 +124,34 @@ public class UserViewController implements Controller{
                                 protected void updateItem(String item, boolean empty) {
                                     super.updateItem(item, empty);
                                     setText(item);
-                                try {
-                                    this.setOnMouseEntered(e -> {
-                                        TableCell<Bet, String> cell = (TableCell<Bet, String>) e.getPickResult().getIntersectedNode();
-                                        try {
-                                            setTooltip(new Tooltip("Event: " + super.getTableView().getItems().get(cell.getIndex()).getDescription()
-                                                    + "\nQuestion: " + super.getTableView().getItems().get(cell.getIndex()).getQuestion().getQuestion()
-                                                    + "\nPrediction: " + super.getTableView().getItems().get(cell.getIndex()).getFee().getResult()
-                                                    + "\nFee: " + super.getTableView().getItems().get(cell.getIndex()).getFee().getFee()
-                                                    + "\nBet:" + super.getTableView().getItems().get(cell.getIndex()).getAmountBet()));
-                                        } catch (Exception o) {
+                                    try {
+                                        this.setOnMouseEntered(e -> {
+                                            TableCell<Bet, String> cell = (TableCell<Bet, String>) e.getPickResult().getIntersectedNode();
+                                            try {
+                                                setTooltip(new Tooltip("Event: " + super.getTableView().getItems().get(cell.getIndex()).getDescription()
+                                                        + "\nQuestion: " + super.getTableView().getItems().get(cell.getIndex()).getQuestion().getQuestion()
+                                                        + "\nPrediction: " + super.getTableView().getItems().get(cell.getIndex()).getFee().getResult()
+                                                        + "\nFee: " + super.getTableView().getItems().get(cell.getIndex()).getFee().getFee()
+                                                        + "\nBet:" + super.getTableView().getItems().get(cell.getIndex()).getAmountBet()));
+                                            } catch (Exception o) {
 
-                                        }
-                                    });
-                                }catch(Exception e){
-                                    
-                                }
+                                            }
+                                        });
+                                    } catch (Exception e) {
+
+                                    }
 
                                 }
                             };
                         });
 
-        currentBets.getItems().addAll(this.bl.getUser().getBets());
+        this.bl.getUser().getBets().forEach(b -> {
+            if(b.getAmountBet()!=0)
+            currentBetsTable.add(b);
+        });
 
+        currentBets.setItems(this.currentBetsTable);
         currentMoney.setText(String.valueOf(bl.getUser().getMoney()));
-
-
     }
 
     public void onFocusInQField(MouseEvent mouseEvent) {
@@ -164,25 +166,5 @@ public class UserViewController implements Controller{
 
     }
 
-
-
-    public static class HoverCell extends TableCell<Bet, String> {
-
-        public HoverCell(StringProperty hoverProperty) {
-            setOnMouseEntered(e -> hoverProperty.set(getItem()));
-            setOnMouseExited(e -> hoverProperty.set(null));
-        }
-
-        @Override
-        protected void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            setText(item);
-            setTooltip(new Tooltip("Event: " + super.getTableView().getSelectionModel().getSelectedItem().getDescription()
-                    + "\nQuestion: " + super.getTableView().getItems().get(0).getQuestion().getQuestion()
-                    + "\nPrediction: " + super.getTableView().getItems().get(0).getFee().getResult()
-                    + "\nFee: " + super.getTableView().getItems().get(0).getFee().getFee()
-                    + "\nBet:" + super.getTableView().getItems().get(0).getAmountBet()));
-        }
-    }
 
 }

@@ -153,7 +153,7 @@ public class User {
 
     public void removeBet(Bet b) {
 
-        this.bets.remove(b);
+        this.bets.remove((Bet)b);
 
     }
 }
