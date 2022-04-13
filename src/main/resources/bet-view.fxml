@@ -38,8 +38,8 @@
       <Label layoutX="62.0" layoutY="335.0" text="%Fees" />
       <TableView fx:id="feeTableView" layoutX="62.0" layoutY="362.0" onMouseClicked="#onFeeSelected" prefHeight="200.0" prefWidth="270.0">
          <columns>
-            <TableColumn fx:id="feeIdColumn" prefWidth="62.0" resizable="false" text="%Fee" />
-            <TableColumn fx:id="descriptionFeeColumn" prefWidth="206.0" resizable="false" text="%Prediction" />
+            <TableColumn fx:id="feeIdColumn" prefWidth="74.0" resizable="false" text="%Fee" />
+            <TableColumn fx:id="descriptionFeeColumn" prefWidth="194.0" resizable="false" text="%Prediction" />
          </columns>
       </TableView>
       <Label layoutX="66.0" layoutY="641.0" text="%avMoney" />

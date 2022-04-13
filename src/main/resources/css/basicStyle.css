@@ -21,13 +21,23 @@
 #title{
     -fx-font: 20px "Comic Sans MS";
     -fx-font-weight: BOLD;
-
     -fx-text-fill: black;
 }
 
 .table-cell:hover{
     -fx-border-color: black;
 
+}
+
+.table-view{
+    -fx-background-color: pink;
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: white;
+    -fx-border-color: black;
 }
 
 .tooltip{

@@ -18,10 +18,7 @@ import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import configuration.UtilDate;
-import domain.Bet;
-import domain.Event;
-import domain.Question;
-import domain.User;
+import domain.*;
 import exceptions.EventAlreadyExistException;
 import exceptions.QuestionAlreadyExist;
 
@@ -32,6 +29,22 @@ public class DataAccess  {
 
 	protected EntityManager  db;
 	protected EntityManagerFactory emf;
+
+	public EntityManager getDb() {
+		return db;
+	}
+
+	public void setDb(EntityManager db) {
+		this.db = db;
+	}
+
+	public EntityManagerFactory getEmf() {
+		return emf;
+	}
+
+	public void setEmf(EntityManagerFactory emf) {
+		this.emf = emf;
+	}
 
 	ConfigXML config = ConfigXML.getInstance();
 
@@ -415,16 +428,48 @@ public class DataAccess  {
 		for(Bet b: bets){
 			List <User> users = queryUser.getResultList();
 			for(User u : users) {
+					db.remove(b);
 					u.removeBet(b);
 					u.setMoney(u.getMoney() + b.getAmountBet());
-					db.merge(u);
+					db.persist(u);
 					db.refresh(u);
 			}
-			db.remove(b);
+
 		}
 		db.remove(detached);
 
 		db.getTransaction().commit();
 
     }
+
+
+	public static void main(String[] args) {
+		Event event = new Event("Barcelona-Madrid",new Date());
+
+		Question question = new Question("Who is winning?", 2.0F, event);
+
+		Fee fee = new Fee("Bacelona",4.0);
+
+		DataAccess dt = new DataAccess(false);
+
+		TypedQuery<User> queryUser = dt.getDb().createQuery("SELECT e FROM User e " , User.class);
+
+		User user = queryUser.getSingleResult();
+
+		Bet bet = new Bet(user, 100,400, fee,question,event);
+
+		user.addBet(bet);
+		dt.getDb().getTransaction().begin();
+		dt.getDb().persist(event);
+		dt.getDb().persist(question);
+		dt.getDb().persist(fee);
+		dt.getDb().persist(user);
+		dt.getDb().persist(bet);
+
+		dt.getDb().getTransaction().commit();
+
+		dt.removeEvent(event);
+
+
+	}
 }
