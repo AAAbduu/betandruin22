@@ -1,0 +1,110 @@
+#ITERATION 2
+For this iteration the following java classes have been included in the project :
+
+*DOMAIN PACKAGE*
+1-Bet.java
+*DOMAIN PACKAGE*
+
+
+*UICONTROLLERS PACKAGE*
+1-AddRemoveController.java
+2-betController.java
+3-UserViewController.java
+*GUI PACKAGE*
+
+*BUSINESSLOGIC PACKAGE*
+2.BlFacadeImplementation.java
+*BUSINESSLOGIC PACKAGE*
+
+
+*DATAACCESS PACKAGE*
+1-DataAccess.java
+*DATAACCESS PACKAGE*
+
+
+#Changes or implementations:
+
+*DOMAIN PACKAGE*
+
+1- Bet class has been created in order to describe a bet, it has been associated with the User class and has some dependencies
+with other existing classes.
+
+*DOMAIN PACKAGE*
+
+
+*GUI PACKAGE*
+
+For the GUI classes, depending on the identification the user performs, some options are available
+or others.
+If identified as an administrator, we will have the following flow:
+
+Main-view ->
+			Login-view ->
+						Admin-view ->
+										SetFee-view
+										CreateQuestion
+										CreateRemoveEvent-view
+										BrowseQuestions
+
+
+An non-registered user will have the following flow:
+
+Main-view ->
+			Register-view
+
+Once registered, he/she will become a user of Bet&Ruin and will have the following flow:
+
+Main-view ->
+			Login-view ->
+						UserView ->
+										BrowseQuestions
+										bet-view
+										addMoney
+
+*GUI PACKAGE*
+
+
+
+*BUSINESSLOGIC PACKAGE*
+
+As every class has an attribute for a BlFacade object type, when an interaction needs to be done with the DB
+the business layer is in charge of doing it, so for everything needed to be added in the DB, new classes mainly
+and some new functionality like updating a users information, placing bets and removing events.
+BlFacade has some new methods declared as for the new transactions needed, and BlFacadeImplementation has them
+implemented.
+
+*BUSINESSLOGIC PACKAGE*
+
+
+
+*DATAACCESS PACKAGE*
+
+The DataAccess class is in charge with direct communication with the database, that is why all persistance,
+updating and checkings are done. Mainly it has implemented some new functions which persist new objects,
+update other and checks for existance with JPA type queries.
+
+*DATAACCESS PACKAGE*
+
+
+Other features:
+Add money has been implemented direclty in the user-view.
+
+A table view has been implemented in the user view so all the bets placed by the logged-in user can be seen.
+
+Tooltip appears if the mouse is placed on top of an event row in the user view when bets are placed. Tooltip
+shows more information about the placed bet.
+
+A bit of css has been added.
+
+Other comments:
+Maven was used for all the needed dependencies.
+
+JavaFX has been used alongside SceneBuilder.
+
+Having the layers executed in different machines has not being tried, since i don't have the machines for doing so.
+Still i think the application should be able to work if executed in different machines.
+
+A folder in the resources files named css contains some style sheets for the views, it is not complex so it has been hand-written
+and the best has being tried having into account css+javafx limitations.
+
+Intellij has bein the tool for developing the project.
