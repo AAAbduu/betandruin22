@@ -94,13 +94,34 @@ public interface BlFacade  {
 	 */
 	void addEvent(Event toAdd) throws EventAlreadyExistException;
 
+	/**
+	 * Method which sets the current user to the business logic, in order to communicate and obtains users information
+	 * in the different views the applications has.
+	 * @param eUser
+	 */
     void setUser(User eUser);
 
+	/**
+	 * Method which returns the current user logged-in.
+	 * @return Current user logged-in.
+	 */
 	User getUser();
 
-    void setBet(Bet bet);
+	/**
+	 * Method which sets a bet, it updates the database with a new bet object type.
+	 * @param bet Bet that is to be placed in the database.
+	 */
+	void setBet(Bet bet);
 
+	/**
+	 * Method which updates the information of the user which is received by parameter.
+	 * @param user User which information needs to be updated.
+	 */
 	void updateUser(User user);
 
+	/**
+	 * Method which removes a given event and all the associated fees, questions and bets.
+	 * @param event Event to be removed.
+	 */
     void removeEvent(Event event);
 }

@@ -131,7 +131,7 @@ public class BlFacadeImplementation implements BlFacade {
 		return r;
 	}
 	/**
-	 * Procedure that register a new user into the system.
+	 * Procedure that registers a new user into the system.
 	 * @param user User to be registered.
 	 */
 	public void register(User user) {
@@ -141,6 +141,12 @@ public class BlFacadeImplementation implements BlFacade {
 
 	}
 
+	/**
+	 * Method in charge of returning the user object which contains information about the user trying to log-in.
+	 * @param usname Username
+	 * @param psswd Password
+	 * @return User associated with the username and password if found, else null is returned.
+	 */
 	public User login(String usname, String psswd) {
 
 		dbManager.open(false);
@@ -154,6 +160,7 @@ public class BlFacadeImplementation implements BlFacade {
 	 * Method which updates an existing question when a fee is added for that question.
 	 * @param toAdd Question to be updated.
 	 */
+	@WebMethod
 	public void updateQuestionFees(Question toAdd) {
 		dbManager.open(false);
 		dbManager.updateQuestion(toAdd);
@@ -166,6 +173,7 @@ public class BlFacadeImplementation implements BlFacade {
 	 * @param qn Question number.
 	 * @return Question which is being found.
 	 */
+	@WebMethod
 	public Question getQuestion(int qn) {
 		dbManager.open(false);
 		Question q = dbManager.findQuestion(qn);
@@ -179,29 +187,50 @@ public class BlFacadeImplementation implements BlFacade {
 	 * @param toAdd Event to add in the DB.
 	 * @throws EventAlreadyExistException if Event already exists in the DB.
 	 */
+	@WebMethod
 	public void addEvent(Event toAdd) throws EventAlreadyExistException {
 		dbManager.open(false);
 		dbManager.addEvent(toAdd);
 		dbManager.close();
 	}
 
+	/**
+	 * Method which sets the current user to the business logic, in order to communicate and obtains users information
+	 * in the different views the applications has.
+	 * @param eUser
+	 */
 	@Override
+	@WebMethod
 	public void setUser(User eUser) {
 		this.currentUser = eUser;
 	}
 
+	/**
+	 * Method which returns the current user logged-in.
+	 * @return Current user logged-in.
+	 */
 	@Override
+	@WebMethod
 	public User getUser() {
 		return currentUser;
 	}
 
+	/**
+	 * Method which sets a bet, it updates the database with a new bet object type.
+	 * @param bet Bet that is to be placed in the database.
+	 */
 	@Override
+	@WebMethod
 	public void setBet(Bet bet) {
 		dbManager.open(false);
 		dbManager.setBet(bet);
 		dbManager.close();
 	}
 
+	/**
+	 * Method which updates the information of the user which is received by parameter.
+	 * @param user User which information needs to be updated.
+	 */
 	@Override
 	public void updateUser(User user) {
 
@@ -211,7 +240,12 @@ public class BlFacadeImplementation implements BlFacade {
 
 	}
 
+	/**
+	 * Method which removes a given event and all the associated fees, questions and bets.
+	 * @param event Event to be removed.
+	 */
 	@Override
+	@WebMethod
 	public void removeEvent(Event event) {
 		dbManager.open(false);
 		dbManager.removeEvent(event);

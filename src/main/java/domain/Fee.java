@@ -2,6 +2,7 @@ package domain;
 
 import javax.persistence.*;
 
+
 @Entity
 public class Fee {
 

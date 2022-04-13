@@ -398,7 +398,10 @@ public class DataAccess  {
 		}
 	}
 
-
+	/**
+	 * Method in charge of updating the database when a user sets a bet.
+	 * @param bet Bet to be included in the database.
+	 */
 	public void setBet(Bet bet) {
 
 		db.getTransaction().begin();
@@ -407,6 +410,10 @@ public class DataAccess  {
 
 	}
 
+	/**
+	 * Method in charge of updating the users information whenever it is necessary.
+	 * @param user User to be updated in the database.
+	 */
 	public void updateUser(User user) {
 
 		db.getTransaction().begin();
@@ -415,6 +422,11 @@ public class DataAccess  {
 
 	}
 
+
+	/**
+	 * Method which removes a given event, it also removes all the associated fees, questions and bets associated with the event.
+	 * @param event Event to be removed from the database.
+	 */
     public void removeEvent(Event event) {
 
 		db.getTransaction().begin();
@@ -443,7 +455,7 @@ public class DataAccess  {
     }
 
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Event event = new Event("Barcelona-Madrid",new Date());
 
 		Question question = new Question("Who is winning?", 2.0F, event);
@@ -471,5 +483,5 @@ public class DataAccess  {
 		dt.removeEvent(event);
 
 
-	}
+	}*/
 }
