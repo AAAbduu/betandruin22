@@ -56,7 +56,7 @@ public class UserViewController implements Controller{
     }
 
     public void onClickClose(ActionEvent actionEvent) {
-
+        this.bl.setUser(null);
          mainGUI.showLogin();
 
     }
@@ -85,8 +85,6 @@ public class UserViewController implements Controller{
 
                 this.currentMoney.setText(String.valueOf(this.bl.getUser().getMoney()));
 
-                this.statusLbl.setText("Correctly added!");
-
                 this.bl.updateUser(this.bl.getUser());
 
                 this.quantityToAddField.setText(null);
@@ -94,7 +92,6 @@ public class UserViewController implements Controller{
         }catch (Exception e)
         {
             e.printStackTrace();
-            statusLbl.setText("Incorrect input!");
         }
 
 
@@ -145,11 +142,11 @@ public class UserViewController implements Controller{
                             };
                         });
 
-        this.bl.getUser().getBets().forEach(b -> {
+        /*this.bl.getUser().getBets().forEach(b -> {
             if(b.getAmountBet()!=0)
             currentBetsTable.add(b);
-        });
-
+        });*/
+        currentBetsTable.addAll(this.bl.getUser().getBets());
         currentBets.setItems(this.currentBetsTable);
         currentMoney.setText(String.valueOf(bl.getUser().getMoney()));
     }

@@ -162,7 +162,7 @@ public class DataAccess  {
 			db.persist(ev20);
 
 
-			db.persist(new User("a", "a", "a", "a", "a", new Date()));
+			//db.persist(new User("a", "a", "a", "a", "a", new Date()));
 
 			db.getTransaction().commit();
 			System.out.println("The database has been initialized");
@@ -444,7 +444,6 @@ public class DataAccess  {
 					u.removeBet(b);
 					u.setMoney(u.getMoney() + b.getAmountBet());
 					db.persist(u);
-					db.refresh(u);
 			}
 
 		}
