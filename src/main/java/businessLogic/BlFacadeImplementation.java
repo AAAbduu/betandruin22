@@ -251,6 +251,20 @@ public class BlFacadeImplementation implements BlFacade {
 		dbManager.removeEvent(event);
 		dbManager.close();
 	}
+	/**
+	 * Method in charge of removing a placed bet by a user, it will penalize 20% of the amount bet and will give back the 80% to the user.
+	 * @param bet Bet to be removed.
+	 */
+	@Override
+	public void removeBet(Bet bet) {
+		double amount = bet.getAmountBet();
+
+		this.currentUser.setMoney(this.currentUser.getMoney() + 0.8*amount); //giving back only 80% with a penalization of 20%.
+
+		dbManager.open(false);
+		dbManager.removeBet(bet);
+		dbManager.close();
+	}
 
 
 }

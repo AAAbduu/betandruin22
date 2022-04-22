@@ -124,4 +124,10 @@ public interface BlFacade  {
 	 * @param event Event to be removed.
 	 */
     void removeEvent(Event event);
+
+	/**
+	 * Method in charge of removing a placed bet by a user, it will penalize 20% of the amount bet and will give back the 80% to the user.
+	 * @param bet Bet to be removed.
+	 */
+    void removeBet(Bet bet);
 }

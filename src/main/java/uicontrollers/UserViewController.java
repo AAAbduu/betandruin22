@@ -2,8 +2,6 @@ package uicontrollers;
 
 import businessLogic.BlFacade;
 import domain.Bet;
-import domain.User;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,13 +11,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import ui.MainGUI;
 
-import java.util.ArrayList;
+import java.util.Optional;
 
 public class UserViewController implements Controller{
 
     public TableView<Bet> currentBets;
     public TableColumn amounBet;
     public TableColumn eventDescription;
+    public Button removeBet;
     private ObservableList <Bet> currentBetsTable;
     @FXML
     private Button addMoneyBtn;
@@ -50,6 +49,7 @@ public class UserViewController implements Controller{
     @FXML
     public void initialize(){
 
+        this.removeBet.setDisable(true);
 
         this.addMoneyBtn.setDisable(true);
 
@@ -141,11 +141,6 @@ public class UserViewController implements Controller{
                                 }
                             };
                         });
-
-        /*this.bl.getUser().getBets().forEach(b -> {
-            if(b.getAmountBet()!=0)
-            currentBetsTable.add(b);
-        });*/
         currentBetsTable.addAll(this.bl.getUser().getBets());
         currentBets.setItems(this.currentBetsTable);
         currentMoney.setText(String.valueOf(bl.getUser().getMoney()));
@@ -159,9 +154,43 @@ public class UserViewController implements Controller{
 
     public void onClickInMainPane(MouseEvent mouseEvent) {
 
+        this.removeBet.setDisable(true);
         this.addMoneyBtn.setDisable(true);
 
     }
 
 
+    public void onRemoveBetBtn(ActionEvent actionEvent) {
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Removing bet");
+        alert.setContentText("By removing the bet, you will get a penalisation of 20%.\n Are you sure you want to continue?");
+        alert.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+        Optional <ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK) {
+            Bet bet = this.currentBets.getSelectionModel().getSelectedItem();
+            this.bl.getUser().removeBet(bet);
+
+            this.currentBets.getItems().remove(bet);
+
+            this.bl.removeBet(bet);
+            this.bl.updateUser(this.bl.getUser());
+
+            this.currentMoney.setText(String.valueOf(this.bl.getUser().getMoney()));
+        }
+    }
+
+    public void onMouseClickOnCurrentBets(MouseEvent mouseEvent) {
+
+        try {
+            Bet bet = this.currentBets.getSelectionModel().getSelectedItem();
+
+            if(bet!=null) {
+                this.removeBet.setDisable(false);
+            }
+        }catch(Exception e){
+
+        }
+
+    }
 }

@@ -18,7 +18,7 @@ public class Bet {
     private Question question;
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    //@OneToOne(cascade = CascadeType.ALL)
     private Event event;
 
     public Question getQuestion() {
@@ -44,7 +44,7 @@ public class Bet {
         this.fee = fee;
         this.question = question;
         this.event = event;
-        this.description = this.event.getDescription();
+        this.description = event.getDescription();
     }
 
     public User getUser() {

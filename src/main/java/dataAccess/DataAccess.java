@@ -453,6 +453,19 @@ public class DataAccess  {
 
     }
 
+	/**
+	 * Method which removes the given bet from the database.
+	 * @param bet Bet to be removed from the database.
+	 */
+    public void removeBet(Bet bet) {
+
+		db.getTransaction().begin();
+		Object detached = db.merge(bet);
+		db.remove(detached);
+		db.getTransaction().commit();
+
+    }
+
 
 	/*public static void main(String[] args) {
 		Event event = new Event("Barcelona-Madrid",new Date());
