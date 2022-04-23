@@ -441,8 +441,12 @@ public class DataAccess  {
 			List <User> users = queryUser.getResultList();
 			for(User u : users) {
 					db.remove(b);
-					u.removeBet(b);
-					u.setMoney(u.getMoney() + b.getAmountBet());
+					if(u.getBets().contains(b)) {
+						u.removeBet(b);
+						u.setMoney(u.getMoney() + b.getAmountBet());
+						Movement movement = new Movement(b.getAmountBet(), "Admin deleted the event", b.getCompleteDescription() + "\nReason: Admin deleted the event.");
+						u.addMovement(movement);
+					}
 					db.persist(u);
 			}
 

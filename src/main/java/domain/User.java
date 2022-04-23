@@ -13,13 +13,23 @@ public class User{
     @Id
     private String userName;
 
-
     private String password;
     private String name;
     private String lastName;
     private String email;
     private Date birthDate;
     private double money = 0;
+
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Movement> movements;
+
+    public List<Movement> getMovements() {
+        return movements;
+    }
+
+    public void setMovements(List<Movement> movements) {
+        this.movements = movements;
+    }
 
     public List<Bet> getBets() {
         return bets;
@@ -41,6 +51,7 @@ public class User{
         this.email = email;
         this.birthDate = birthDate;
         bets = new ArrayList<>();
+        movements = new ArrayList<>();
     }
 
     public double getMoney() {
@@ -147,6 +158,12 @@ public class User{
     public void addBet(Bet bet) {
 
         this.bets.add(bet);
+
+    }
+
+    public void addMovement(Movement movement) {
+
+        this.movements.add(movement);
 
     }
 

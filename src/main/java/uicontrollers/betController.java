@@ -1,10 +1,7 @@
 package uicontrollers;
 
 import businessLogic.BlFacade;
-import domain.Bet;
-import domain.Event;
-import domain.Fee;
-import domain.Question;
+import domain.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -81,6 +78,10 @@ public class betController implements Controller{
                 double calculatedAmount = amount*fee.getFee();
 
                 Bet bet = new Bet(this.businessLogic.getUser(),amount,calculatedAmount,fee,question,event);
+
+                Movement movement = new Movement(bet.getAmountBet(),"Bet placed",bet.getCompleteDescription() + "\nBet date: " + new Date());
+
+                this.businessLogic.getUser().addMovement(movement);
 
                 this.businessLogic.getUser().addBet(bet);
 

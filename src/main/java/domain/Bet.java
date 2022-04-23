@@ -78,4 +78,16 @@ public class Bet {
     public void setFee(Fee fee) {
         this.fee = fee;
     }
+
+    public String getCompleteDescription(){
+        String d = "Event: " + event.getDescription()
+                + "\nQuestion: " + question.getQuestion()
+                + "\nPrediction: " + this.fee.getResult()
+                + "\nFee: " + this.fee.getFee()
+                + "\nBet:" + this.amountBet;
+
+        return d;
+
+    }
+
 }
