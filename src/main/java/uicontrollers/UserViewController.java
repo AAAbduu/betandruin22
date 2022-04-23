@@ -148,7 +148,6 @@ public class UserViewController implements Controller{
                                         this.setOnMouseEntered(e -> {
                                             TableCell<Bet, String> cell = (TableCell<Bet, String>) e.getPickResult().getIntersectedNode();
                                             try {
-                                                setTextFill(Color.GREEN);
                                                 setTooltip(new Tooltip(super.getTableView().getItems().get(cell.getIndex()).getCompleteDescription()));
                                             } catch (Exception o) {
 
