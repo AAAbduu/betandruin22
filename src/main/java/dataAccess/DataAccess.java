@@ -445,12 +445,13 @@ public class DataAccess  {
 			for(User u : users) {
 					db.remove(b);
 					if(u.getBets().contains(b)) {
-						u.removeBet(b);
+						//u.removeBet(b);
 						u.setMoney(u.getMoney() + b.getAmountBet());
 						Movement movement = new Movement(b.getAmountBet(), "Admin deleted the event", b.getCompleteDescription() + "\nReason: Admin deleted the event.");
 						u.addMovement(movement);
 					}
-					db.persist(u);
+					User us = db.find(User.class,u.getUserName());
+					db.persist(us);
 			}
 
 		}

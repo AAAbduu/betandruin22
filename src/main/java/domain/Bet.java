@@ -9,7 +9,7 @@ public class Bet {
     @GeneratedValue
     private Integer betNumber;
 
-
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private User user;
     private double amountBet;
     private double calculatedAmount;
