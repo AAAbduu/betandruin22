@@ -77,7 +77,7 @@ public class betController implements Controller{
                 Event event = this.eventTableView.getSelectionModel().getSelectedItem();
                 double calculatedAmount = amount*fee.getFee();
 
-                Bet bet = new Bet(this.businessLogic.getUser(),amount,calculatedAmount,fee,question,event);
+                Bet bet = new Bet(this.businessLogic.getUser(),amount,calculatedAmount,fee);
 
                 Movement movement = new Movement(bet.getAmountBet(),"Bet placed",bet.getCompleteDescription() + "\nBet date: " + new Date());
 

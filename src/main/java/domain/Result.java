@@ -3,6 +3,7 @@ package domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Result {
@@ -10,19 +11,14 @@ public class Result {
     @GeneratedValue
     private Integer resultNumber;
 
-    private Event event;
+    @OneToOne
     private Question question;
     private String result;
 
 
-    public Result(Event event, Question question, String result) {
-        this.event = event;
+    public Result(Question question, String result) {
         this.question = question;
         this.result = result;
-    }
-
-    public Event getEvent() {
-        return event;
     }
 
 

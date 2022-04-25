@@ -213,13 +213,11 @@ public class PublishResultController implements Controller{
 
         String res = this.resultField.getText();
 
-        Result result = new Result(event,question,res);
+        Result result = new Result(question,res);
 
         this.businessLogic.publishResult(result);
 
         statusLbl.setText("Result published!");
-
-
 
 
     }

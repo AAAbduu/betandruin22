@@ -480,8 +480,8 @@ public class DataAccess  {
 	 */
     public void publishResult(Result result) {
 		db.getTransaction().begin();
-		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e WHERE e.event = ?1 AND e.question = ?2", Bet.class);
-		query.setParameter(1,result.getEvent());
+		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e WHERE e.fee.question.event = ?1 AND e.fee.question = ?2", Bet.class);
+		query.setParameter(1,result.getQuestion().getEvent());
 		query.setParameter(2,result.getQuestion());
 		List <Bet> bets = query.getResultList();
 		for(Bet b : bets){
@@ -499,12 +499,12 @@ public class DataAccess  {
 			db.merge(b.getUser());
 		}
 
-		result.getEvent().deleteQuestion(result.getQuestion());
-		db.merge(result.getEvent());
+		result.getQuestion().getEvent().deleteQuestion(result.getQuestion());
+		db.merge(result.getQuestion().getEvent());
 		Object detachQuestion = db.merge(result.getQuestion());
 		db.remove(detachQuestion);
-		if(result.getEvent().getQuestions().isEmpty()){
-			Object detach = db.merge(result.getEvent());
+		if(result.getQuestion().getEvent().getQuestions().isEmpty()){
+			Object detach = db.merge(result.getQuestion().getEvent());
 			db.remove(detach);
 		}
 		db.getTransaction().commit();

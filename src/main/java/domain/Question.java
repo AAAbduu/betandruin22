@@ -24,9 +24,9 @@ public class Question implements Serializable {
 
 	private String question; 
 	private float betMinimum;
-	private String result;  
 
 	@XmlIDREF
+	@ManyToOne
 	private Event event;
 	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Vector<Fee> fees = new Vector<Fee>();
@@ -57,6 +57,7 @@ public class Question implements Serializable {
 		super();
 		this.question = query;
 		this.betMinimum=betMinimum;
+		this.event = event;
 	}
 
 	/**
@@ -118,23 +119,7 @@ public class Question implements Serializable {
 	}
 
 
-	/**
-	 * Gets the result of the  query
-	 * 
-	 * @return the the query result
-	 */
-	public String getResult() {
-		return result;
-	}
 
-	/**
-	 * Sets the correct result of the  query
-	 * 
-	 * @param result result of the query
-	 */
-	public void setResult(String result) {
-		this.result = result;
-	}
 
 	/**
 	 * Gets the event associated with the bet
