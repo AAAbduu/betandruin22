@@ -9,10 +9,7 @@ import javax.jws.WebService;
 
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
-import domain.Bet;
-import domain.Event;
-import domain.Question;
-import domain.User;
+import domain.*;
 import exceptions.EventAlreadyExistException;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -227,18 +224,13 @@ public class BlFacadeImplementation implements BlFacade {
 		dbManager.close();
 	}
 
-	/**
-	 * Method which updates the information of the user which is received by parameter.
-	 * @param user User which information needs to be updated.
-	 */
 	@Override
-	public void updateUser(User user) {
-
+	public void updateUserMoney(User user, double money) {
 		dbManager.open(false);
-		dbManager.updateUser(user);
+		dbManager.updateUserMoney(user,money);
 		dbManager.close();
-
 	}
+
 
 	/**
 	 * Method which removes a given event and all the associated fees, questions and bets.
@@ -260,9 +252,27 @@ public class BlFacadeImplementation implements BlFacade {
 		double amount = bet.getAmountBet();
 
 		this.currentUser.setMoney(this.currentUser.getMoney() + 0.8*amount); //giving back only 80% with a penalization of 20%.
-
+		this.updateUserMoney(currentUser, currentUser.getMoney());
 		dbManager.open(false);
 		dbManager.removeBet(bet);
+		dbManager.close();
+	}
+
+	/**
+	 * Method is in charge of publishing the results, updating the data base.
+	 * @param result Result produced by an admin.
+	 */
+	@Override
+	public void publishResult(Result result) {
+		dbManager.open(false);
+		dbManager.publishResult(result);
+		dbManager.close();
+	}
+
+	@Override
+	public void updateUser(User user) {
+		dbManager.open(false);
+		dbManager.updateUser(user);
 		dbManager.close();
 	}
 

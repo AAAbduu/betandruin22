@@ -9,6 +9,7 @@ public class Bet {
     @GeneratedValue
     private Integer betNumber;
 
+
     private User user;
     private double amountBet;
     private double calculatedAmount;

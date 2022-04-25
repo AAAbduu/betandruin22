@@ -97,6 +97,8 @@ public class UserViewController implements Controller{
 
                 this.currentMoney.setText(String.valueOf(this.bl.getUser().getMoney()));
 
+                this.bl.updateUserMoney(this.bl.getUser(),this.bl.getUser().getMoney());
+
                 this.bl.updateUser(this.bl.getUser());
 
                 this.quantityToAddField.setText(null);
@@ -171,11 +173,10 @@ public class UserViewController implements Controller{
                                     setText(item);
                                     try {
                                         this.setOnMouseEntered(e -> {
-                                            TableCell<Movement, String> cell = (TableCell<Movement, String>) e.getPickResult().getIntersectedNode();
                                             try {
+                                                TableCell<Movement, String> cell = (TableCell<Movement, String>) e.getPickResult().getIntersectedNode();
                                                 setTooltip(new Tooltip(super.getTableView().getItems().get(cell.getIndex()).getTooltip()));
-                                            } catch (Exception o) {
-
+                                            }catch (Exception i){
                                             }
                                         });
                                     } catch (Exception e) {
@@ -210,6 +211,16 @@ public class UserViewController implements Controller{
 
                                             }else if (movement.getDescription().contentEquals("Admin deleted the event")) {
                                                 setTextFill(Color.GREEN);
+                                                setText(String.valueOf(item));
+
+                                            }
+                                            else if (movement.getDescription().contentEquals("Bet won")) {
+                                                setTextFill(Color.GREEN);
+                                                setText(String.valueOf(item));
+
+                                            }
+                                            else if (movement.getDescription().contentEquals("Bet lost")) {
+                                                setTextFill(Color.RED);
                                                 setText(String.valueOf(item));
 
                                             }
@@ -260,7 +271,7 @@ public class UserViewController implements Controller{
             this.currentBets.getItems().remove(bet);
 
             this.bl.removeBet(bet);
-            this.bl.updateUser(this.bl.getUser());
+            //this.bl.updateUser(this.bl.getUser());
 
             this.currentMoney.setText(String.valueOf(this.bl.getUser().getMoney()));
             this.setUser();

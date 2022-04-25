@@ -132,4 +132,10 @@ public class Event implements Serializable {
 			return false;
 		return true;
 	}
+
+	public void deleteQuestion(Question question) {
+
+		this.questions.remove(question);
+
+	}
 }

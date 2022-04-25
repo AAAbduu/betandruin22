@@ -6,10 +6,7 @@ import java.util.Vector;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-import domain.Bet;
-import domain.Event;
-import domain.Question;
-import domain.User;
+import domain.*;
 import exceptions.EventAlreadyExistException;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -117,7 +114,7 @@ public interface BlFacade  {
 	 * Method which updates the information of the user which is received by parameter.
 	 * @param user User which information needs to be updated.
 	 */
-	void updateUser(User user);
+	void updateUserMoney(User user, double money);
 
 	/**
 	 * Method which removes a given event and all the associated fees, questions and bets.
@@ -130,4 +127,18 @@ public interface BlFacade  {
 	 * @param bet Bet to be removed.
 	 */
     void removeBet(Bet bet);
+
+	/**
+	 * Method is in charge of publishing the results, updating the data base.
+	 * @param result Result produced by an admin.
+	 */
+    void  publishResult(Result result);
+
+	/**
+	 * Method updates users money.
+	 * @param user
+	 */
+	//void updateMoney(User user);
+
+	void updateUser(User user);
 }

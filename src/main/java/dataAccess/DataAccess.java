@@ -162,7 +162,7 @@ public class DataAccess  {
 			db.persist(ev20);
 
 
-			//db.persist(new User("a", "a", "a", "a", "a", new Date()));
+			db.persist(new User("a", "a", "a", "a", "a", new Date()));
 
 			db.getTransaction().commit();
 			System.out.println("The database has been initialized");
@@ -414,10 +414,13 @@ public class DataAccess  {
 	 * Method in charge of updating the users information whenever it is necessary.
 	 * @param user User to be updated in the database.
 	 */
-	public void updateUser(User user) {
+	public void updateUserMoney(User user, double money) {
 
 		db.getTransaction().begin();
-		db.merge(user);
+		TypedQuery<User> query = db.createQuery("UPDATE User e set e.money = ?1 WHERE e = ?2", User.class);
+		query.setParameter(1, money);
+		query.setParameter(2, user);
+		query.executeUpdate();
 		db.getTransaction().commit();
 
 	}
@@ -469,6 +472,48 @@ public class DataAccess  {
 		db.getTransaction().commit();
 
     }
+
+	/**
+	 * Method is in charge of publishing the results, updating the data base.
+	 * @param result Result produced by an admin.
+	 */
+    public void publishResult(Result result) {
+		db.getTransaction().begin();
+		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e WHERE e.event = ?1 AND e.question = ?2", Bet.class);
+		query.setParameter(1,result.getEvent());
+		query.setParameter(2,result.getQuestion());
+		List <Bet> bets = query.getResultList();
+		for(Bet b : bets){
+			if(b.getFee().getResult().contentEquals(result.getResult())){
+				b.getUser().setMoney(b.getUser().getMoney() + b.getCalculatedAmount());
+				Movement movement = new Movement(b.getCalculatedAmount(),"Bet won",b.getCompleteDescription());
+				b.getUser().addMovement(movement);
+			}else{
+				Movement movement = new Movement(b.getAmountBet(),"Bet lost",b.getCompleteDescription());
+				b.getUser().addMovement(movement);
+			}
+			b.getUser().removeBet(b);
+			Object detached = db.merge(b);
+			db.remove(detached);
+			db.merge(b.getUser());
+		}
+
+		result.getEvent().deleteQuestion(result.getQuestion());
+		db.merge(result.getEvent());
+		Object detachQuestion = db.merge(result.getQuestion());
+		db.remove(detachQuestion);
+		if(result.getEvent().getQuestions().isEmpty()){
+			Object detach = db.merge(result.getEvent());
+			db.remove(detach);
+		}
+		db.getTransaction().commit();
+    }
+
+	public void updateUser(User user) {
+		db.getTransaction().begin();
+		db.merge(user);
+		db.getTransaction().commit();
+	}
 
 
 	/*public static void main(String[] args) {

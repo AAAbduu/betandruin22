@@ -7,6 +7,16 @@ import javax.persistence.Id;
 @Entity
 public class Movement {
 
+    @Id
+    @GeneratedValue
+    private Integer movementNumber;
+
+    private double amount;
+
+    private String description;
+
+    private String tooltip;
+
     public double getAmount() {
         return amount;
     }
@@ -31,15 +41,7 @@ public class Movement {
         this.tooltip = tooltip;
     }
 
-    @Id
-    @GeneratedValue
-    private Integer movementNumber;
 
-    private double amount;
-
-    private String description;
-
-    private String tooltip;
 
     public Movement(double amount, String description, String tooltip) {
         this.amount = amount;

@@ -48,4 +48,8 @@ public class AdminViewController implements Controller{
     public void onCloseBtn(ActionEvent actionEvent) {
         mainGUI.showMain();
     }
+
+    public void onPublishResultBtn(ActionEvent actionEvent) {
+        mainGUI.showPublishResult();
+    }
 }

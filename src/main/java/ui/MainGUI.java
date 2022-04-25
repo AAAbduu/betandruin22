@@ -16,7 +16,8 @@ import java.util.ResourceBundle;
 public class MainGUI {
 
   private Window mainLag, registerLag, loginLag, adminViewLag, userViewLag,
-          browseQuestionsLag, createQuestionsLag, createRemoveEventLag, createFeeLag, betLag;
+          browseQuestionsLag, createQuestionsLag, createRemoveEventLag, createFeeLag, betLag,
+          publishResultLag;
 
   private BlFacade businessLogic;
   private Stage stage;
@@ -79,6 +80,9 @@ public class MainGUI {
       if (controllerClass == SetFeeController.class) {
         return new  SetFeeController(businessLogic);
       }
+      if (controllerClass == PublishResultController.class) {
+        return new PublishResultController(businessLogic);
+      }
 
       if (controllerClass == AddRemoveController.class) {
         return new AddRemoveController(businessLogic);
@@ -119,6 +123,7 @@ public class MainGUI {
 
     createFeeLag = load("/SetFee-view.fxml");
     betLag = load("/bet-view.fxml");
+    publishResultLag = load("/publish-result-view.fxml");
 
     showMain();
 
@@ -154,6 +159,9 @@ public class MainGUI {
   }
 
   public void showAdminView() { setupScene(adminViewLag.ui, "Admin", 625, 400);}
+
+  public void showPublishResult() { setupScene(publishResultLag.ui, "PublishResult", 750, 800);}
+
 
   public void showUserView() {
     ((UserViewController)userViewLag.c).setUser();
