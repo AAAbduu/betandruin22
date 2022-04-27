@@ -14,6 +14,8 @@ public class User{
     @GeneratedValue
     private Integer userNumber;
 
+
+
     private String userName;
 
     private boolean isAdmin;
@@ -39,6 +41,10 @@ public class User{
 
     public boolean isAdmin() {
         return isAdmin;
+    }
+
+    public Integer getUserNumber() {
+        return userNumber;
     }
 
     public void setAdmin(boolean admin) {

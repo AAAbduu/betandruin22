@@ -1,6 +1,7 @@
 package businessLogic;
 
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -274,6 +275,13 @@ public class BlFacadeImplementation implements BlFacade {
 		dbManager.open(false);
 		dbManager.updateUser(user);
 		dbManager.close();
+	}
+
+	public List<Bet> getBets(){
+		dbManager.open(false);
+		List <Bet> bets =  dbManager.getBets();
+		dbManager.close();
+		return bets;
 	}
 
 

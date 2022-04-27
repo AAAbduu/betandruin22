@@ -407,7 +407,7 @@ public class DataAccess  {
 	public void setBet(Bet bet) {
 
 		db.getTransaction().begin();
-		db.merge(bet);
+		db.persist(bet);
 		db.getTransaction().commit();
 
 	}
@@ -480,37 +480,49 @@ public class DataAccess  {
 	 * Method is in charge of publishing the results, updating the data base.
 	 * @param result Result produced by an admin.
 	 */
-    public void publishResult(Result result) {
+	/**
+	 * Method is in charge of publishing the results, updating the data base.
+	 * @param result Result produced by an admin.
+	 */
+	public void publishResult(Result result) {
 		db.getTransaction().begin();
-		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e WHERE e.fee.question.event = ?1 AND e.fee.question = ?2", Bet.class);
-		query.setParameter(1,result.getQuestion().getEvent());
-		query.setParameter(2,result.getQuestion());
+		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e WHERE e.fee.question = ?1 AND e.user is not null", Bet.class);
+		query.setParameter(1,result.getQuestion());
 		List <Bet> bets = query.getResultList();
 		for(Bet b : bets){
-			if(b.getFee().getResult().contentEquals(result.getResult())){
-				b.getUser().setMoney(b.getUser().getMoney() + b.getCalculatedAmount());
-				Movement movement = new Movement(b.getCalculatedAmount(),"Bet won",b.getCompleteDescription());
-				b.getUser().addMovement(movement);
-			}else{
-				Movement movement = new Movement(b.getAmountBet(),"Bet lost",b.getCompleteDescription());
-				b.getUser().addMovement(movement);
-			}
-			b.getUser().removeBet(b);
-			Object detached = db.merge(b);
-			db.remove(detached);
-			db.merge(b.getUser());
+			//if(b.getUser()!=null) {
+				if (b.getFee().getResult().contentEquals(result.getResult())) {
+					b.getUser().setMoney(b.getUser().getMoney() + b.getCalculatedAmount());
+					Movement movement = new Movement(b.getCalculatedAmount(), "Bet won", b.getCompleteDescription());
+					b.getUser().addMovement(movement);
+				} else {
+					Movement movement = new Movement(b.getAmountBet(), "Bet lost", b.getCompleteDescription());
+					b.getUser().addMovement(movement);
+				}
+				b.getUser().removeBet(b);
+				b.setUser(null);
+			//}
+//			Object detached = db.merge(b);
+//			db.remove(detached);
+//			db.merge(b.getUser());
 		}
 
-		result.getQuestion().getEvent().deleteQuestion(result.getQuestion());
-		db.merge(result.getQuestion().getEvent());
-		Object detachQuestion = db.merge(result.getQuestion());
-		db.remove(detachQuestion);
-		if(result.getQuestion().getEvent().getQuestions().isEmpty()){
-			Object detach = db.merge(result.getQuestion().getEvent());
-			db.remove(detach);
-		}
+//		result.getQuestion().getEvent().deleteQuestion(result.getQuestion());
+//		db.merge(result.getQuestion().getEvent());
+//		Object detachQuestion = db.merge(result.getQuestion());
+//		db.remove(detachQuestion);
+//		if(result.getQuestion().getEvent().getQuestions().isEmpty()){
+//			Object detach = db.merge(result.getQuestion().getEvent());
+//			db.remove(detach);
+//		}
 		db.getTransaction().commit();
-    }
+	}
+
+	public List<Bet> getBets(){
+		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e", Bet.class);
+		List <Bet> bets = query.getResultList();
+		return bets;
+	}
 
 	public void updateUser(User user) {
 		db.getTransaction().begin();
@@ -518,7 +530,19 @@ public class DataAccess  {
 		db.getTransaction().commit();
 	}
 
+	public static void main(String[] args) {
+		// EventNumber 7 Atlético - Athletic 17 - May 2022
+		// who will win the match?
+		//  QuestionNumber 1
 
+		// betNumber 31 amountBet 4.0 calculatedAmount 8.0
+
+		DataAccess dt = new DataAccess(false);
+		Question question = dt.findQuestion(3);
+		Result result = new Result(question, "Athletic");
+		dt.publishResult(result);
+		dt.close();
+	}
 	/*public static void main(String[] args) {
 		Event event = new Event("Barcelona-Madrid",new Date());
 

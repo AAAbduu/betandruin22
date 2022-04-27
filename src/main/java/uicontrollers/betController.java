@@ -73,9 +73,10 @@ public class betController implements Controller{
             }else{
 
                 Fee fee = this.feeTableView.getSelectionModel().getSelectedItem();
-                Question question = this.questionTableView.getSelectionModel().getSelectedItem();
-                Event event = this.eventTableView.getSelectionModel().getSelectedItem();
+
                 double calculatedAmount = amount*fee.getFee();
+
+                //this.businessLogic.getBets();
 
                 Bet bet = new Bet(this.businessLogic.getUser(),amount,calculatedAmount,fee);
 
@@ -83,7 +84,11 @@ public class betController implements Controller{
 
                 this.businessLogic.getUser().addMovement(movement);
 
+                this.businessLogic.setBet(bet);
+
                 this.businessLogic.getUser().addBet(bet);
+
+
 
                 this.businessLogic.getUser().setMoney(this.businessLogic.getUser().getMoney()-amount);
 
@@ -94,6 +99,8 @@ public class betController implements Controller{
                 this.statusLbl.setText("Bet placed correctly!");
 
                 this.availableMoney.setText(String.valueOf(this.businessLogic.getUser().getMoney()));
+
+                fee = null;
 
             }
         }catch (Exception e){

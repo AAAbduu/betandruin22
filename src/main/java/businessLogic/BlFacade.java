@@ -1,6 +1,7 @@
 package businessLogic;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import javax.jws.WebMethod;
@@ -141,4 +142,6 @@ public interface BlFacade  {
 	//void updateMoney(User user);
 
 	void updateUser(User user);
+
+	List<Bet> getBets();
 }
