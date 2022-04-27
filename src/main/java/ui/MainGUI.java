@@ -158,7 +158,8 @@ public class MainGUI {
     setupScene(createFeeLag.ui, "CreateFee", 650, 430);
   }
 
-  public void showAdminView() { setupScene(adminViewLag.ui, "Admin", 625, 400);}
+  public void showAdminView() { ((AdminViewController)adminViewLag.c).setUser();
+    setupScene(adminViewLag.ui, "Admin", 625, 400);}
 
   public void showPublishResult() { setupScene(publishResultLag.ui, "PublishResult", 750, 800);}
 

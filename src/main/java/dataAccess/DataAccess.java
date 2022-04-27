@@ -162,7 +162,9 @@ public class DataAccess  {
 			db.persist(ev20);
 
 
-			db.persist(new User("a", "a", "a", "a", "a", new Date()));
+			db.persist(new User("a", "a", "a", "a", "a", new Date(), false));
+
+			db.persist(new User("admin", "admin", "admin", "admin", "a", new Date(), true));
 
 			db.getTransaction().commit();
 			System.out.println("The database has been initialized");

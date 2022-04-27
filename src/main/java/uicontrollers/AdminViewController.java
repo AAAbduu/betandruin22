@@ -2,12 +2,14 @@ package uicontrollers;
 
 import businessLogic.BlFacade;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
 import ui.MainGUI;
 
 public class AdminViewController implements Controller{
 
 
-
+    public Label welcomeLbl;
+    public Label userNameLbl;
     private BlFacade bl;
     private MainGUI mainGUI;
 
@@ -51,5 +53,10 @@ public class AdminViewController implements Controller{
 
     public void onPublishResultBtn(ActionEvent actionEvent) {
         mainGUI.showPublishResult();
+    }
+
+    public void setUser() {
+        userNameLbl.setText(this.bl.getUser().getUserName());
+
     }
 }

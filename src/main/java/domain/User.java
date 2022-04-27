@@ -13,6 +13,10 @@ public class User{
     @Id
     private String userName;
 
+    private boolean isAdmin;
+
+
+
     private String password;
     private String name;
     private String lastName;
@@ -25,6 +29,14 @@ public class User{
 
     public List<Movement> getMovements() {
         return movements;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public void setMovements(List<Movement> movements) {
@@ -43,7 +55,7 @@ public class User{
     private List<Bet> bets;
 
 
-    public User(String userName, String password, String name, String lastName, String email, Date birthDate) {
+    public User(String userName, String password, String name, String lastName, String email, Date birthDate, boolean admin) {
         this.userName = userName;
         this.password = password;
         this.name = name;
@@ -52,6 +64,7 @@ public class User{
         this.birthDate = birthDate;
         bets = new ArrayList<>();
         movements = new ArrayList<>();
+        this.isAdmin = admin;
     }
 
     public double getMoney() {

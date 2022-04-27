@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/basicStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.AdminViewController">
    <children>
-      <Label id="title" fx:id="welcomeLbl" layoutX="220.0" layoutY="110.0" text="%WelcomeAdmin">
+      <Label id="title" fx:id="welcomeLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="208.0" layoutY="111.0" text="%WelcomeAdmin">
          <font>
             <Font size="37.0" />
          </font>
@@ -49,5 +49,6 @@
             <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="50.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
          </graphic>
       </Button>
+      <Label id="title" fx:id="userNameLbl" layoutX="300.0" layoutY="111.0" text="admin" />
    </children>
 </AnchorPane>

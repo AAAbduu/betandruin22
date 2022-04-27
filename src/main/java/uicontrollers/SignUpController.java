@@ -117,7 +117,7 @@ public class SignUpController implements Controller {
 
         checkAgeBeforeRegister(date, today);
 
-        return new User(userName,password,name,lastname,email,date);
+        return new User(userName,password,name,lastname,email,date, false);
 
     }
 
