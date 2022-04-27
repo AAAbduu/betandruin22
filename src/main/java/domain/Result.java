@@ -21,6 +21,10 @@ public class Result {
         this.result = result;
     }
 
+    public Result() {
+
+    }
+
 
     public Question getQuestion() {
         return question;

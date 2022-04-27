@@ -11,6 +11,9 @@ import javax.persistence.*;
 public class User{
 
     @Id
+    @GeneratedValue
+    private Integer userNumber;
+
     private String userName;
 
     private boolean isAdmin;
@@ -26,6 +29,9 @@ public class User{
 
     @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Movement> movements;
+
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Bet> bets;
 
     public List<Movement> getMovements() {
         return movements;
@@ -51,8 +57,7 @@ public class User{
         this.bets = bets;
     }
 
-    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Bet> bets;
+
 
 
     public User(String userName, String password, String name, String lastName, String email, Date birthDate, boolean admin) {

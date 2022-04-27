@@ -10,11 +10,15 @@ public class Fee {
     @GeneratedValue
     private Integer feeNumber;
 
-    @ManyToOne
+    @OneToOne
     private Question question;
 
     private String result;
     private double fee;
+
+    public Fee() {
+
+    }
 
     public String getResult() {
         return result;

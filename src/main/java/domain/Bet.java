@@ -9,7 +9,7 @@ public class Bet {
     @GeneratedValue
     private Integer betNumber;
 
-    @ManyToOne
+    @OneToOne
     private User user;
     private double amountBet;
     private double calculatedAmount;
@@ -17,6 +17,10 @@ public class Bet {
     private Fee fee;
 
     private String description;
+
+    public Bet() {
+
+    }
 
 
     public String getDescription() {

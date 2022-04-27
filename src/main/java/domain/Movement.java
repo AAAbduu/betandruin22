@@ -17,6 +17,10 @@ public class Movement {
 
     private String tooltip;
 
+    public Movement() {
+
+    }
+
     public double getAmount() {
         return amount;
     }
