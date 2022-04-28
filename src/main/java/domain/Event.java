@@ -27,6 +27,8 @@ public class Event implements Serializable {
 	private String description;
 	private Date eventDate;
 
+	private String status;
+
 	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Vector<Question> questions = new Vector<Question>();
 
@@ -48,9 +50,10 @@ public class Event implements Serializable {
 		this.eventDate = eventDate;
 	}
 
-	public Event( String description,Date eventDate) {
+	public Event( String description,Date eventDate, String status) {
 		this.description = description;
 		this.eventDate=eventDate;
+		this.status = status;
 	}
 
 	public Integer getEventNumber() {

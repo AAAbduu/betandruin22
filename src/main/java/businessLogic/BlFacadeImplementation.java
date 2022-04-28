@@ -1,19 +1,19 @@
 package businessLogic;
 
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Vector;
-
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.*;
 import exceptions.EventAlreadyExistException;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
+import httpManagement.Manager;
+
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+import java.lang.reflect.Type;
+import java.util.*;
 
 
 /**
@@ -25,6 +25,8 @@ public class BlFacadeImplementation implements BlFacade {
 	DataAccess dbManager;
 	ConfigXML config = ConfigXML.getInstance();
 	private User currentUser;
+
+	protected Manager manager = new Manager();
 
 	public BlFacadeImplementation()  {
 		System.out.println("Creating BlFacadeImplementation instance");
@@ -282,6 +284,57 @@ public class BlFacadeImplementation implements BlFacade {
 		List <Bet> bets =  dbManager.getBets();
 		dbManager.close();
 		return bets;
+	}
+
+	public static void main(String[] args) {
+		BlFacadeImplementation bl = new BlFacadeImplementation();
+		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		String year = String.valueOf(calendar.get(Calendar.YEAR));
+		String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+		int monthInt = calendar.get(Calendar.MONTH)+1;
+		if(monthInt ==12) monthInt=1;
+		String month = String.valueOf(monthInt);
+		String today;
+		if(monthInt<10) {
+			 today = year + "-" + "0" + month + "-" + day;
+		}else{
+			today = year + "-" + month + "-" + day;
+		}
+		monthInt++;
+		if(monthInt ==12) monthInt=1;
+		else if(day.contentEquals("31")) day = "30";
+		month = String.valueOf(monthInt);
+		String nextMonthtoday;
+		if(monthInt<10) {
+			nextMonthtoday = year + "-" + "0" + month + "-" + day;
+		}else{
+			nextMonthtoday = year + "-" + month + "-" + day;
+		}
+		String responseLiga = bl.manager.makeRequest("/v2/competitions/2014/matches?dateFrom="+today+"&dateTo="+nextMonthtoday);
+		String responseChampions = bl.manager.makeRequest("/v2/competitions/2001/matches?dateFrom="+today+"&dateTo="+nextMonthtoday);
+		String response = bl.manager.makeRequest("/v2/competitions/2014/matches?dateFrom=2022-03-24&dateTo=2022-04-15");
+//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//		JsonElement je = JsonParser.parseString(response);
+//		String prettyJsonString = gson.toJson(je);
+//		System.out.println(prettyJsonString);
+
+		Gson gson = new Gson();
+
+		JsonObject jsonObject;
+
+		jsonObject = gson.fromJson(responseLiga, JsonObject.class);
+		Type matchListType = new TypeToken<ArrayList<Competition.Match>>(){}.getType();
+
+		List <Competition.Match> laLigamatches = gson.fromJson((jsonObject.get("matches")), matchListType);
+
+		jsonObject = gson.fromJson(responseChampions, JsonObject.class);
+
+		List <Competition.Match> championsMatches = gson.fromJson((jsonObject.get("matches")), matchListType);
+
+
+
 	}
 
 

@@ -69,7 +69,7 @@ public class AddRemoveController implements Controller {
 
 
         try {
-            businessLogic.addEvent(new Event(event,date ));
+            businessLogic.addEvent(new Event(event,date, "SCHEDULED" ));
             infoLbl.setText("Event added correctly!");
             this.eventTableView.getItems().clear();
 
