@@ -185,6 +185,8 @@ public class MainGUI {
     stage.setWidth(width);
     stage.setHeight(height);
     stage.setTitle(ResourceBundle.getBundle("Etiquetas",Locale.getDefault()).getString(title));
+    stage.setOnCloseRequest(e -> {Platform.exit();
+                              System.exit(0);});
     scene.setRoot(ui);
     stage.show();
   }

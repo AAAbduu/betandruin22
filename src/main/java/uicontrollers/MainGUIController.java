@@ -1,9 +1,7 @@
 package uicontrollers;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import businessLogic.BlFacade;
 import javafx.event.ActionEvent;
@@ -13,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+import scheduler.Scheduler;
 import ui.MainGUI;
 
 public class MainGUIController implements Controller{
@@ -48,7 +47,23 @@ public class MainGUIController implements Controller{
 
     @FXML
     void initialize() {
+        Scheduler schedulerLiga = new Scheduler(new Timer(), new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Timer is working");
+            }
+        });
 
+        schedulerLiga.getTimer().schedule(schedulerLiga.getTask(), new Date(),6000); //max can make 10 requests per minute to the rest api, so i have 60000 ms in a minute 60000/10 = 6000 ms.
+
+        Scheduler schedulerChampions = new Scheduler(new Timer(), new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Timer for champions is working");
+            }
+        });
+
+        schedulerChampions.getTimer().schedule(schedulerChampions.getTask(), new Date(),6000); //max can make 10 requests per minute to the rest api, so i have 60000 ms in a minute 60000/10 = 6000 ms.
 
 
     }
