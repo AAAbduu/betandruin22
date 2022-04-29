@@ -143,5 +143,5 @@ public interface BlFacade  {
 
 	void updateUser(User user);
 
-	List<Bet> getBets();
+	Question getSpecificQuestion(String question, Date eventDate, String descrption);
 }

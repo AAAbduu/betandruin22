@@ -12,7 +12,16 @@ public class Competition {
         public int id;
         public String name;
     }
-    public class Match{
+    public static class Match{
+        public Match(int id, String utcDate, String status, Score score, Team homeTeam, Team awayTeam) {
+            this.id = id;
+            this.utcDate = utcDate;
+            this.status = status;
+            this.score = score;
+            this.homeTeam = homeTeam;
+            this.awayTeam = awayTeam;
+        }
+
         public int id;
         public Season season;
         public String utcDate;
@@ -25,13 +34,19 @@ public class Competition {
     }
 
     public class Season{
+
         public int id;
         public String startDate;
         public String endDate;
         public int curentMatchday;
     }
 
-    public class Score{
+    public static class Score{
+        public Score(String winner) {
+            this.winner = winner;
+        }
+
+        public String winner;
         public String duration;
         public Object fullTime;
         public Object halfTime;
@@ -39,7 +54,11 @@ public class Competition {
         public Object penalties;
     }
 
-    public class Team{
+    public static class Team{
+        public Team(String name) {
+            this.name = name;
+        }
+
         public int id;
         public String name;
     }

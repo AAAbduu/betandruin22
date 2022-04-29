@@ -28,6 +28,10 @@ public class BlFacadeImplementation implements BlFacade {
 
 	protected Manager manager = new Manager();
 
+	public Manager getManager() {
+		return manager;
+	}
+
 	public BlFacadeImplementation()  {
 		System.out.println("Creating BlFacadeImplementation instance");
 		boolean initialize = config.getDataBaseOpenMode().equals("initialize");
@@ -279,12 +283,14 @@ public class BlFacadeImplementation implements BlFacade {
 		dbManager.close();
 	}
 
-	public List<Bet> getBets(){
+	@Override
+	public Question getSpecificQuestion(String question, Date eventDate, String description) {
 		dbManager.open(false);
-		List <Bet> bets =  dbManager.getBets();
+		Question q =  this.dbManager.getSpecificQuestion(question,eventDate, description);
 		dbManager.close();
-		return bets;
+		return q;
 	}
+
 
 	public static void main(String[] args) {
 		BlFacadeImplementation bl = new BlFacadeImplementation();

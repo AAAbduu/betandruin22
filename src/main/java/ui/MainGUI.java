@@ -88,6 +88,10 @@ public class MainGUI {
         return new AddRemoveController(businessLogic);
       }
 
+      if (controllerClass == MainGUIController.class) {
+        return new MainGUIController(businessLogic);
+      }
+
       if (controllerClass == SignUpController.class) {
         return new SignUpController(businessLogic);
       } else {

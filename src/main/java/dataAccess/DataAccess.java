@@ -143,34 +143,34 @@ public class DataAccess  {
 					if (Locale.getDefault().equals(new Locale("es"))) {
 						q1 = ev1.addQuestion("¿Quién ganará el partido?", 1);
 						q2 = ev1.addQuestion("¿Quién meterá el primer gol?", 2);
-						q3 = ev1.addQuestion("¿Quién ganará el partido?", 1);
+						//q3 = ev1.addQuestion("¿Quién ganará el partido?", 1);
 						q4 = ev1.addQuestion("¿Cuántos goles se marcarán?", 2);
-						q5 = ev1.addQuestion("¿Quién ganará el partido?", 1);
+						//q5 = ev1.addQuestion("¿Quién ganará el partido?", 1);
 						q6 = ev1.addQuestion("¿Habrá goles en la primera parte?", 2);
 					}
 					else if (Locale.getDefault().equals(new Locale("en"))) {
 						q1 = ev1.addQuestion("Who will win the match?", 1);
 						q2 = ev1.addQuestion("Who will score first?", 2);
-						q3 = ev1.addQuestion("Who will win the match?", 1);
+						//q3 = ev1.addQuestion("Who will win the match?", 1);
 						q4 = ev1.addQuestion("How many goals will be scored in the match?", 2);
-						q5 = ev1.addQuestion("Who will win the match?", 1);
+						//q5 = ev1.addQuestion("Who will win the match?", 1);
 						q6 = ev1.addQuestion("Will there be goals in the first half?", 2);
 					}
 					else {
 						q1 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
 						q2 = ev1.addQuestion("Zeinek sartuko du lehenengo gola?", 2);
-						q3 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
+						//q3 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
 						q4 = ev1.addQuestion("Zenbat gol sartuko dira?", 2);
-						q5 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
+						//q5 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
 						q6 = ev1.addQuestion("Golak sartuko dira lehenengo zatian?", 2);
 					}
 
-					db.persist(q1);
-					db.persist(q2);
-					db.persist(q3);
-					db.persist(q4);
-					db.persist(q5);
-					db.persist(q6);
+					//db.persist(q1);
+					//db.persist(q2);
+					//db.persist(q3);
+					//db.persist(q4);
+					//db.persist(q5);
+					//db.persist(q6);
 
 					db.persist(ev1);
 
@@ -543,6 +543,23 @@ public class DataAccess  {
 		db.getTransaction().begin();
 		db.merge(user);
 		db.getTransaction().commit();
+	}
+
+	public Question getSpecificQuestion(String question, Date eventDate, String description){
+
+		TypedQuery<Question> query = db.createQuery("SELECT distinct q FROM Question q where q.question = ?1 and q.event.eventDate = ?2 and q.event.description = ?3", Question.class);
+		query.setParameter(1,question);
+		query.setParameter(2,eventDate);
+		query.setParameter(3,description);
+	try {
+		Question q = query.getSingleResult();
+		if(q!=null){
+			return q;
+		}
+		}catch (Exception e){
+
+		}
+		return null;
 	}
 
 	public static void main(String[] args) {
