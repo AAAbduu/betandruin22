@@ -88,15 +88,7 @@ public class MainGUIController implements Controller{
                     //             String response = ((BlFacadeImplementation)businessLogic).getManager().makeRequest("/v2/competitions/2014/matches?status=FINISHED");
 
 
-                    Gson gson = new Gson();
-
-                    JsonObject jsonObject;
-
-                    jsonObject = gson.fromJson(responseLiga, JsonObject.class);
-                    Type matchListType = new TypeToken<ArrayList<Competition.Match>>() {
-                    }.getType();
-
-                    List<Competition.Match> laLigamatches = gson.fromJson((jsonObject.get("matches")), matchListType);
+                    List <Competition.Match> laLigamatches = obtainResponseCompetition(responseLiga);
 
                     //today = year + "-" + "0" + month + "-" + "30";
                     //laLigamatches.add(new Competition.Match(1, today, "FINISHED", new Competition.Score("AWAY_TEAM"), new Competition.Team("Madrid"), new Competition.Team("Barcelona")));
@@ -178,16 +170,8 @@ public class MainGUIController implements Controller{
                     }
                     String responseChampions = ((BlFacadeImplementation) businessLogic).getManager().makeRequest("/v2/competitions/2001/matches?status=FINISHED&dateFrom=" + today + "&dateTo=" + today);
 
-                    Gson gson = new Gson();
 
-                    JsonObject jsonObject;
-
-                    Type matchListType = new TypeToken<ArrayList<Competition.Match>>() {
-                    }.getType();
-
-                    jsonObject = gson.fromJson(responseChampions, JsonObject.class);
-
-                    List<Competition.Match> championsMatches = gson.fromJson((jsonObject.get("matches")), matchListType);
+                    List<Competition.Match> championsMatches = obtainResponseCompetition(responseChampions);
 
 
                     for (Competition.Match m : championsMatches) {
@@ -202,6 +186,19 @@ public class MainGUIController implements Controller{
         }catch (Exception o){
 
         }
+    }
+
+    private List<Competition.Match> obtainResponseCompetition(String responseChampions) {
+        Gson gson = new Gson();
+
+        JsonObject jsonObject = gson.fromJson(responseChampions, JsonObject.class);
+        Type matchListType = new TypeToken<ArrayList<Competition.Match>>() {
+        }.getType();
+
+
+        List<Competition.Match> matches = gson.fromJson((jsonObject.get("matches")), matchListType);
+
+        return matches;
     }
 
     @Override
