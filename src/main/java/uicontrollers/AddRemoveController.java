@@ -69,11 +69,11 @@ public class AddRemoveController implements Controller {
 
 
         try {
-            businessLogic.addEvent(new Event(event,date, "SCHEDULED" ));
+            businessLogic.addEvent(new Event(event,date));
             infoLbl.setText("Event added correctly!");
             this.eventTableView.getItems().clear();
 
-            Vector <Event> events = businessLogic.getEvents(date);
+            Vector <Event> events = businessLogic.getEvents(date, true);
 
             this.eventTableView.getItems().addAll(events);
         } catch (EventAlreadyExistException e) {
@@ -192,7 +192,7 @@ public class AddRemoveController implements Controller {
 
         Date sDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 
-        Vector <Event> events = businessLogic.getEvents(sDate);
+        Vector <Event> events = businessLogic.getEvents(sDate, true);
 
         this.eventTableView.getItems().addAll(events);
 

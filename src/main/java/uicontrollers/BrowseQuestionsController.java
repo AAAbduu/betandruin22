@@ -131,7 +131,7 @@ public class BrowseQuestionsController implements Controller {
     // a date has been chosen, update the combobox of Events
     datepicker.setOnAction(actionEvent -> {
       tblEvents.getItems().clear();
-      Vector<domain.Event> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
+      Vector<domain.Event> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()), false);
       for (domain.Event ev : events) {
         tblEvents.getItems().add(ev);
       }

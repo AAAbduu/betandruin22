@@ -34,11 +34,11 @@ public interface BlFacade  {
 
 	/**
 	 * This method retrieves all the events of a given date
-	 *
+	 * @param admin check if it is an admin requesting the events or a user.
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-	@WebMethod public Vector<Event> getEvents(Date date);
+	@WebMethod public Vector<Event> getEvents(Date date, boolean admin);
 
 	/**
 	 * This method retrieves from the database the dates in a month for which there are events
@@ -144,4 +144,10 @@ public interface BlFacade  {
 	void updateUser(User user);
 
 	Question getSpecificQuestion(String question, Date eventDate, String descrption);
+
+	/**
+	 * Update an existing event.
+	 * @param ev Event to be updated.
+	 */
+    void updateEvent(Event ev);
 }

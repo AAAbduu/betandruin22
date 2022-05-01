@@ -2,14 +2,11 @@ package domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlID;
@@ -27,7 +24,11 @@ public class Event implements Serializable {
 	private String description;
 	private Date eventDate;
 
-	private String status;
+	public Map<String, Boolean> getStatus() {
+		return status;
+	}
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Map<String, Boolean> status = new HashMap<>();
 
 	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Vector<Question> questions = new Vector<Question>();
@@ -48,12 +49,15 @@ public class Event implements Serializable {
 		this.eventNumber = eventNumber;
 		this.description = description;
 		this.eventDate = eventDate;
+		this.status.put("isFirstTimeFinished", false);
+		this.status.put("isFinished", false);
 	}
 
-	public Event( String description,Date eventDate, String status) {
+	public Event( String description,Date eventDate) {
 		this.description = description;
 		this.eventDate=eventDate;
-		this.status = status;
+		this.status.put("isFirstTimeFinished", false);
+		this.status.put("isFinished", false);
 	}
 
 	public Integer getEventNumber() {

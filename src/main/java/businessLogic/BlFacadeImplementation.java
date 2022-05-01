@@ -71,9 +71,9 @@ public class BlFacadeImplementation implements BlFacade {
 		dbManager.open(false);
 		Question qry = null;
 
-		if (new Date().compareTo(event.getEventDate()) > 0)
-			throw new EventFinished(ResourceBundle.getBundle("Etiquetas").
-					getString("ErrorEventHasFinished"));
+		//if (new Date().compareTo(event.getEventDate()) > 0)
+		//	throw new EventFinished(ResourceBundle.getBundle("Etiquetas").
+		//			getString("ErrorEventHasFinished"));
 
 		qry = dbManager.createQuestion(event, question, betMinimum);
 		dbManager.close();
@@ -82,14 +82,14 @@ public class BlFacadeImplementation implements BlFacade {
 
 	/**
 	 * This method invokes the data access to retrieve the events of a given date
-	 *
+	 * @param admin Indicates whether the user requesting the events is an admin or not
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
 	@WebMethod
-	public Vector<Event> getEvents(Date date)  {
+	public Vector<Event> getEvents(Date date, boolean admin)  {
 		dbManager.open(false);
-		Vector<Event>  events = dbManager.getEvents(date);
+		Vector<Event>  events = dbManager.getEvents(date, admin);
 		dbManager.close();
 		return events;
 	}
@@ -289,6 +289,13 @@ public class BlFacadeImplementation implements BlFacade {
 		Question q =  this.dbManager.getSpecificQuestion(question,eventDate, description);
 		dbManager.close();
 		return q;
+	}
+
+	@Override
+	public void updateEvent(Event ev) {
+		dbManager.open(false);
+		dbManager.updateEvent(ev);
+		dbManager.close();
 	}
 
 

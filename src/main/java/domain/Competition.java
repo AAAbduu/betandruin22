@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.HashMap;
+
 public class Competition {
 
     public int id;
@@ -48,10 +50,10 @@ public class Competition {
 
         public String winner;
         public String duration;
-        public Object fullTime;
-        public Object halfTime;
-        public Object extraTime;
-        public Object penalties;
+        public HashMap <String, Integer> fullTime;
+        public HashMap <String, Integer>halfTime;
+        public HashMap<String, Integer> extraTime;
+        public HashMap <String, Integer>penalties;
     }
 
     public static class Team{

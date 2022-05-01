@@ -204,7 +204,7 @@ public class betController implements Controller{
 
         Date sDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 
-        Vector<Event> events = businessLogic.getEvents(sDate);
+        Vector<Event> events = businessLogic.getEvents(sDate, false);
 
         this.eventTableView.getItems().addAll(events);
 

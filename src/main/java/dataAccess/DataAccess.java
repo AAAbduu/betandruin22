@@ -85,6 +85,8 @@ public class DataAccess  {
 				today = year + "-" + "0" + month + "-" + day;			//TAKING a month length events happening in real life.
 			}else{
 				today = year + "-" + month + "-" + day;
+			}if(Integer.valueOf(day) < 10) {
+				today = year + "-" + "0" + month + "-" + "0" + day;
 			}
 			monthInt++;
 			if(monthInt ==12) monthInt=1;
@@ -96,7 +98,7 @@ public class DataAccess  {
 			}else{
 				nextMonthtoday = year + "-" + month + "-" + day;
 			}if(Integer.valueOf(day) < 10){
-				today = year + "-" + "0" + month + "-" + "0"+day;
+				nextMonthtoday = year + "-" + "0" + month + "-" + "0"+day;
 			}
 			String responseLiga = manager.makeRequest("/v2/competitions/2014/matches?dateFrom="+today+"&dateTo="+nextMonthtoday);
 			String responseChampions = manager.makeRequest("/v2/competitions/2001/matches?dateFrom="+today+"&dateTo="+nextMonthtoday);
@@ -133,7 +135,7 @@ public class DataAccess  {
 					int monthE = Integer.valueOf(spliDate[1])-1;
 					int dayE = Integer.valueOf(spliDate[2]);
 					String eventDescription = m.homeTeam.name + "-" + m.awayTeam.name;
-					Event ev1 = new Event( eventDescription, UtilDate.newDate(yearE, monthE, dayE), "SCHEDULED");
+					Event ev1 = new Event( eventDescription, UtilDate.newDate(yearE, monthE, dayE));
 
 					Question q1;
 					Question q2;
@@ -231,11 +233,19 @@ public class DataAccess  {
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-	public Vector<Event> getEvents(Date date) {
+
+	public Vector<Event> getEvents(Date date, boolean admin) {
 		System.out.println(">> DataAccess: getEvents");
 		Vector<Event> res = new Vector<Event>();
-		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1",
-				Event.class);
+		TypedQuery<Event> query;
+		if(!admin) {
+
+			query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1 AND ev.status.get('isFinished') = false",
+					Event.class);
+		}else{
+			 query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1",
+					Event.class);
+		}
 		query.setParameter(1, date);
 		List<Event> events = query.getResultList();
 		for (Event ev:events){
@@ -260,7 +270,7 @@ public class DataAccess  {
 
 
 		TypedQuery<Date> query = db.createQuery("SELECT DISTINCT ev.eventDate FROM Event ev "
-				+ "WHERE ev.eventDate BETWEEN ?1 and ?2", Date.class);
+				+ "WHERE ev.eventDate BETWEEN ?1 and ?2 AND ev.status.get('isFinished') = false", Date.class);
 		query.setParameter(1, firstDayMonthDate);
 		query.setParameter(2, lastDayMonthDate);
 		List<Date> dates = query.getResultList();
@@ -578,6 +588,14 @@ public class DataAccess  {
 //		dt.close();
 
 		dt.initializeDB();
+
+	}
+
+	public void updateEvent(Event ev) {
+
+		db.getTransaction().begin();
+		db.merge(ev);
+		db.getTransaction().commit();
 
 	}
 	/*public static void main(String[] args) {
