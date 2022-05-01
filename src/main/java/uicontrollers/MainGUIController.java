@@ -68,7 +68,7 @@ public class MainGUIController implements Controller{
             Scheduler schedulerLiga = new Scheduler(new Timer(), new TimerTask() {
                 @Override
                 public void run() {
-                    System.out.println("Timer is working");
+                    System.out.println("Timer for Laliga is working and refreshing every minute");
                     Date date = new Date();
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(date);
@@ -90,61 +90,16 @@ public class MainGUIController implements Controller{
 
                     List <Competition.Match> laLigamatches = obtainResponseCompetition(responseLiga);
 
-                    //today = year + "-" + "0" + month + "-" + "30";
-                    //laLigamatches.add(new Competition.Match(1, today, "FINISHED", new Competition.Score("AWAY_TEAM"), new Competition.Team("Madrid"), new Competition.Team("Barcelona")));
-
 
                     for (Competition.Match m : laLigamatches) {
-                        String winner = new String();
-                        if (m.score.winner.contentEquals("AWAY_TEAM")) {
-                            winner = m.awayTeam.name;
-                        } else if (m.score.winner.contentEquals("HOME_TEAM")) {
-                            winner = m.homeTeam.name;
-                        } else if (m.score.winner.contentEquals("DRAW")) {
-                            winner = "Draw";
-                        }
-                        String description = m.homeTeam.name + "-" + m.awayTeam.name;
-                        String q;
-                        if (Locale.getDefault().equals(new Locale("es"))) {
-                            q = "¿Quién ganará el partido?";
-                            //q2 = ev1.addQuestion("¿Quién meterá el primer gol?");
-                            //q3 = ev1.addQuestion("¿Quién ganará el partido?", 1);
-                            //q4 = ev1.addQuestion("¿Cuántos goles se marcarán?", 2);
-                            //q5 = ev1.addQuestion("¿Quién ganará el partido?", 1);
-                            //q6 = ev1.addQuestion("¿Habrá goles en la primera parte?", 2);
-                        } else if (Locale.getDefault().equals(new Locale("en"))) {
-                            q = "Who will win the match?";
-                            // q2 = ev1.addQuestion("Who will score first?", 2);
-                            //q3 = ev1.addQuestion("Who will win the match?", 1);
-                            //q4 = ev1.addQuestion("How many goals will be scored in the match?", 2);
-                            //q5 = ev1.addQuestion("Who will win the match?", 1);
-                            //q6 = ev1.addQuestion("Will there be goals in the first half?", 2);
-                        } else {
-                            q = "Zeinek irabaziko du partidua?";
-                            // q2 = ev1.addQuestion("Zeinek sartuko du lehenengo gola?", 2);
-                            //q3 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
-                            //q4 = ev1.addQuestion("Zenbat gol sartuko dira?", 2);
-                            //q5 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
-                            //q6 = ev1.addQuestion("Golak sartuko dira lehenengo zatian?", 2);
-                        }
-                        Date date1 = null;
-                        try {
-                            date1 = new SimpleDateFormat("yyyy-MM-dd").parse(today);
-                        } catch (ParseException e) {
-                            throw new RuntimeException(e);
-                        }
-                        Question question = businessLogic.getSpecificQuestion(q, date1, description);
-
-                        if (question != null) {
-                            businessLogic.publishResult(new Result(question, winner));
-                        }
+                        publishWinningResult(today, m);
 
 
                     }
 
                 }
             });
-            schedulerLiga.getTimer().schedule(schedulerLiga.getTask(), new Date(),6000); //max can make 10 requests per minute to the rest api, so i have 60000 ms in a minute 60000/10 = 6000 ms.
+            schedulerLiga.getTimer().schedule(schedulerLiga.getTask(), new Date(),60000);
         }catch (Exception e){
 
         }
@@ -153,7 +108,7 @@ public class MainGUIController implements Controller{
             Scheduler schedulerChampions = new Scheduler(new Timer(), new TimerTask() {
                 @Override
                 public void run() {
-                    System.out.println("Timer for champions is working");
+                    System.out.println("Timer for champions is working and refreshinf every minute");
                     Date date = new Date();
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(date);
@@ -164,7 +119,7 @@ public class MainGUIController implements Controller{
                     String month = String.valueOf(monthInt);
                     String today;
                     if (monthInt < 10) {
-                        today = year + "-" + "0" + month + "-" + day;            //TAKING a month length events happening in real life.
+                        today = year + "-" + "0" + month + "-" + day;
                     } else {
                         today = year + "-" + month + "-" + day;
                     }
@@ -175,16 +130,56 @@ public class MainGUIController implements Controller{
 
 
                     for (Competition.Match m : championsMatches) {
-                        //String winner = m.score.
+                        publishWinningResult(today, m);
                     }
 
                 }
             });
 
-            schedulerChampions.getTimer().schedule(schedulerChampions.getTask(), new Date(), 6000); //max can make 10 requests per minute to the rest api, so i have 60000 ms in a minute 60000/10 = 6000 ms.
+            schedulerChampions.getTimer().schedule(schedulerChampions.getTask(), new Date(), 60000);
 
         }catch (Exception o){
 
+        }
+    }
+
+    private void publishWinningResult(String today, Competition.Match m) {
+        String winner = new String();
+        if (m.score.winner.contentEquals("AWAY_TEAM")) {
+            winner = m.awayTeam.name;
+        } else if (m.score.winner.contentEquals("HOME_TEAM")) {
+            winner = m.homeTeam.name;
+        } else if (m.score.winner.contentEquals("DRAW")) {
+            winner = "Draw";
+        }
+        String description = m.homeTeam.name + "-" + m.awayTeam.name;
+        String q;
+        if (Locale.getDefault().equals(new Locale("es"))) {
+            q = "¿Quién ganará el partido?";
+            //q2 = ev1.addQuestion("¿Quién meterá el primer gol?");
+            //q4 = ev1.addQuestion("¿Cuántos goles se marcarán?", 2);
+            //q6 = ev1.addQuestion("¿Habrá goles en la primera parte?", 2);
+        } else if (Locale.getDefault().equals(new Locale("en"))) {
+            q = "Who will win the match?";
+            // q2 = ev1.addQuestion("Who will score first?");
+            //q4 = ev1.addQuestion("How many goals will be scored in the match?", 2);
+            //q6 = ev1.addQuestion("Will there be goals in the first half?", 2);
+        } else {
+            q = "Zeinek irabaziko du partidua?";
+            // q2 = ev1.addQuestion("Zeinek sartuko du lehenengo gola?", 2);
+            //q4 = ev1.addQuestion("Zenbat gol sartuko dira?", 2);
+            //q6 = ev1.addQuestion("Golak sartuko dira lehenengo zatian?", 2);
+        }
+        Date date1 = null;
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd").parse(today);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        Question question = businessLogic.getSpecificQuestion(q, date1, description);
+
+        if (question != null) {
+            businessLogic.publishResult(new Result(question, winner));
         }
     }
 
