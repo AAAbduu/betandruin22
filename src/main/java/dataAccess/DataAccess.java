@@ -95,6 +95,8 @@ public class DataAccess  {
 				nextMonthtoday = year + "-" + "0" + month + "-" + day;
 			}else{
 				nextMonthtoday = year + "-" + month + "-" + day;
+			}if(Integer.valueOf(day) < 10){
+				today = year + "-" + "0" + month + "-" + "0"+day;
 			}
 			String responseLiga = manager.makeRequest("/v2/competitions/2014/matches?dateFrom="+today+"&dateTo="+nextMonthtoday);
 			String responseChampions = manager.makeRequest("/v2/competitions/2001/matches?dateFrom="+today+"&dateTo="+nextMonthtoday);

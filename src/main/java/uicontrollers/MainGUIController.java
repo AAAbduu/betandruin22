@@ -82,6 +82,8 @@ public class MainGUIController implements Controller{
                         today = year + "-" + "0" + month + "-" + day;            //TAKING a month length events happening in real life.
                     } else {
                         today = year + "-" + month + "-" + day;
+                    }if(Integer.valueOf(day) < 10){
+                        today = year + "-" + "0" + month + "-" + "0"+day;
                     }
 
                     String responseLiga = ((BlFacadeImplementation) businessLogic).getManager().makeRequest("/v2/competitions/2014/matches?status=FINISHED&dateFrom=" + today + "&dateTo=" + today);
@@ -122,6 +124,8 @@ public class MainGUIController implements Controller{
                         today = year + "-" + "0" + month + "-" + day;
                     } else {
                         today = year + "-" + month + "-" + day;
+                    }if(Integer.valueOf(day) < 10){
+                        today = year + "-" + "0" + month + "-" + "0"+day;
                     }
                     String responseChampions = ((BlFacadeImplementation) businessLogic).getManager().makeRequest("/v2/competitions/2001/matches?status=FINISHED&dateFrom=" + today + "&dateTo=" + today);
 
