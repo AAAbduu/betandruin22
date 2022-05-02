@@ -124,7 +124,7 @@ public class MainGUIController implements Controller{
                     }
                 }
             });
-            schedulerLiga.getTimer().schedule(schedulerLiga.getTask(), new Date(),60000);
+            schedulerLiga.getTimer().schedule(schedulerLiga.getTask(), new Date(),60500);
         }catch (Exception e){
 
         }
