@@ -53,58 +53,16 @@ public class MainGUI {
     FXMLLoader loader = new FXMLLoader(MainGUI.class.getResource(fxmlfile), ResourceBundle.getBundle("Etiquetas", Locale.getDefault()));
     loader.setControllerFactory(controllerClass -> {
 
-      if (controllerClass == LogInController.class) {
-        return new LogInController(businessLogic);
-      }
-
-      if (controllerClass == AdminViewController.class) {
-        return new AdminViewController(businessLogic);
-      }
-
-      if (controllerClass == UserViewController.class) {
-        return new UserViewController(businessLogic);
-      }
-
-      if (controllerClass == BrowseQuestionsController.class) {
-        return new BrowseQuestionsController(businessLogic);
-      }
-
-      if (controllerClass == betController.class) {
-        return new betController(businessLogic);
-      }
-
-      if (controllerClass == CreateQuestionController.class) {
-        return new CreateQuestionController(businessLogic);
-      }
-
-      if (controllerClass == SetFeeController.class) {
-        return new  SetFeeController(businessLogic);
-      }
-      if (controllerClass == PublishResultController.class) {
-        return new PublishResultController(businessLogic);
-      }
-
-      if (controllerClass == AddRemoveController.class) {
-        return new AddRemoveController(businessLogic);
-      }
-
-      if (controllerClass == MainGUIController.class) {
+      if (controllerClass == MainGUIController.class) {   //This one must be here, otherwise an exception appears in a thread in timer 1
         return new MainGUIController(businessLogic);
       }
 
-      if (controllerClass == SignUpController.class) {
-        return new SignUpController(businessLogic);
-      } else {
-        // default behavior for controllerFactory:
         try {
-          return controllerClass.getDeclaredConstructor().newInstance();
+          return controllerClass.getConstructor(BlFacade.class).newInstance(businessLogic);
         } catch (Exception exc) {
           exc.printStackTrace();
           throw new RuntimeException(exc); // fatal, just bail...
         }
-      }
-
-
     });
     window.ui = loader.load();
     ((Controller) loader.getController()).setMainApp(this);
@@ -190,7 +148,7 @@ public class MainGUI {
     stage.setHeight(height);
     stage.setTitle(ResourceBundle.getBundle("Etiquetas",Locale.getDefault()).getString(title));
     stage.setOnCloseRequest(e -> {Platform.exit();
-                              System.exit(0);});
+                              System.exit(0);}); //in order to stop all the processes from any stage.
     scene.setRoot(ui);
     stage.show();
   }
