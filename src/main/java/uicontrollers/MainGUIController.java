@@ -19,14 +19,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 import scheduler.Scheduler;
 import ui.MainGUI;
 
 public class MainGUIController implements Controller{
-
     @FXML
     private Label selectOptionLbl;
 

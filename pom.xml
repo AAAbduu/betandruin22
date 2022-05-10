@@ -9,6 +9,12 @@
 			<name>ObjectDB Repository</name>
 			<url>https://m2.objectdb.com</url>
 		</repository>
+
+		<repository>
+			<id>snapshots</id>
+			<name>libs-snapshot</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
 	</repositories>
 
 	<properties>
@@ -47,6 +53,13 @@
 			<artifactId>javafx-controls</artifactId>
 			<version>${javafx.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>io.github.typhon0</groupId>
+			<artifactId>AnimateFX</artifactId>
+			<version>1.2.2-SNAPSHOT</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.openjfx</groupId>

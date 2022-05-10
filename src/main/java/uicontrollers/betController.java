@@ -1,5 +1,6 @@
 package uicontrollers;
 
+import animatefx.animation.BounceIn;
 import businessLogic.BlFacade;
 import domain.*;
 import javafx.collections.FXCollections;
