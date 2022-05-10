@@ -44,18 +44,6 @@ public class LogInController implements Controller{
 
         if(usr.contentEquals("") || psswd.contentEquals("")){
             statusLbl.setText("None of the fields can be empty!");
-        }else if(usr.contentEquals("admin") && psswd.contentEquals("admin")){
-            statusLbl.setText("Succesfully logged-in!");
-
-            this.businessLogic.setUser(null);
-
-            maingui.showAdminView();
-
-            usernameTxtField.setText(null);
-
-            psswdField.setText(null);
-
-            statusLbl.setText(null);
 
         }else{
 
@@ -66,8 +54,12 @@ public class LogInController implements Controller{
 
                 this.businessLogic.setUser(r);
 
-                maingui.showUserView();
+                if(r.isAdmin()){
+                    maingui.showAdminView();
+                }else {
 
+                    maingui.showUserView();
+                }
 
 
 

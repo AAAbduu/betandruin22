@@ -2,14 +2,11 @@ package domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlID;
@@ -24,8 +21,14 @@ public class Event implements Serializable {
 	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	@Id @GeneratedValue
 	private Integer eventNumber;
-	private String description; 
+	private String description;
 	private Date eventDate;
+
+	public Map<String, Boolean> getStatus() {
+		return status;
+	}
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Map<String, Boolean> status = new HashMap<>();
 
 	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Vector<Question> questions = new Vector<Question>();
@@ -46,11 +49,15 @@ public class Event implements Serializable {
 		this.eventNumber = eventNumber;
 		this.description = description;
 		this.eventDate = eventDate;
+		this.status.put("isFirstTimeFinished", false);
+		this.status.put("isFinished", false);
 	}
 
 	public Event( String description,Date eventDate) {
 		this.description = description;
 		this.eventDate=eventDate;
+		this.status.put("isFirstTimeFinished", false);
+		this.status.put("isFinished", false);
 	}
 
 	public Integer getEventNumber() {
@@ -85,7 +92,7 @@ public class Event implements Serializable {
 
 	/**
 	 * This method creates a bet with a question, minimum bet ammount and percentual profit
-	 * 
+	 *
 	 * @param question to be added to the event
 	 * @param betMinimum of that question
 	 * @return Bet
@@ -99,11 +106,11 @@ public class Event implements Serializable {
 
 	/**
 	 * This method checks if the question already exists for that event
-	 * 
+	 *
 	 * @param question that needs to be checked if there exists
 	 * @return true if the question exists and false in other case
 	 */
-	public boolean doesQuestionExist(String question)  {	
+	public boolean doesQuestionExist(String question)  {
 		for (Question q:this.getQuestions()){
 			if (q.getQuestion().compareTo(question)==0)
 				return true;
@@ -131,5 +138,11 @@ public class Event implements Serializable {
 		if (eventNumber != other.eventNumber)
 			return false;
 		return true;
+	}
+
+	public void deleteQuestion(Question question) {
+
+		this.questions.remove(question);
+
 	}
 }
