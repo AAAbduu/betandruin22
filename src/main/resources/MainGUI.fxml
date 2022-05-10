@@ -16,11 +16,11 @@
          </font></Label>
       <Button fx:id="loginBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="91.0" layoutY="143.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="181.0" text="%Login">
          <graphic>
-            <Rectangle id="circleBefore" fx:id="loginCircle" arcHeight="50.0" arcWidth="50.0" height="26.0" layoutX="-50.0" stroke="BLACK" strokeType="INSIDE" width="26.0" x="-50.0" />
+            <Rectangle id="circleBefore" fx:id="loginCircle" arcHeight="50.0" arcWidth="50.0" height="26.0" layoutX="-50.0" stroke="BLACK" strokeType="INSIDE" translateX="-50.0" width="26.0" x="-50.0" />
          </graphic></Button>
       <Button fx:id="registerBtn" contentDisplay="CENTER" layoutX="91.0" layoutY="194.0" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="181.0" text="%Register">
          <graphic>
-            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="50.0" height="26.0" layoutX="-50.0" stroke="BLACK" strokeType="INSIDE" width="26.0" x="-50.0" />
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="50.0" height="26.0" layoutX="-50.0" stroke="BLACK" strokeType="INSIDE" translateX="-50.0" width="26.0" x="-50.0" />
          </graphic></Button>
       <ImageView fitHeight="78.0" fitWidth="140.0" layoutX="130.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -120,7 +120,7 @@ public class MainGUIController implements Controller{
                     }
                 }
             });
-            schedulerLiga.getTimer().schedule(schedulerLiga.getTask(), new Date(),60500);
+            schedulerLiga.getTimer().schedule(schedulerLiga.getTask(), 1000,60500);
         }catch (Exception e){
 
         }
@@ -184,7 +184,7 @@ public class MainGUIController implements Controller{
                 }
             });
 
-            schedulerChampions.getTimer().schedule(schedulerChampions.getTask(), new Date(), 60000);
+            schedulerChampions.getTimer().schedule(schedulerChampions.getTask(), new Date(), 70000);
 
         }catch (Exception o){
 
