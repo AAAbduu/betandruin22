@@ -156,7 +156,7 @@ public class PublishResultController implements Controller{
 
         Date sDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 
-        Vector<Event> events = businessLogic.getEvents(sDate, true);
+        Vector<Event> events = businessLogic.getEvents(sDate);
 
         this.eventTableView.getItems().addAll(events);
 
