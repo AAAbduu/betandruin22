@@ -11,15 +11,7 @@ import javax.persistence.*;
 public class User{
 
     @Id
-    @GeneratedValue
-    private Integer userNumber;
-
-
-
     private String userName;
-
-    private boolean isAdmin;
-
 
 
     private String password;
@@ -29,32 +21,6 @@ public class User{
     private Date birthDate;
     private double money = 0;
 
-    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Movement> movements;
-
-    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Bet> bets;
-
-    public List<Movement> getMovements() {
-        return movements;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public Integer getUserNumber() {
-        return userNumber;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
-    }
-
-    public void setMovements(List<Movement> movements) {
-        this.movements = movements;
-    }
-
     public List<Bet> getBets() {
         return bets;
     }
@@ -63,10 +29,11 @@ public class User{
         this.bets = bets;
     }
 
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Bet> bets;
 
 
-
-    public User(String userName, String password, String name, String lastName, String email, Date birthDate, boolean admin) {
+    public User(String userName, String password, String name, String lastName, String email, Date birthDate) {
         this.userName = userName;
         this.password = password;
         this.name = name;
@@ -74,8 +41,6 @@ public class User{
         this.email = email;
         this.birthDate = birthDate;
         bets = new ArrayList<>();
-        movements = new ArrayList<>();
-        this.isAdmin = admin;
     }
 
     public double getMoney() {
@@ -182,12 +147,6 @@ public class User{
     public void addBet(Bet bet) {
 
         this.bets.add(bet);
-
-    }
-
-    public void addMovement(Movement movement) {
-
-        this.movements.add(movement);
 
     }
 

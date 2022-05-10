@@ -22,7 +22,7 @@
          <graphic>
             <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="48.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
          </graphic></Button>
-      <Label id="title" fx:id="welcomeLbl" layoutX="215.0" layoutY="97.0" text="%Welcome">
+      <Label id="title" fx:id="welcomeLbl" layoutX="198.0" layoutY="97.0" text="%Welcome">
          <font>
             <Font size="37.0" />
          </font>
@@ -45,7 +45,7 @@
          <font>
             <Font name="System Bold" size="37.0" />
          </font></Label>
-      <TableView fx:id="currentBets" layoutX="36.0" layoutY="358.0" onMouseClicked="#onMouseClickOnCurrentBets" prefHeight="200.0" prefWidth="238.0">
+      <TableView fx:id="currentBets" layoutX="36.0" layoutY="358.0" prefHeight="200.0" prefWidth="238.0">
         <columns>
           <TableColumn fx:id="amounBet" prefWidth="70.0" resizable="false" text="Amount" />
           <TableColumn fx:id="eventDescription" prefWidth="167.0" resizable="false" text="EventDescription" />
@@ -57,17 +57,5 @@
          </image>
       </ImageView>
       <Label layoutX="43.0" layoutY="327.0" text="%currentBets" />
-      <Button fx:id="removeBet" layoutX="36.0" layoutY="558.0" mnemonicParsing="false" onAction="#onRemoveBetBtn" text="%removeBet">
-         <graphic>
-            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="48.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
-         </graphic>
-      </Button>
-      <TableView fx:id="movementTable" layoutX="335.0" layoutY="358.0" onMouseClicked="#onMouseClickOnCurrentBets" prefHeight="200.0" prefWidth="238.0">
-         <columns>
-            <TableColumn fx:id="amounMovement" prefWidth="70.0" resizable="false" text="Amount" />
-            <TableColumn fx:id="movementDescription" prefWidth="167.0" resizable="false" text="Description" />
-         </columns>
-      </TableView>
-      <Label layoutX="335.0" layoutY="327.0" text="%movements" />
    </children>
 </AnchorPane>

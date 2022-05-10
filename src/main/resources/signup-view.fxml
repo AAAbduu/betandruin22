@@ -71,7 +71,7 @@
          </font>
       </Label>
       <PasswordField fx:id="confirmPsswdField" layoutX="161.0" layoutY="457.0" />
-      <Label fx:id="statusLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="597.0" prefHeight="63.0" prefWidth="353.0" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="statusLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="81.0" layoutY="607.0" prefHeight="39.0" prefWidth="288.0" textAlignment="CENTER" wrapText="true" />
       <ImageView fitHeight="94.0" fitWidth="144.0" layoutX="162.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@logo.png" />
