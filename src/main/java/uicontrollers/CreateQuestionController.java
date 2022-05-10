@@ -203,7 +203,7 @@ public class CreateQuestionController implements Controller {
       comboEvents.getItems().clear();
 
       oListEvents = FXCollections.observableArrayList(new ArrayList<>());
-      oListEvents.setAll(businessLogic.getEvents(Dates.convertToDate(datePicker.getValue())));
+      oListEvents.setAll(businessLogic.getEvents(Dates.convertToDate(datePicker.getValue()) ,true));
 
       comboEvents.setItems(oListEvents);
 
