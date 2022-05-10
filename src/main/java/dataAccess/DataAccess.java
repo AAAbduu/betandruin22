@@ -1,13 +1,8 @@
 package dataAccess;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Vector;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,11 +11,16 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.sun.xml.ws.util.StringUtils;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.*;
 import exceptions.EventAlreadyExistException;
 import exceptions.QuestionAlreadyExist;
+import httpManagement.Manager;
 
 /**
  * Implements the Data Access utility to the objectDb database
@@ -29,6 +29,8 @@ public class DataAccess  {
 
 	protected EntityManager  db;
 	protected EntityManagerFactory emf;
+
+	protected Manager manager = new Manager();
 
 	public EntityManager getDb() {
 		return db;
@@ -70,99 +72,123 @@ public class DataAccess  {
 
 		try {
 
-			Calendar today = Calendar.getInstance();
-
-			int month = today.get(Calendar.MONTH);
-			month += 1;
-			int year = today.get(Calendar.YEAR);
-			if (month == 12) { month = 0; year += 1;}
-
-			Event ev1 = new Event( "Atlético-Athletic", UtilDate.newDate(year, month, 17));
-			Event ev2 = new Event( "Eibar-Barcelona", UtilDate.newDate(year, month, 17));
-			Event ev3 = new Event( "Getafe-Celta", UtilDate.newDate(year, month, 17));
-			Event ev4 = new Event( "Alavés-Deportivo", UtilDate.newDate(year, month, 17));
-			Event ev5 = new Event( "Español-Villareal", UtilDate.newDate(year, month, 17));
-			Event ev6 = new Event( "Las Palmas-Sevilla", UtilDate.newDate(year, month, 17));
-			Event ev7 = new Event( "Malaga-Valencia", UtilDate.newDate(year, month, 17));
-			Event ev8 = new Event( "Girona-Leganés", UtilDate.newDate(year, month, 17));
-			Event ev9 = new Event( "Real Sociedad-Levante", UtilDate.newDate(year, month, 17));
-			Event ev10 = new Event( "Betis-Real Madrid", UtilDate.newDate(year, month, 17));
-
-			Event ev11 = new Event( "Atletico-Athletic", UtilDate.newDate(year, month, 1));
-			Event ev12 = new Event( "Eibar-Barcelona", UtilDate.newDate(year, month, 1));
-			Event ev13 = new Event( "Getafe-Celta", UtilDate.newDate(year, month, 1));
-			Event ev14 = new Event( "Alavés-Deportivo", UtilDate.newDate(year, month, 1));
-			Event ev15 = new Event( "Español-Villareal", UtilDate.newDate(year, month, 1));
-			Event ev16 = new Event( "Las Palmas-Sevilla", UtilDate.newDate(year, month, 1));
-
-
-			Event ev17 = new Event( "Málaga-Valencia", UtilDate.newDate(year, month + 1, 28));
-			Event ev18 = new Event( "Girona-Leganés", UtilDate.newDate(year, month + 1, 28));
-			Event ev19 = new Event( "Real Sociedad-Levante", UtilDate.newDate(year, month + 1, 28));
-			Event ev20 = new Event( "Betis-Real Madrid", UtilDate.newDate(year, month + 1, 28));
-
-			Question q1;
-			Question q2;
-			Question q3;
-			Question q4;
-			Question q5;
-			Question q6;
-
-			if (Locale.getDefault().equals(new Locale("es"))) {
-				q1 = ev1.addQuestion("¿Quién ganará el partido?", 1);
-				q2 = ev1.addQuestion("¿Quién meterá el primer gol?", 2);
-				q3 = ev11.addQuestion("¿Quién ganará el partido?", 1);
-				q4 = ev11.addQuestion("¿Cuántos goles se marcarán?", 2);
-				q5 = ev17.addQuestion("¿Quién ganará el partido?", 1);
-				q6 = ev17.addQuestion("¿Habrá goles en la primera parte?", 2);
+			Date date = new Date();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			String year = String.valueOf(calendar.get(Calendar.YEAR));
+			String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+			int monthInt = calendar.get(Calendar.MONTH)+1;
+			if(monthInt ==12) monthInt=1;
+			String month = String.valueOf(monthInt);
+			String today;
+			if(monthInt<10) {
+				today = year + "-" + "0" + month + "-" + day;			//TAKING a month length events happening in real life.
+			}else{
+				today = year + "-" + month + "-" + day;
+			}if(Integer.valueOf(day) < 10) {
+				today = year + "-" + "0" + month + "-" + "0" + day;
 			}
-			else if (Locale.getDefault().equals(new Locale("en"))) {
-				q1 = ev1.addQuestion("Who will win the match?", 1);
-				q2 = ev1.addQuestion("Who will score first?", 2);
-				q3 = ev11.addQuestion("Who will win the match?", 1);
-				q4 = ev11.addQuestion("How many goals will be scored in the match?", 2);
-				q5 = ev17.addQuestion("Who will win the match?", 1);
-				q6 = ev17.addQuestion("Will there be goals in the first half?", 2);
+			monthInt++;
+			if(monthInt ==12) monthInt=1;
+			else if(day.contentEquals("31")) day = "30";
+			month = String.valueOf(monthInt);
+			String nextMonthtoday;
+			if(monthInt<10) {
+				nextMonthtoday = year + "-" + "0" + month + "-" + day;
+			}else{
+				nextMonthtoday = year + "-" + month + "-" + day;
+			}if(Integer.valueOf(day) < 10){
+				nextMonthtoday = year + "-" + "0" + month + "-" + "0"+day;
 			}
-			else {
-				q1 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
-				q2 = ev1.addQuestion("Zeinek sartuko du lehenengo gola?", 2);
-				q3 = ev11.addQuestion("Zeinek irabaziko du partidua?", 1);
-				q4 = ev11.addQuestion("Zenbat gol sartuko dira?", 2);
-				q5 = ev17.addQuestion("Zeinek irabaziko du partidua?", 1);
-				q6 = ev17.addQuestion("Golak sartuko dira lehenengo zatian?", 2);
+			String responseLiga = manager.makeRequest("/v2/competitions/2014/matches?dateFrom="+today+"&dateTo="+nextMonthtoday);
+			String responseChampions = manager.makeRequest("/v2/competitions/2001/matches?dateFrom="+today+"&dateTo="+nextMonthtoday);
+//			String response = manager.makeRequest("/v2/competitions/2014/matches?dateFrom=2022-03-24&dateTo=2022-04-15");
+//			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//			JsonElement je = JsonParser.parseString(response);
+//			String prettyJsonString = gson.toJson(je);
+//			System.out.println(prettyJsonString);
+
+			Gson gson = new Gson();
+
+			JsonObject jsonObject;
+
+			jsonObject = gson.fromJson(responseLiga, JsonObject.class);
+			Type matchListType = new TypeToken<ArrayList<Competition.Match>>(){}.getType();
+
+			List <Competition.Match> laLigamatches = gson.fromJson((jsonObject.get("matches")), matchListType);
+
+			jsonObject = gson.fromJson(responseChampions, JsonObject.class);
+
+			List <Competition.Match> championsMatches = gson.fromJson((jsonObject.get("matches")), matchListType);
+
+			List <Competition.Match> allMatches = new ArrayList<>();
+
+			allMatches.addAll(championsMatches);
+			allMatches.addAll(laLigamatches);
+
+			for(Competition.Match m : allMatches){
+				if(m.status.contentEquals("SCHEDULED") && (m.homeTeam.name!=null)&&(m.awayTeam.name!=null)){
+					String dateofEvent = m.utcDate;
+					String [] split = dateofEvent.split("T");
+					String [] spliDate = split[0].split("-");
+					int yearE = Integer.valueOf(spliDate[0]);
+					int monthE = Integer.valueOf(spliDate[1])-1;
+					int dayE = Integer.valueOf(spliDate[2]);
+					String eventDescription = m.homeTeam.name + "-" + m.awayTeam.name;
+					Event ev1 = new Event( eventDescription, UtilDate.newDate(yearE, monthE, dayE));
+
+					Question q1;
+					Question q2;
+					Question q3;
+					Question q4;
+					Question q5;
+					Question q6;
+
+					if (Locale.getDefault().equals(new Locale("es"))) {
+						q1 = ev1.addQuestion("¿Quién ganará el partido?", 1);
+						q2 = ev1.addQuestion("¿Quién meterá el primer gol?", 2);
+						//q3 = ev1.addQuestion("¿Quién ganará el partido?", 1);
+						q4 = ev1.addQuestion("¿Cuántos goles se marcarán?", 2);
+						//q5 = ev1.addQuestion("¿Quién ganará el partido?", 1);
+						q6 = ev1.addQuestion("¿Habrá goles en la primera parte?", 2);
+					}
+					else if (Locale.getDefault().equals(new Locale("en"))) {
+						q1 = ev1.addQuestion("Who will win the match?", 1);
+						q2 = ev1.addQuestion("Who will score first?", 2);
+						//q3 = ev1.addQuestion("Who will win the match?", 1);
+						q4 = ev1.addQuestion("How many goals will be scored in the match?", 2);
+						//q5 = ev1.addQuestion("Who will win the match?", 1);
+						q6 = ev1.addQuestion("Will there be goals in the first half?", 2);
+					}
+					else {
+						q1 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
+						q2 = ev1.addQuestion("Zeinek sartuko du lehenengo gola?", 2);
+						//q3 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
+						q4 = ev1.addQuestion("Zenbat gol sartuko dira?", 2);
+						//q5 = ev1.addQuestion("Zeinek irabaziko du partidua?", 1);
+						q6 = ev1.addQuestion("Golak sartuko dira lehenengo zatian?", 2);
+					}
+
+					//db.persist(q1);
+					//db.persist(q2);
+					//db.persist(q3);
+					//db.persist(q4);
+					//db.persist(q5);
+					//db.persist(q6);
+
+					db.persist(ev1);
+
+
+				}
 			}
 
-			db.persist(q1);
-			db.persist(q2);
-			db.persist(q3);
-			db.persist(q4);
-			db.persist(q5);
-			db.persist(q6);
-
-			db.persist(ev1);
-			db.persist(ev2);
-			db.persist(ev3);
-			db.persist(ev4);
-			db.persist(ev5);
-			db.persist(ev6);
-			db.persist(ev7);
-			db.persist(ev8);
-			db.persist(ev9);
-			db.persist(ev10);
-			db.persist(ev11);
-			db.persist(ev12);
-			db.persist(ev13);
-			db.persist(ev14);
-			db.persist(ev15);
-			db.persist(ev16);
-			db.persist(ev17);
-			db.persist(ev18);
-			db.persist(ev19);
-			db.persist(ev20);
 
 
-			//db.persist(new User("a", "a", "a", "a", "a", new Date()));
+
+
+			db.persist(new User("a", "a", "a", "a", "a", new Date(), false));
+
+			db.persist(new User("admin", "admin", "admin", "admin", "a", new Date(), true));
 
 			db.getTransaction().commit();
 			System.out.println("The database has been initialized");
@@ -207,11 +233,19 @@ public class DataAccess  {
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-	public Vector<Event> getEvents(Date date) {
+
+	public Vector<Event> getEvents(Date date, boolean admin) {
 		System.out.println(">> DataAccess: getEvents");
 		Vector<Event> res = new Vector<Event>();
-		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1",
-				Event.class);
+		TypedQuery<Event> query;
+		if(!admin) {
+
+			query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1 AND ev.status.get('isFinished') = false",
+					Event.class);
+		}else{
+			 query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1",
+					Event.class);
+		}
 		query.setParameter(1, date);
 		List<Event> events = query.getResultList();
 		for (Event ev:events){
@@ -236,7 +270,7 @@ public class DataAccess  {
 
 
 		TypedQuery<Date> query = db.createQuery("SELECT DISTINCT ev.eventDate FROM Event ev "
-				+ "WHERE ev.eventDate BETWEEN ?1 and ?2", Date.class);
+				+ "WHERE ev.eventDate BETWEEN ?1 and ?2 AND ev.status.get('isFinished') = false", Date.class);
 		query.setParameter(1, firstDayMonthDate);
 		query.setParameter(2, lastDayMonthDate);
 		List<Date> dates = query.getResultList();
@@ -405,7 +439,7 @@ public class DataAccess  {
 	public void setBet(Bet bet) {
 
 		db.getTransaction().begin();
-		db.merge(bet);
+		db.persist(bet);
 		db.getTransaction().commit();
 
 	}
@@ -414,10 +448,13 @@ public class DataAccess  {
 	 * Method in charge of updating the users information whenever it is necessary.
 	 * @param user User to be updated in the database.
 	 */
-	public void updateUser(User user) {
+	public void updateUserMoney(User user, double money) {
 
 		db.getTransaction().begin();
-		db.merge(user);
+		TypedQuery<User> query = db.createQuery("UPDATE User e set e.money = ?1 WHERE e = ?2", User.class);
+		query.setParameter(1, money);
+		query.setParameter(2, user);
+		query.executeUpdate();
 		db.getTransaction().commit();
 
 	}
@@ -431,20 +468,20 @@ public class DataAccess  {
 
 		db.getTransaction().begin();
 		Object detached = db.merge(event);
-		TypedQuery<Bet> query = db.createQuery("SELECT e FROM Bet e WHERE e.event = ?1", Bet.class);
+		TypedQuery<Bet> query = db.createQuery("SELECT e FROM Bet e WHERE e.fee.question.event = ?1 AND e.user is not null ", Bet.class);
 		query.setParameter(1,event);
-		TypedQuery<User> queryUser = db.createQuery("SELECT e FROM User e " , User.class);
+
 
 		List <Bet> bets = query.getResultList();
 
 		for(Bet b: bets){
-			List <User> users = queryUser.getResultList();
-			for(User u : users) {
-					db.remove(b);
-					u.removeBet(b);
-					u.setMoney(u.getMoney() + b.getAmountBet());
-					db.persist(u);
-			}
+			db.remove(b);
+			//u.removeBet(b);
+			b.getUser().setMoney(b.getUser().getMoney() + b.getAmountBet());
+			Movement movement = new Movement(b.getAmountBet(), "Admin deleted the event", b.getCompleteDescription() + "\nReason: Admin deleted the event.");
+			b.getUser().addMovement(movement);
+			b.getUser().removeBet(b);
+			b.setUser(null);
 
 		}
 		db.remove(detached);
@@ -453,7 +490,114 @@ public class DataAccess  {
 
     }
 
+	/**
+	 * Method which removes the given bet from the database.
+	 * @param bet Bet to be removed from the database.
+	 */
+    public void removeBet(Bet bet) {
 
+		db.getTransaction().begin();
+		Object detached = db.merge(bet);
+		db.remove(detached);
+		db.getTransaction().commit();
+
+    }
+
+	/**
+	 * Method is in charge of publishing the results, updating the data base.
+	 * @param result Result produced by an admin.
+	 */
+	/**
+	 * Method is in charge of publishing the results, updating the data base.
+	 * @param result Result produced by an admin.
+	 */
+	public void publishResult(Result result) {
+		db.getTransaction().begin();
+		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e WHERE e.fee.question = ?1 AND e.user is not null", Bet.class);
+		query.setParameter(1,result.getQuestion());
+		List <Bet> bets = query.getResultList();
+		for(Bet b : bets){
+			//if(b.getUser()!=null) {
+				if (b.getFee().getResult().contentEquals(result.getResult())) {
+					b.getUser().setMoney(b.getUser().getMoney() + b.getCalculatedAmount());
+					Movement movement = new Movement(b.getCalculatedAmount(), "Bet won", b.getCompleteDescription());
+					b.getUser().addMovement(movement);
+				} else {
+					Movement movement = new Movement(b.getAmountBet(), "Bet lost", b.getCompleteDescription());
+					b.getUser().addMovement(movement);
+				}
+				b.getUser().removeBet(b);
+				b.setUser(null);
+			//}
+//			Object detached = db.merge(b);
+//			db.remove(detached);
+//			db.merge(b.getUser());
+		}
+
+//		result.getQuestion().getEvent().deleteQuestion(result.getQuestion());
+//		db.merge(result.getQuestion().getEvent());
+//		Object detachQuestion = db.merge(result.getQuestion());
+//		db.remove(detachQuestion);
+//		if(result.getQuestion().getEvent().getQuestions().isEmpty()){
+//			Object detach = db.merge(result.getQuestion().getEvent());
+//			db.remove(detach);
+//		}
+		db.getTransaction().commit();
+	}
+
+	public List<Bet> getBets(){
+		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e", Bet.class);
+		List <Bet> bets = query.getResultList();
+		return bets;
+	}
+
+	public void updateUser(User user) {
+		db.getTransaction().begin();
+		db.merge(user);
+		db.getTransaction().commit();
+	}
+
+	public Question getSpecificQuestion(String question, Date eventDate, String description){
+
+		TypedQuery<Question> query = db.createQuery("SELECT distinct q FROM Question q where q.question = ?1 and q.event.eventDate = ?2 and q.event.description = ?3", Question.class);
+		query.setParameter(1,question);
+		query.setParameter(2,eventDate);
+		query.setParameter(3,description);
+	try {
+		Question q = query.getSingleResult();
+		if(q!=null){
+			return q;
+		}
+		}catch (Exception e){
+
+		}
+		return null;
+	}
+
+	public static void main(String[] args) {
+		// EventNumber 7 Atlético - Athletic 17 - May 2022
+		// who will win the match?
+		//  QuestionNumber 1
+
+		// betNumber 31 amountBet 4.0 calculatedAmount 8.0
+
+		DataAccess dt = new DataAccess(false);
+//		Question question = dt.findQuestion(3);
+//		Result result = new Result(question, "Athletic");
+//		dt.publishResult(result);
+//		dt.close();
+
+		dt.initializeDB();
+
+	}
+
+	public void updateEvent(Event ev) {
+
+		db.getTransaction().begin();
+		db.merge(ev);
+		db.getTransaction().commit();
+
+	}
 	/*public static void main(String[] args) {
 		Event event = new Event("Barcelona-Madrid",new Date());
 

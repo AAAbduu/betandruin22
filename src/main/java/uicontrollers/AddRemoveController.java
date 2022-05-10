@@ -31,11 +31,9 @@ public class AddRemoveController implements Controller {
     public TableView<Event> eventTableView;
     public TableColumn idColumn;
     public TableColumn eventColumn;
-    public Button addEventBtn;
     public Button removeEventBtn;
     public Pane addEventPane;
     public Button createEventBtn;
-    public Button addEventCancelBtn;
     public AnchorPane mainPane;
     @FXML
     private DatePicker datepicker;
@@ -71,11 +69,11 @@ public class AddRemoveController implements Controller {
 
 
         try {
-            businessLogic.addEvent(new Event(event,date ));
+            businessLogic.addEvent(new Event(event,date));
             infoLbl.setText("Event added correctly!");
             this.eventTableView.getItems().clear();
 
-            Vector <Event> events = businessLogic.getEvents(date);
+            Vector <Event> events = businessLogic.getEvents(date, true);
 
             this.eventTableView.getItems().addAll(events);
         } catch (EventAlreadyExistException e) {
@@ -88,11 +86,6 @@ public class AddRemoveController implements Controller {
         mainGUI.showAdminView();
     }
 
-    public void onAddEventBtn(ActionEvent actionEvent) {
-
-        this.addEventPane.setVisible(true);
-
-    }
 
     public void onRemoveEventBtn(ActionEvent actionEvent) {
 
@@ -102,14 +95,6 @@ public class AddRemoveController implements Controller {
 
         this.eventTableView.getItems().remove(event);
 
-
-    }
-
-    public void onAddEventCancelBtn(ActionEvent actionEvent) {
-
-        this.addEventPane.setVisible(false);
-        this.txtEvent.setText(null);
-        this.infoLbl.setText(null);
 
     }
 
@@ -134,7 +119,7 @@ public class AddRemoveController implements Controller {
 
         events = FXCollections.observableArrayList();
         this.removeEventBtn.setDisable(true);
-        this.addEventPane.setVisible(false);
+        this.addEventPane.setVisible(true);
 
 
         setEventsPrePost(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue());
@@ -192,10 +177,8 @@ public class AddRemoveController implements Controller {
 
     public void onMouseClickMainPane(MouseEvent mouseEvent) {
 
-        this.addEventPane.setVisible(false);
         this.removeEventBtn.setDisable(true);
-        this.txtEvent.setText(null);
-        this.infoLbl.setText(null);
+
 
     }
 
@@ -209,7 +192,7 @@ public class AddRemoveController implements Controller {
 
         Date sDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 
-        Vector <Event> events = businessLogic.getEvents(sDate);
+        Vector <Event> events = businessLogic.getEvents(sDate, true);
 
         this.eventTableView.getItems().addAll(events);
 

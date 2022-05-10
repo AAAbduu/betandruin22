@@ -26,7 +26,7 @@
             <Font size="37.0" />
          </font>
       </Label>
-      <Pane fx:id="eventPane" layoutX="399.0" layoutY="209.0" prefHeight="273.0" prefWidth="218.0">
+      <Pane fx:id="eventPane" layoutX="399.0" layoutY="209.0" prefHeight="242.0" prefWidth="218.0">
          <children>
             <TableView fx:id="eventTableView" onMouseClicked="#onMouseClickInTable" prefHeight="200.0" prefWidth="218.0">
               <columns>
@@ -34,11 +34,7 @@
                 <TableColumn fx:id="eventColumn" prefWidth="176.0" resizable="false" text="%Event" />
               </columns>
             </TableView>
-            <Button fx:id="addEventBtn" layoutY="200.0" mnemonicParsing="false" onAction="#onAddEventBtn" prefHeight="37.0" prefWidth="218.0" text="%CreateEvent">
-               <graphic>
-                  <Circle id="circleBefore" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
-               </graphic></Button>
-            <Button fx:id="removeEventBtn" layoutY="237.0" mnemonicParsing="false" onAction="#onRemoveEventBtn" prefHeight="37.0" prefWidth="218.0" text="%remove">
+            <Button fx:id="removeEventBtn" layoutY="200.0" mnemonicParsing="false" onAction="#onRemoveEventBtn" prefHeight="37.0" prefWidth="218.0" text="%remove">
                <graphic>
                   <Circle id="circleBefore" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
                </graphic></Button>
@@ -48,16 +44,11 @@
          <children>
             <Label layoutX="14.0" layoutY="35.0" text="%Event" />
             <TextField fx:id="txtEvent" layoutX="85.0" layoutY="31.0" prefHeight="25.0" prefWidth="171.0" />
-            <Label layoutX="35.0" layoutY="59.0" prefHeight="46.0" prefWidth="198.0" text="Ex: &quot;Team1-Team2&quot;, &quot;SingleSport&quot;" />
-            <Button fx:id="createEventBtn" defaultButton="true" layoutX="135.0" layoutY="118.0" mnemonicParsing="false" onAction="#onCreateEventBtn" text="%CreateEvent">
+            <Label layoutX="29.0" layoutY="64.0" prefHeight="58.0" prefWidth="212.0" text="Ex: &quot;Team1-Team2&quot;, &quot;SingleSport&quot;" wrapText="true" />
+            <Button fx:id="createEventBtn" defaultButton="true" layoutX="74.0" layoutY="122.0" mnemonicParsing="false" onAction="#onCreateEventBtn" text="%CreateEvent">
                <graphic>
                   <Circle id="circleBefore" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
                </graphic></Button>
-            <Button fx:id="addEventCancelBtn" layoutX="25.0" layoutY="118.0" mnemonicParsing="false" onAction="#onAddEventCancelBtn" text="%Cancel">
-               <graphic>
-                  <Circle id="circleBefore" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
-               </graphic></Button>
-            <Label fx:id="infoLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="93.0" prefHeight="25.0" prefWidth="242.0" wrapText="true" />
          </children>
       </Pane>
       <ImageView fitHeight="92.0" fitWidth="145.0" layoutX="288.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
@@ -65,5 +56,6 @@
             <Image url="@logo.png" />
          </image>
       </ImageView>
+      <Label fx:id="infoLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="475.0" prefHeight="25.0" prefWidth="242.0" wrapText="true" />
    </children>
 </AnchorPane>
