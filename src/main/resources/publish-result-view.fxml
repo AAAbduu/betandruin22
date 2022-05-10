@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="748.0" stylesheets="@css/basicStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.PublishResultController">
+   <children>
+      <Label id="title" layoutX="304.0" layoutY="96.0" text="%PublishResult">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <DatePicker id="datepicker" fx:id="datepicker" layoutX="62.0" layoutY="220.0" onAction="#onDatePicker" />
+      <Label layoutX="62.0" layoutY="191.0" text="%SelectDate" />
+      <Label layoutX="384.0" layoutY="191.0" text="%Events" />
+      <TableView fx:id="eventTableView" layoutX="384.0" layoutY="233.0" onMouseClicked="#selectEventClick" prefHeight="200.0" prefWidth="270.0">
+        <columns>
+          <TableColumn fx:id="eventIdColumn" prefWidth="62.0" resizable="false" text="Id" />
+          <TableColumn fx:id="eventColumn" prefWidth="206.0" resizable="false" text="%Event" />
+        </columns>
+      </TableView>
+      <Label layoutX="384.0" layoutY="448.0" text="%Questions" />
+      <TableView fx:id="questionTableView" layoutX="384.0" layoutY="475.0" onMouseClicked="#selectQuestionClick" prefHeight="200.0" prefWidth="270.0">
+         <columns>
+            <TableColumn fx:id="questionIdColumn" prefWidth="62.0" resizable="false" text="Id" />
+            <TableColumn fx:id="questionColumn" prefWidth="206.0" resizable="false" text="%Question" />
+         </columns>
+      </TableView>
+      <Label layoutX="77.0" layoutY="378.0" text="%Fees" />
+      <TableView fx:id="feeTableView" layoutX="77.0" layoutY="422.0" onMouseClicked="#onFeeSelected" prefHeight="200.0" prefWidth="270.0">
+         <columns>
+            <TableColumn fx:id="feeIdColumn" prefWidth="74.0" resizable="false" text="%Fee" />
+            <TableColumn fx:id="descriptionFeeColumn" prefWidth="194.0" resizable="false" text="%Prediction" />
+         </columns>
+      </TableView>
+      <Label fx:id="statusLbl" layoutX="366.0" layoutY="682.0" wrapText="true" />
+      <Button fx:id="backBtn" layoutX="225.0" layoutY="716.0" mnemonicParsing="false" onAction="#onBackBtn" text="%Back">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="48.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
+      <Button fx:id="publishBtn" defaultButton="true" layoutX="437.0" layoutY="716.0" mnemonicParsing="false" onAction="#onPublishBtn" text="%PublishResult">
+         <graphic>
+            <Rectangle id="circleBefore" arcHeight="50.0" arcWidth="48.0" height="23.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+         </graphic></Button>
+      <ImageView fitHeight="96.0" fitWidth="169.0" layoutX="311.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="72.0" layoutY="667.0" text="%result" />
+      <TextField fx:id="resultField" layoutX="156.0" layoutY="665.0" onKeyPressed="#onWritingResult" onKeyReleased="#onStopWritingResult" />
+   </children>
+</AnchorPane>
