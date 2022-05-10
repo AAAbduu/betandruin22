@@ -153,7 +153,7 @@ public class SetFeeController implements Controller{
 
 
                 oListEvents = FXCollections.observableArrayList(new ArrayList<>());
-                oListEvents.setAll(businessLogic.getEvents(Dates.convertToDate(datePicker.getValue()), true));
+                oListEvents.setAll(businessLogic.getEvents(Dates.convertToDate(datePicker.getValue())));
 
                 comboEvents.setItems(oListEvents);
             }catch(Exception e){
@@ -188,7 +188,7 @@ public class SetFeeController implements Controller{
             inputFee = Double.valueOf(txtFee.getText());
             if(inputFee>0){
 
-                Fee fee = new Fee(inputResult,inputFee,q);
+                Fee fee = new Fee(inputResult,inputFee);
 
                 q.addFee(fee);
 

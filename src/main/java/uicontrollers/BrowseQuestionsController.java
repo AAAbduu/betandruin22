@@ -63,11 +63,7 @@ public class BrowseQuestionsController implements Controller {
 
   @FXML
   void closeClick(ActionEvent event) {
-    if(this.businessLogic.getUser().isAdmin()){
-      mainGUI.showAdminView();
-    }else{
-      mainGUI.showUserView();
-    }
+    mainGUI.showMain();
   }
 
   private void setEvents(int year, int month) {
@@ -131,7 +127,7 @@ public class BrowseQuestionsController implements Controller {
     // a date has been chosen, update the combobox of Events
     datepicker.setOnAction(actionEvent -> {
       tblEvents.getItems().clear();
-      Vector<domain.Event> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()), false);
+      Vector<domain.Event> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
       for (domain.Event ev : events) {
         tblEvents.getItems().add(ev);
       }
