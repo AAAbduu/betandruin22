@@ -24,21 +24,50 @@
     -fx-text-fill: black;
 }
 
-.table-cell:hover{
+.table-cell:hover {
     -fx-border-color: black;
 
 }
 
+
 .table-view{
-    -fx-background-color: pink;
+    -fx-background-color: rgba(178, 0, 70, 0.53);
+    -fx-border-color: black;
+
 }
 
 .table-view .column-header,
 .table-view .column-header .filler,
 .table-view .column-header-background .filler {
-    -fx-background-color: white;
+    -fx-background-color: rgba(178, 0, 70, 0.59);
     -fx-border-color: black;
 }
+
+.table-row-cell{
+    -fx-border-color: black;
+    -fx-background-color: rgba(255, 228, 240, 0.73);
+    -fx-font-weight: BOLD;
+
+}
+
+
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-color:  black;
+}
+.table-view .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  black;
+}
+
+
 
 .tooltip{
     -fx-border-radius: 50;
@@ -49,6 +78,7 @@
     -fx-arc-height: 50;
     -fx-arc-width: 50;
     -fx-border-radius: 100;
+    -fx-background-radius: 100;
 
 }
 

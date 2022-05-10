@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-public class betController implements Controller{
+public class PublishResultController implements Controller{
     public DatePicker datepicker;
     public TableView<Event> eventTableView;
     public TableColumn eventIdColumn;
@@ -36,12 +36,11 @@ public class betController implements Controller{
     public TableView<Fee> feeTableView;
     public TableColumn feeIdColumn;
     public TableColumn descriptionFeeColumn;
-    public TextField amountBetField;
+
     public Label statusLbl;
     public Button backBtn;
-    public Button betBtn;
-    public Label availableMoney;
-    public Label calculatedAmountWin;
+    public Button publishBtn;
+    public TextField resultField;
 
 
     private BlFacade businessLogic;
@@ -52,61 +51,17 @@ public class betController implements Controller{
 
     private List<LocalDate> holidays = new ArrayList<>();
 
-    public betController(BlFacade businessLogic) {
+    public PublishResultController(BlFacade businessLogic) {
         this.businessLogic = businessLogic;
     }
 
 
     public void onBackBtn(ActionEvent actionEvent) {
 
-        mainGUI.showUserView();
+        mainGUI.showAdminView();
 
     }
 
-    public void onBetBtn(ActionEvent actionEvent) {
-
-        try {
-            double amount = Double.valueOf(this.amountBetField.getText());
-            if(amount>this.businessLogic.getUser().getMoney()){
-                this.statusLbl.setText("You dont have enough money!");
-                return;
-            }else{
-
-                Fee fee = this.feeTableView.getSelectionModel().getSelectedItem();
-
-                double calculatedAmount = amount*fee.getFee();
-
-                //this.businessLogic.getBets();
-
-                Bet bet = new Bet(this.businessLogic.getUser(),amount,calculatedAmount,fee);
-
-                Movement movement = new Movement(bet.getAmountBet(),"Bet placed",bet.getCompleteDescription() + "\nBet date: " + new Date());
-
-                this.businessLogic.getUser().addMovement(movement);
-
-                this.businessLogic.setBet(bet);
-
-                this.businessLogic.getUser().addBet(bet);
-
-
-
-                this.businessLogic.getUser().setMoney(this.businessLogic.getUser().getMoney()-amount);
-
-                this.businessLogic.updateUserMoney(this.businessLogic.getUser(),this.businessLogic.getUser().getMoney());
-
-                this.businessLogic.updateUser(this.businessLogic.getUser());
-
-                this.statusLbl.setText("Bet placed correctly!");
-
-                this.availableMoney.setText(String.valueOf(this.businessLogic.getUser().getMoney()));
-
-                fee = null;
-
-            }
-        }catch (Exception e){
-                e.printStackTrace();
-        }
-    }
 
 
     private void setEvents(int year, int month) {
@@ -126,12 +81,10 @@ public class betController implements Controller{
     @FXML
     void initialize() {
 
-
         events = FXCollections.observableArrayList();
         questions = FXCollections.observableArrayList();
         fees = FXCollections.observableArrayList();
-        this.amountBetField.setDisable(true);
-        this.betBtn.setDisable(true);
+        this.publishBtn.setDisable(true);
         setEventsPrePost(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue());
 
 
@@ -195,8 +148,7 @@ public class betController implements Controller{
         this.eventTableView.getItems().clear();
         this.feeTableView.getItems().clear();
         this.questionTableView.getItems().clear();
-        this.amountBetField.setDisable(true);
-        this.betBtn.setDisable(true);
+        this.publishBtn.setDisable(true);
 
         LocalDate date = datepicker.getValue();
 
@@ -214,8 +166,7 @@ public class betController implements Controller{
     public void selectEventClick(MouseEvent mouseEvent) {
         try {
             this.questionTableView.getItems().clear();
-            this.amountBetField.setDisable(true);
-            this.betBtn.setDisable(true);
+            this.publishBtn.setDisable(true);
             this.feeTableView.getItems().clear();
             Event event = this.eventTableView.getSelectionModel().getSelectedItem();
             Vector<Question> q = event.getQuestions();
@@ -231,8 +182,7 @@ public class betController implements Controller{
     public void selectQuestionClick(MouseEvent mouseEvent) {
         try{
             this.feeTableView.getItems().clear();
-            this.amountBetField.setDisable(true);
-            this.betBtn.setDisable(true);
+            this.publishBtn.setDisable(true);
             Question q = this.questionTableView.getSelectionModel().getSelectedItem();
             Vector<Fee> fees = q.getFees();
 
@@ -248,49 +198,41 @@ public class betController implements Controller{
 
         Fee fee = this.feeTableView.getSelectionModel().getSelectedItem();
         if(fee!=null) {
-            this.amountBetField.setDisable(false);
+
+            this.resultField.setDisable(false);
 
         }
     }
 
 
-    public void setUser() {
+    public void onPublishBtn(ActionEvent actionEvent) {
 
-        this.availableMoney.setText(String.valueOf(this.businessLogic.getUser().getMoney()));
+        Event event = eventTableView.getSelectionModel().getSelectedItem();
+
+        Question question = questionTableView.getSelectionModel().getSelectedItem();
+
+        String res = this.resultField.getText();
+
+        Result result = new Result(question,res);
+
+        this.businessLogic.publishResult(result);
+
+        statusLbl.setText("Result published!");
+
 
     }
 
+    public void onWritingResult(KeyEvent keyEvent) {
 
+        this.publishBtn.setDisable(false);
 
-    public void onChangingInputRelease(KeyEvent keyEvent) {
+    }
 
-        Fee fee = this.feeTableView.getSelectionModel().getSelectedItem();
-        if(fee!=null) {
-            this.amountBetField.setDisable(false);
+    public void onStopWritingResult(KeyEvent keyEvent) {
 
-
-            if (this.amountBetField.getLength()==0) {
-                this.calculatedAmountWin.setTextFill(Color.rgb(43,233,0));
-                this.betBtn.setDisable(true);
-                this.calculatedAmountWin.setText("0.0");
-                return;
-            }
-
-            try {
-                double calculatedWin = Double.valueOf(this.amountBetField.getText()) * fee.getFee();
-                this.calculatedAmountWin.setTextFill(Color.rgb(43,233,0));
-                this.betBtn.setDisable(false);
-                this.calculatedAmountWin.setText(String.valueOf(calculatedWin));
-
-            }catch (Exception e){
-                this.calculatedAmountWin.setTextFill(Color.web("red"));
-                this.betBtn.setDisable(true);
-                this.calculatedAmountWin.setText("NAN");
-
-            }
-
+        if(this.resultField.getLength()==0){
+            this.publishBtn.setDisable(true);
         }
 
     }
-
 }

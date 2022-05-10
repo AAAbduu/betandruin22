@@ -10,11 +10,15 @@ public class Fee {
     @GeneratedValue
     private Integer feeNumber;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne
     private Question question;
 
     private String result;
     private double fee;
+
+    public Fee() {
+
+    }
 
     public String getResult() {
         return result;
@@ -24,9 +28,10 @@ public class Fee {
         return fee;
     }
 
-    public Fee(String eResult, double eFee) {
+    public Fee(String eResult, double eFee, Question question) {
         this.fee=eFee;
         this.result = eResult;
+        this.question = question;
     }
 
 
@@ -36,4 +41,19 @@ public class Fee {
         return "Fee [result=" + result + ", fee=" + fee + "]";
     }
 
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public void setFee(double fee) {
+        this.fee = fee;
+    }
 }
