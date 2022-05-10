@@ -24,7 +24,7 @@ public class Event implements Serializable {
 	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	@Id @GeneratedValue
 	private Integer eventNumber;
-	private String description;
+	private String description; 
 	private Date eventDate;
 
 	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -85,7 +85,7 @@ public class Event implements Serializable {
 
 	/**
 	 * This method creates a bet with a question, minimum bet ammount and percentual profit
-	 *
+	 * 
 	 * @param question to be added to the event
 	 * @param betMinimum of that question
 	 * @return Bet
@@ -99,11 +99,11 @@ public class Event implements Serializable {
 
 	/**
 	 * This method checks if the question already exists for that event
-	 *
+	 * 
 	 * @param question that needs to be checked if there exists
 	 * @return true if the question exists and false in other case
 	 */
-	public boolean doesQuestionExist(String question)  {
+	public boolean doesQuestionExist(String question)  {	
 		for (Question q:this.getQuestions()){
 			if (q.getQuestion().compareTo(question)==0)
 				return true;
@@ -131,11 +131,5 @@ public class Event implements Serializable {
 		if (eventNumber != other.eventNumber)
 			return false;
 		return true;
-	}
-
-	public void deleteQuestion(Question question) {
-
-		this.questions.remove(question);
-
 	}
 }

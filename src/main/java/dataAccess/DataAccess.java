@@ -162,9 +162,7 @@ public class DataAccess  {
 			db.persist(ev20);
 
 
-			db.persist(new User("a", "a", "a", "a", "a", new Date(), false));
-
-			db.persist(new User("admin", "admin", "admin", "admin", "a", new Date(), true));
+			//db.persist(new User("a", "a", "a", "a", "a", new Date()));
 
 			db.getTransaction().commit();
 			System.out.println("The database has been initialized");
@@ -407,7 +405,7 @@ public class DataAccess  {
 	public void setBet(Bet bet) {
 
 		db.getTransaction().begin();
-		db.persist(bet);
+		db.merge(bet);
 		db.getTransaction().commit();
 
 	}
@@ -416,13 +414,10 @@ public class DataAccess  {
 	 * Method in charge of updating the users information whenever it is necessary.
 	 * @param user User to be updated in the database.
 	 */
-	public void updateUserMoney(User user, double money) {
+	public void updateUser(User user) {
 
 		db.getTransaction().begin();
-		TypedQuery<User> query = db.createQuery("UPDATE User e set e.money = ?1 WHERE e = ?2", User.class);
-		query.setParameter(1, money);
-		query.setParameter(2, user);
-		query.executeUpdate();
+		db.merge(user);
 		db.getTransaction().commit();
 
 	}
@@ -446,14 +441,9 @@ public class DataAccess  {
 			List <User> users = queryUser.getResultList();
 			for(User u : users) {
 					db.remove(b);
-					if(u.getBets().contains(b)) {
-						//u.removeBet(b);
-						u.setMoney(u.getMoney() + b.getAmountBet());
-						Movement movement = new Movement(b.getAmountBet(), "Admin deleted the event", b.getCompleteDescription() + "\nReason: Admin deleted the event.");
-						u.addMovement(movement);
-					}
-					User us = db.find(User.class,u.getUserName());
-					db.persist(us);
+					u.removeBet(b);
+					u.setMoney(u.getMoney() + b.getAmountBet());
+					db.persist(u);
 			}
 
 		}
@@ -463,86 +453,7 @@ public class DataAccess  {
 
     }
 
-	/**
-	 * Method which removes the given bet from the database.
-	 * @param bet Bet to be removed from the database.
-	 */
-    public void removeBet(Bet bet) {
 
-		db.getTransaction().begin();
-		Object detached = db.merge(bet);
-		db.remove(detached);
-		db.getTransaction().commit();
-
-    }
-
-	/**
-	 * Method is in charge of publishing the results, updating the data base.
-	 * @param result Result produced by an admin.
-	 */
-	/**
-	 * Method is in charge of publishing the results, updating the data base.
-	 * @param result Result produced by an admin.
-	 */
-	public void publishResult(Result result) {
-		db.getTransaction().begin();
-		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e WHERE e.fee.question = ?1 AND e.user is not null", Bet.class);
-		query.setParameter(1,result.getQuestion());
-		List <Bet> bets = query.getResultList();
-		for(Bet b : bets){
-			//if(b.getUser()!=null) {
-				if (b.getFee().getResult().contentEquals(result.getResult())) {
-					b.getUser().setMoney(b.getUser().getMoney() + b.getCalculatedAmount());
-					Movement movement = new Movement(b.getCalculatedAmount(), "Bet won", b.getCompleteDescription());
-					b.getUser().addMovement(movement);
-				} else {
-					Movement movement = new Movement(b.getAmountBet(), "Bet lost", b.getCompleteDescription());
-					b.getUser().addMovement(movement);
-				}
-				b.getUser().removeBet(b);
-				b.setUser(null);
-			//}
-//			Object detached = db.merge(b);
-//			db.remove(detached);
-//			db.merge(b.getUser());
-		}
-
-//		result.getQuestion().getEvent().deleteQuestion(result.getQuestion());
-//		db.merge(result.getQuestion().getEvent());
-//		Object detachQuestion = db.merge(result.getQuestion());
-//		db.remove(detachQuestion);
-//		if(result.getQuestion().getEvent().getQuestions().isEmpty()){
-//			Object detach = db.merge(result.getQuestion().getEvent());
-//			db.remove(detach);
-//		}
-		db.getTransaction().commit();
-	}
-
-	public List<Bet> getBets(){
-		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e", Bet.class);
-		List <Bet> bets = query.getResultList();
-		return bets;
-	}
-
-	public void updateUser(User user) {
-		db.getTransaction().begin();
-		db.merge(user);
-		db.getTransaction().commit();
-	}
-
-	public static void main(String[] args) {
-		// EventNumber 7 Atlético - Athletic 17 - May 2022
-		// who will win the match?
-		//  QuestionNumber 1
-
-		// betNumber 31 amountBet 4.0 calculatedAmount 8.0
-
-		DataAccess dt = new DataAccess(false);
-		Question question = dt.findQuestion(3);
-		Result result = new Result(question, "Athletic");
-		dt.publishResult(result);
-		dt.close();
-	}
 	/*public static void main(String[] args) {
 		Event event = new Event("Barcelona-Madrid",new Date());
 

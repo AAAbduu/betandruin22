@@ -63,11 +63,7 @@ public class BrowseQuestionsController implements Controller {
 
   @FXML
   void closeClick(ActionEvent event) {
-    if(this.businessLogic.getUser().isAdmin()){
-      mainGUI.showAdminView();
-    }else{
-      mainGUI.showUserView();
-    }
+    mainGUI.showMain();
   }
 
   private void setEvents(int year, int month) {

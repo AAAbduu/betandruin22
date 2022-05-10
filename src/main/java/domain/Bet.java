@@ -9,19 +9,25 @@ public class Bet {
     @GeneratedValue
     private Integer betNumber;
 
-    @OneToOne (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private User user;
     private double amountBet;
     private double calculatedAmount;
-    @OneToOne
     private Fee fee;
 
+
+    private Question question;
     private String description;
 
-    public Bet() {
+    @OneToOne(cascade = CascadeType.ALL)
+    private Event event;
 
+    public Question getQuestion() {
+        return question;
     }
 
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
     public String getDescription() {
         return description;
@@ -31,12 +37,14 @@ public class Bet {
         this.description = description;
     }
 
-    public Bet(User user, double amountBet, double calculatedAmount, Fee fee) {
+    public Bet(User user, double amountBet, double calculatedAmount, Fee fee, Question question, Event event) {
         this.user = user;
         this.amountBet = amountBet;
         this.calculatedAmount = calculatedAmount;
         this.fee = fee;
-        this.description = fee.getQuestion().getEvent().getDescription();
+        this.question = question;
+        this.event = event;
+        this.description = this.event.getDescription();
     }
 
     public User getUser() {
@@ -70,16 +78,4 @@ public class Bet {
     public void setFee(Fee fee) {
         this.fee = fee;
     }
-
-    public String getCompleteDescription(){
-        String d = "Event: " + fee.getQuestion().getEvent().getDescription()
-                + "\nQuestion: " + fee.getQuestion().getQuestion()
-                + "\nPrediction: " + this.fee.getResult()
-                + "\nFee: " + this.fee.getFee()
-                + "\nBet:" + this.amountBet;
-
-        return d;
-
-    }
-
 }

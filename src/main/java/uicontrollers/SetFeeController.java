@@ -188,7 +188,7 @@ public class SetFeeController implements Controller{
             inputFee = Double.valueOf(txtFee.getText());
             if(inputFee>0){
 
-                Fee fee = new Fee(inputResult,inputFee,q);
+                Fee fee = new Fee(inputResult,inputFee);
 
                 q.addFee(fee);
 

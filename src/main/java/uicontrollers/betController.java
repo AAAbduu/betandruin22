@@ -1,7 +1,10 @@
 package uicontrollers;
 
 import businessLogic.BlFacade;
-import domain.*;
+import domain.Bet;
+import domain.Event;
+import domain.Fee;
+import domain.Question;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -73,34 +76,23 @@ public class betController implements Controller{
             }else{
 
                 Fee fee = this.feeTableView.getSelectionModel().getSelectedItem();
-
+                Question question = this.questionTableView.getSelectionModel().getSelectedItem();
+                Event event = this.eventTableView.getSelectionModel().getSelectedItem();
                 double calculatedAmount = amount*fee.getFee();
 
-                //this.businessLogic.getBets();
-
-                Bet bet = new Bet(this.businessLogic.getUser(),amount,calculatedAmount,fee);
-
-                Movement movement = new Movement(bet.getAmountBet(),"Bet placed",bet.getCompleteDescription() + "\nBet date: " + new Date());
-
-                this.businessLogic.getUser().addMovement(movement);
-
-                this.businessLogic.setBet(bet);
+                Bet bet = new Bet(this.businessLogic.getUser(),amount,calculatedAmount,fee,question,event);
 
                 this.businessLogic.getUser().addBet(bet);
 
-
-
                 this.businessLogic.getUser().setMoney(this.businessLogic.getUser().getMoney()-amount);
 
-                this.businessLogic.updateUserMoney(this.businessLogic.getUser(),this.businessLogic.getUser().getMoney());
-
                 this.businessLogic.updateUser(this.businessLogic.getUser());
+
+                //this.businessLogic.setBet(bet);
 
                 this.statusLbl.setText("Bet placed correctly!");
 
                 this.availableMoney.setText(String.valueOf(this.businessLogic.getUser().getMoney()));
-
-                fee = null;
 
             }
         }catch (Exception e){
