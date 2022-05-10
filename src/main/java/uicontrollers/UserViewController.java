@@ -1,5 +1,8 @@
 package uicontrollers;
 
+import animatefx.animation.AnimationFX;
+import animatefx.animation.BounceIn;
+import animatefx.animation.Pulse;
 import businessLogic.BlFacade;
 import domain.Bet;
 import domain.Movement;
@@ -11,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import ui.MainGUI;
 
 import java.util.Date;
@@ -56,6 +60,11 @@ public class UserViewController implements Controller{
 
     @FXML
     public void initialize(){
+
+        Pulse bounceIn = new Pulse(this.placeBetBtn);
+
+        bounceIn.setCycleCount(AnimationFX.INDEFINITE).setSpeed(2).play();
+
 
         this.removeBet.setDisable(true);
 

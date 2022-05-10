@@ -153,7 +153,7 @@ public class SetFeeController implements Controller{
 
 
                 oListEvents = FXCollections.observableArrayList(new ArrayList<>());
-                oListEvents.setAll(businessLogic.getEvents(Dates.convertToDate(datePicker.getValue())));
+                oListEvents.setAll(businessLogic.getEvents(Dates.convertToDate(datePicker.getValue()), true));
 
                 comboEvents.setItems(oListEvents);
             }catch(Exception e){
