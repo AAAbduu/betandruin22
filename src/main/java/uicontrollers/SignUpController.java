@@ -60,6 +60,7 @@ public class SignUpController implements Controller {
 
     public void onBackBtn(ActionEvent actionEvent) {
         this.maingui.showMain();
+        statusLbl.setText(null);
 
     }
 
@@ -90,6 +91,7 @@ public class SignUpController implements Controller {
             }else{
                 businessLogic.register(user);
                 statusLbl.setText("Registered succesfully, you may log-in now!");
+                clearAllFields();
                 return;
             }
         } catch (ParseException e) {
@@ -97,6 +99,20 @@ public class SignUpController implements Controller {
         } catch (UserIsUnderageException e) {
             statusLbl.setText("You cannot register if you are underage!");
         }
+    }
+
+    private void clearAllFields() {
+
+        this.nameTxtField.setText(null);
+        this.lastnameField.setText(null);
+        this.emailTxtField.setText(null);
+        this.confirmPsswdField.setText(null);
+        this.psswdField.setText(null);
+        this.usernameTxtField.setText(null);
+        this.dateOfBPicker.setValue(null);
+        this.acceptCondChkB.setSelected(false);
+        this.declareAgeChkB.setSelected(false);
+
     }
 
 
