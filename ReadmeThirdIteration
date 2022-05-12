@@ -1,15 +1,15 @@
-#ITERATION 2
-For this iteration the following java classes have been included in the project :
+#ITERATION 3
+For this iteration the following java classes or changes in classes have been included in the project :
 
 *DOMAIN PACKAGE*
-1-Bet.java
+1-Competition.java
+2-Result.java
+3-Movement.java
 *DOMAIN PACKAGE*
 
 
 *UICONTROLLERS PACKAGE*
-1-AddRemoveController.java
-2-betController.java
-3-UserViewController.java
+1-PublishResultController.java
 *GUI PACKAGE*
 
 *BUSINESSLOGIC PACKAGE*
@@ -21,16 +21,29 @@ For this iteration the following java classes have been included in the project 
 1-DataAccess.java
 *DATAACCESS PACKAGE*
 
+*httpManagement*
+1-Manager.java
+*httpManagement*
+
+*scheduler*
+1-Scheduler.java
+*scheduler*
+
 
 #Changes or implementations:
 
 *DOMAIN PACKAGE*
-
-1- Bet class has been created in order to describe a bet, it has been associated with the User class and has some dependencies
-with other existing classes.
-
+1- Competition object has been created in order to describe and translate the json object obtained from the rest API of football.
+2- Result object has been created in order to describe a result produced in an event.
+3- Movement object has been created in order to describe a history of what a user does in BET&RUIN project.
 *DOMAIN PACKAGE*
 
+*httpManagement*
+
+1- Manager.java is an object which it's intention is to manage the requests sent to the API and return the requested information
+This object is instantiated in the businesslogic and the interaction is made trough this last one.
+
+*httpManagement*
 
 *GUI PACKAGE*
 
@@ -45,9 +58,10 @@ Main-view ->
 										CreateQuestion
 										CreateRemoveEvent-view
 										BrowseQuestions
+										publish-result-view
 
 
-An non-registered user will have the following flow:
+A non-registered user will have the following flow:
 
 Main-view ->
 			Register-view
@@ -60,6 +74,7 @@ Main-view ->
 										BrowseQuestions
 										bet-view
 										addMoney
+										(movements and current bets are shown here)
 
 *GUI PACKAGE*
 
@@ -69,13 +84,18 @@ Main-view ->
 
 As every class has an attribute for a BlFacade object type, when an interaction needs to be done with the DB
 the business layer is in charge of doing it, so for everything needed to be added in the DB, new classes mainly
-and some new functionality like updating a users information, placing bets and removing events.
+and some new functionality like updating a users information, placing bets, removing events, publishing results and adding movements.
 BlFacade has some new methods declared as for the new transactions needed, and BlFacadeImplementation has them
 implemented.
 
 *BUSINESSLOGIC PACKAGE*
 
+*scheduler*
 
+1- Scheduler is a clas which is formed by a timer and a timerTask, this way we have all in one. They are used in the MainGUIController
+in order to request information every minute with some delay between them for not having problems of persistance in the database.
+
+*scheduler*
 
 *DATAACCESS PACKAGE*
 
@@ -107,4 +127,9 @@ Still i think the application should be able to work if executed in different ma
 A folder in the resources files named css contains some style sheets for the views, it is not complex so it has been hand-written
 and the best has being tried having into account css+javafx limitations.
 
-Intellij has bein the tool for developing the project.
+Intellij has being the tool for developing the project.
+
+An automatization for answering 3 questions has been made, independently the language the current user is using.
+For this, 2 timers have been placed in the MainGUIController, everytime the application is executed, they start requesting
+information for the current date matches and publish results if some conditions are met.
+The included competitions are just 2, LaLiga and UEFA Champions League.
