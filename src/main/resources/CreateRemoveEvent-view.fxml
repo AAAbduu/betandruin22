@@ -40,7 +40,7 @@
                </graphic></Button>
          </children>
       </Pane>
-      <Pane fx:id="addEventPane" layoutX="94.0" layoutY="303.0" prefHeight="163.0" prefWidth="270.0" style="-fx-border-color: black; -fx-border-width: 2;">
+      <Pane id="addEventPane" fx:id="addEventPane" layoutX="94.0" layoutY="303.0" prefHeight="163.0" prefWidth="270.0" style="-fx-border-color: black; -fx-border-width: 2;">
          <children>
             <Label layoutX="14.0" layoutY="35.0" text="%Event" />
             <TextField fx:id="txtEvent" layoutX="85.0" layoutY="31.0" prefHeight="25.0" prefWidth="171.0" />

@@ -12,7 +12,7 @@
 
 <Pane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="401.0" stylesheets="@css/basicStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uicontrollers.LogInController">
    <children>
-      <Label fx:id="usernameLbl" layoutX="48.0" layoutY="144.0" text="%Username:">
+      <Label fx:id="usernameLbl" layoutX="48.0" layoutY="172.0" text="%Username:">
          <font>
             <Font size="17.0" />
          </font>
@@ -22,7 +22,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <TextField fx:id="usernameTxtField" layoutX="150.0" layoutY="143.0" />
+      <TextField fx:id="usernameTxtField" layoutX="150.0" layoutY="171.0" />
       <PasswordField fx:id="psswdField" layoutX="150.0" layoutY="226.0" />
       <Label id="title" layoutX="93.0" layoutY="84.0" text="%WelcomeMsg">
          <font>
