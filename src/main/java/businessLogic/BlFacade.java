@@ -139,10 +139,16 @@ public interface BlFacade  {
 	 * Method updates users money.
 	 * @param user
 	 */
-	//void updateMoney(User user);
 
 	void updateUser(User user);
 
+	/**
+	 * Method to get an specific question from an specific event and date.
+	 * @param question Question to find
+	 * @param eventDate date from the event
+	 * @param description description of the question that is being trying to get
+	 * @return Question that is being looked for.
+	 */
 	Question getSpecificQuestion(String question, Date eventDate, String descrption);
 
 	/**

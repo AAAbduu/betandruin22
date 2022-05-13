@@ -517,7 +517,6 @@ public class DataAccess  {
 		query.setParameter(1,result.getQuestion());
 		List <Bet> bets = query.getResultList();
 		for(Bet b : bets){
-			//if(b.getUser()!=null) {
 				if (b.getFee().getResult().contentEquals(result.getResult())) {
 					b.getUser().setMoney(b.getUser().getMoney() + b.getCalculatedAmount());
 					Movement movement = new Movement(b.getCalculatedAmount(), "Bet won", b.getCompleteDescription());
@@ -528,35 +527,38 @@ public class DataAccess  {
 				}
 				b.getUser().removeBet(b);
 				b.setUser(null);
-			//}
-//			Object detached = db.merge(b);
-//			db.remove(detached);
-//			db.merge(b.getUser());
 		}
 
-//		result.getQuestion().getEvent().deleteQuestion(result.getQuestion());
-//		db.merge(result.getQuestion().getEvent());
-//		Object detachQuestion = db.merge(result.getQuestion());
-//		db.remove(detachQuestion);
-//		if(result.getQuestion().getEvent().getQuestions().isEmpty()){
-//			Object detach = db.merge(result.getQuestion().getEvent());
-//			db.remove(detach);
-//		}
 		db.getTransaction().commit();
 	}
 
+	/**
+	 * Method that returns all the existing bets in the database.
+	 * @return List containing all the bets in the database.
+	 */
 	public List<Bet> getBets(){
 		TypedQuery<Bet> query = db.createQuery("SELECT distinct e FROM Bet e", Bet.class);
 		List <Bet> bets = query.getResultList();
 		return bets;
 	}
 
+	/**
+	 * Method to update a user.
+	 * @param user User to be updated.
+	 */
 	public void updateUser(User user) {
 		db.getTransaction().begin();
 		db.merge(user);
 		db.getTransaction().commit();
 	}
 
+	/**
+	 * Method to get an specific question from an specific event and date.
+	 * @param question Question to find
+	 * @param eventDate date from the event
+	 * @param description description of the question that is being trying to get
+	 * @return Question that is being looked for.
+	 */
 	public Question getSpecificQuestion(String question, Date eventDate, String description){
 
 		TypedQuery<Question> query = db.createQuery("SELECT distinct q FROM Question q where q.question = ?1 and q.event.eventDate = ?2 and q.event.description = ?3", Question.class);
@@ -581,16 +583,20 @@ public class DataAccess  {
 
 		// betNumber 31 amountBet 4.0 calculatedAmount 8.0
 
-		DataAccess dt = new DataAccess(false);
+		//DataAccess dt = new DataAccess(false);
 //		Question question = dt.findQuestion(3);
 //		Result result = new Result(question, "Athletic");
 //		dt.publishResult(result);
 //		dt.close();
 
-		dt.initializeDB();
+		//dt.initializeDB();
 
 	}
 
+	/**
+	 * Method to update an exisiting event.
+	 * @param ev Event to be updated.
+	 */
 	public void updateEvent(Event ev) {
 
 		db.getTransaction().begin();

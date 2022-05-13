@@ -275,14 +275,23 @@ public class BlFacadeImplementation implements BlFacade {
 		dbManager.publishResult(result);
 		dbManager.close();
 	}
-
+	/**
+	 * Method updates users money.
+	 * @param user
+	 */
 	@Override
 	public void updateUser(User user) {
 		dbManager.open(false);
 		dbManager.updateUser(user);
 		dbManager.close();
 	}
-
+	/**
+	 * Method to get an specific question from an specific event and date.
+	 * @param question Question to find
+	 * @param eventDate date from the event
+	 * @param description description of the question that is being trying to get
+	 * @return Question that is being looked for.
+	 */
 	@Override
 	public Question getSpecificQuestion(String question, Date eventDate, String description) {
 		dbManager.open(false);
@@ -290,7 +299,10 @@ public class BlFacadeImplementation implements BlFacade {
 		dbManager.close();
 		return q;
 	}
-
+	/**
+	 * Method to update an exisiting event.
+	 * @param ev Event to be updated.
+	 */
 	@Override
 	public void updateEvent(Event ev) {
 		dbManager.open(false);

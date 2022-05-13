@@ -5,7 +5,11 @@ import okhttp3.*;
 import java.io.IOException;
 
 public class Manager {
-
+    /**
+     * This method is in charge of doing an http request with the given endpoint.
+     * @param endpoint Part of the http request, concretely the end part of it.
+     * @return String containing the response of the request made.
+     */
     private String request(String endpoint){
         String result = "";
         OkHttpClient client = new OkHttpClient();
@@ -27,7 +31,11 @@ public class Manager {
         return result;
     }
 
-
+    /**
+     * This method is in charge of doing an http request with the given endpoint.
+     * @param endpoint Part of the http request, concretely the end part of it.
+     * @return String containing the response of the request made.
+     */
     public String makeRequest(String endpoint){
         return request(endpoint);
     }
